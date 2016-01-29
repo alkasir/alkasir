@@ -1,0 +1,14 @@
+lg
+==
+
+This is a fork of golang/lg.
+
+*THIS WORK IN PROGRESS - API IS NOT FINAL*
+
+Changes:
+
+- color printing to stderr
+- simple in memory logging
+- color highlight of stacktrace on stack
+- different flags hanlding
+- add CopyLoggerTo function to wrap any log.Logger instances
