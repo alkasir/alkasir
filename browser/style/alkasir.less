@@ -1,0 +1,52 @@
+
+.modal {
+  background-color:rgba(0,0,0,0.5);
+}
+
+html {
+  overflow-y: scroll;
+  min-height: 100em;
+}
+
+body {
+  background-color: rgba(0,0,0,0.02);
+  margin: 5pt auto;
+  padding: 10pt 10pt;
+  max-width: 20cm;
+}
+
+.table {
+  table-layout: fixed;
+}
+
+td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@grid-float-breakpoint: 0;
+
+// TODO: what should thse .rtl classes do?
+
+.rtl {
+    direction: rtl;
+}
+
+.rtl .pull-right {
+    float: left !important;
+}
+
+.rtl .pull-left {
+    float: right !important;
+}
+
+.rtl .dropdown-menu-right {
+    left:  0;
+    right: auto;
+}
+
+.rtl .dropdown-menu-left {
+    left:  auto;
+    right: 0;
+}
