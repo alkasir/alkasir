@@ -1,0 +1,53 @@
+{
+  "name": "alkasir",
+  "version": "0.1.0",
+  "description": "",
+  "main": "",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:alkasir/alkasir.git"
+  },
+  "author": "",
+  "license": "?",
+  "dependencies": {
+    "babel-core": "^5.2.7",
+    "babel-loader": "^5.0.0",
+    "bloody-immutable-date": "^1.0.0",
+    "bootstrap": "^3.3.1",
+    "bootstrap-rtl": "^3.3.2-rc1",
+    "bootswatch": "^3.3.4",
+    "classnames": "^2.0.0",
+    "coffee-loader": "^0.7.2",
+    "coffee-script": "^1.9.1",
+    "css-loader": "^0.10.1",
+    "exports-loader": "^0.6.2",
+    "expose-loader": "^0.7.0",
+    "file-loader": "^0.8.1",
+    "grunt": "^0.4.5",
+    "immutable": "^3.7.2",
+    "json-loader": "^0.5.1",
+    "less": "^2.5.0",
+    "less-loader": "^2.2.0",
+    "lodash": "^3.5.0",
+    "raw-loader": "^0.5.1",
+    "react": "^0.13.1",
+    "react-bootstrap": "^0.20.3",
+    "react-hot-loader": "^1.2.5",
+    "react-router": "^0.13.2",
+    "react-router-bootstrap": "^0.12.1",
+    "reflux": "^0.2.7",
+    "remarkable": "^1.6.0",
+    "signals": "^1.0.0",
+    "style-loader": "^0.10.1",
+    "superagent": "^1.2.0",
+    "webpack": "^1.8.4",
+    "webpack-dev-server": "^1.8.0",
+    "when": "^3.7.2"
+  }
+}

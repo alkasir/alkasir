@@ -1,0 +1,14 @@
+{
+  "root": true,
+  "indent": {
+    "value": "    ",
+    "FunctionExpression": 1,
+    "ArrayExpression": 1,
+    "ObjectExpression": 1
+  },
+  "plugins": [
+    "esformatter-semicolons",
+    "esformatter-jsx",
+    "esformatter-use-strict"
+  ]
+}
