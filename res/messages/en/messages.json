@@ -1,0 +1,617 @@
+{
+   "action_cancel": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "Cancel"
+   },
+   "action_check": {
+     "description": "(several kinds of updates using a network connection)Used for buttons, links, menu items and similar occations.",
+     "message": "Check"
+   },
+   "action_close": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "Close"
+   },
+   "action_continue": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "Continue"
+   },
+   "action_delete": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "Delete"
+   },
+   "action_exit": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "Exit"
+   },
+   "action_finish": {
+     "description": "Last step of guides unless that step is submit.",
+     "message": "Finish"
+   },
+   "action_help": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "Help"
+   },
+   "action_ignore": {
+     "description": "(application upgrades) Used for buttons, links, menu items and similar occations.",
+     "message": "Ignore"
+   },
+   "action_next": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "Next"
+   },
+   "action_ok": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "Ok"
+   },
+   "action_pause": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "Pause"
+   },
+   "action_retry": {
+     "description": "Probably only used after a timeout occurred originating from a form.",
+     "message": "Retry"
+   },
+   "action_save": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "Save"
+   },
+   "action_send": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "Send"
+   },
+   "action_settings": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "Settings"
+   },
+   "action_update": {
+     "description": "(several kinds of updates using a network connection)Used for buttons, links, menu items and similar occations.",
+     "message": "Update"
+   },
+   "action_upgrade": {
+     "description": "(application upgrades) Used for buttons, links, menu items and similar occations.",
+     "message": "Start upgrade"
+   },
+   "actions": {
+     "description": "...",
+     "message": "Actions"
+   },
+   "additional_features": {
+     "message": "Additional features"
+   },
+   "advanced_settings": {
+     "message": "Advanced settings"
+   },
+   "allow_applicaton_error_collection": {
+     "message": "Allow alkasir to send applicaion error logs to Alkasir to find bugs and make the service better."
+   },
+   "allow_extended_analysis": {
+     "message": "Allow alkasir to use this computers internet connection to run additional censorship detection tests."
+   },
+   "allow_local_persistence": {
+     "message": "Persist configuration"
+   },
+   "app_docs_name": {
+     "description": "Label for the docs app, used for navigation and page titles.",
+     "message": "Help"
+   },
+   "app_home_name": {
+     "description": "Label for the home app, used for navigation and page titles.",
+     "message": "Home"
+   },
+   "app_settings_name": {
+     "description": "Label for the settings app, used for navigation and page titles.",
+     "message": "Settings"
+   },
+   "app_suggest_name": {
+     "description": "Label for the suggest url app, used for navigation and page titles.",
+     "message": "Report blocked sites"
+   },
+   "application_auto_upgrade": {
+     "message": "Upgrade application automatically"
+   },
+   "application_auto_upgrade_check": {
+     "message": "Check for application updates automatically"
+   },
+   "application_upgrades": {
+     "message": "Application upgrades"
+   },
+   "block_list_updates": {
+     "message": "Block list updates"
+   },
+   "blocklist_auto_update": {
+     "message": "Check for blocklist updates automatically"
+   },
+   "blocklist_update_error_message": {
+     "message": "Failed to update list of blocked hosts"
+   },
+   "blocklist_update_error_title": {
+     "message": "Blocklist update failed"
+   },
+   "blocklist_update_init_message": {
+     "message": "Checking for updates on blocked sites"
+   },
+   "blocklist_update_init_title": {
+     "message": "Starting blocklist update"
+   },
+   "blocklist_update_success_message": {
+     "message": "Updated list of blocked sites"
+   },
+   "blocklist_update_success_title": {
+     "message": "Updated blocklist "
+   },
+   "blocklist_update_warning_message": {
+     "message": "Having trouble updating the block list, retrying..."
+   },
+   "blocklist_update_warning_title": {
+     "message": "blocklist update warning"
+   },
+   "browser_code": {
+     "message": "browser code"
+   },
+   "browser_code_explain": {
+     "message": "The browser code is required to enable Alkasir in web browser. Copy it to the clip board now, you will be asked for it after installing the browser extension."
+   },
+   "browser_integration": {
+     "message": "Browser integration"
+   },
+   "browser_integration_chrome_success": {
+     "message": "An active chrome extension is detected"
+   },
+   "browser_integration_error": {
+     "message": "No browser extension currently connected"
+   },
+   "browser_integration_firefox_success": {
+     "message": "An active firefox extension is detected"
+   },
+   "central_connected_message": {
+     "message": "Connected to the alkasir server.."
+   },
+   "central_connected_title": {
+     "message": "Connected to the alksir server."
+   },
+   "central_error_message": {
+     "message": "Cannot establish connection to the central server."
+   },
+   "central_error_title": {
+     "message": "Central error"
+   },
+   "central_warning_message": {
+     "message": "Having trouble reaching the alkasir server, retrying.."
+   },
+   "central_warning_title": {
+     "message": "Central warning"
+   },
+   "checking": {
+     "description": "This will be displayed on the check button while it's checking.",
+     "message": "Checking..."
+   },
+   "connection_string": {
+     "message": "Connection string"
+   },
+   "connection_string_help": {
+     "message": "Short information on what the connection string is..."
+   },
+   "copy_browser_code_to_clipboard": {
+     "message": "Copy browser code to clipboard"
+   },
+   "copy_to_clipboard": {
+     "message": "Copy to clipboard"
+   },
+   "current_version": {
+     "description": "...",
+     "message": "Current version"
+   },
+   "done": {
+     "message": "Done"
+   },
+   "export_browser_extension_message": {
+     "message": "Saves the browser extension to disk if the chrome web store isn't reachable."
+   },
+   "export_browser_extension_title": {
+     "message": "Export browser extension"
+   },
+   "export_debuginfo_message": {
+     "message": "Exports a file used for debugging alkasir, do NOT send this file to anyone you don't know for sure is working with alkasir, this file might contains personal information such as you IP address, sites you reported or visited using alkasir since alkasir was last started."
+   },
+   "export_debuginfo_title": {
+     "message": "Save debugging info."
+   },
+   "ext_browser_code_explain": {
+     "message": "Browser code explanation..."
+   },
+   "ext_browser_code_field_help": {
+     "message": "If you do not have the browser code, right click on the alkasir tray or dock icon and choose 'copy browser code' first"
+   },
+   "ext_browser_code_field_placeholder": {
+     "message": "Paste browser code here"
+   },
+   "ext_browser_code_msg_client_conn_error": {
+     "message": "Cannot connect to client. If it is running, get a new browser code to try to reconnect."
+   },
+   "ext_browser_code_msg_client_newer_error": {
+     "message": "Alkasir is running a newer version that this chrome extension requires, it should update automatically. Check chrome settings to verify that extensions can be updated."
+   },
+   "ext_browser_code_msg_client_older_error": {
+     "message": "The alkasir version running on your computer is older that this browser extension, it should upgrade automatically."
+   },
+   "ext_browser_code_msg_invalid_code": {
+     "message": "Invalid browser code"
+   },
+   "extension_client_not_available_message": {
+     "message": "Ensure that the Alkasir client is started."
+   },
+   "extension_client_not_available_title": {
+     "message": "Cannot connect to client."
+   },
+   "extension_client_not_avialable_open_browser_options": {
+     "description": "Shown in the browser extension popup window followed by a continue button that opens the options page in a browser tab",
+     "message": "If the client is running, the browser code might be invalid. Open the browser extension options page to reverify the settings."
+   },
+   "extension_connected_message": {
+     "message": "Connected to the client application."
+   },
+   "extension_connected_title": {
+     "message": "Alkasir browser extension activated"
+   },
+   "extension_description": {
+     "description": "For chrome webstore and extensions page",
+     "message": "Integrates the Alkasir client"
+   },
+   "extension_disconnected_message": {
+     "message": "Lost connection to the client..."
+   },
+   "extension_disconnected_title": {
+     "message": "Alkasir disconnected "
+   },
+   "extension_extension_not_available_title": {
+     "message": "No active browser extension detected."
+   },
+   "extension_name": {
+     "description": "For chrome webstore and extensions page",
+     "message": "Alkasir"
+   },
+   "extension_options": {
+     "description": "For chrome popup icon right click access to extension options menu",
+     "message": "Alkasir Options"
+   },
+   "form_label_country": {
+     "message": "Select your country"
+   },
+   "form_label_language": {
+     "message": "Language"
+   },
+   "language_and_location": {
+     "message": "Language and location"
+   },
+   "language_option_ar": {
+     "message": "Arabic"
+   },
+   "language_option_en": {
+     "message": "English"
+   },
+   "language_option_fa": {
+     "message": "Persian"
+   },
+   "language_option_sv": {
+     "message": "Swedish"
+   },
+   "language_option_zn": {
+     "message": "Chinese"
+   },
+   "last_update": {
+     "description": "...",
+     "message": "Last update"
+   },
+   "last_update_check": {
+     "description": "...",
+     "message": "Last update check"
+   },
+   "latest_version": {
+     "description": "...",
+     "message": "Latest version"
+   },
+   "listen_error_message": {
+     "message": "Alkasir has cannot listen to $LADDR$...",
+     "placeholders": {
+       "laddr": {
+         "content": "$1",
+         "example": ":8080"
+       }
+     }
+   },
+   "listen_error_title": {
+     "message": "Alkasir cannot listen on configured port"
+   },
+   "location_setup_required": {
+     "message": "Location settings are missing, alkasir needs to be setup before it can be used."
+   },
+   "network_connected_message": {
+     "message": "Alkasir has detected an internet connection to the internet, activating..."
+   },
+   "network_connected_title": {
+     "message": "Network access detected"
+   },
+   "network_error_message": {
+     "message": "Alkasir cannot detect an working internet connection, it will remain inactiveuntil an internet connection is available."
+   },
+   "network_error_title": {
+     "message": "Network error"
+   },
+   "network_timeout_error_message": {
+     "message": "The network request timed out, try again later."
+   },
+   "network_timeout_error_title": {
+     "message": "Request timed out"
+   },
+   "notification_settings": {
+     "message": "Notification settings"
+   },
+   "notification_settings_explain_short": {
+     "message": "Display options for notifications"
+   },
+   "notifications": {
+     "description": "Label for the home app heading.",
+     "message": "Notifications"
+   },
+   "notify_option_blocklist_update_error": {
+     "description": "Used for notification settings.",
+     "message": "Update issues"
+   },
+   "notify_option_blocklist_update_success": {
+     "description": "Used for notification settings.",
+     "message": "Successful update"
+   },
+   "notify_option_browser_extension_client_not_available": {
+     "description": "Used for notification settings.",
+     "message": "Alkasir client not available"
+   },
+   "notify_option_browser_extension_connected": {
+     "description": "Used for notification settings.",
+     "message": "Connected to the client"
+   },
+   "notify_option_browser_extension_error": {
+     "description": "Used for notification settings.",
+     "message": "Issues"
+   },
+   "notify_option_central_error": {
+     "description": "Used for notification settings.",
+     "message": "Issues"
+   },
+   "notify_option_general_client_error": {
+     "description": "Used for notification settings.",
+     "message": "Alkasir application issues"
+   },
+   "notify_option_general_network_error": {
+     "description": "Used for notification settings.",
+     "message": "Internet/network issues"
+   },
+   "notify_option_suggest_detected": {
+     "description": "Used for notification settings.",
+     "message": "Suspected blocked content"
+   },
+   "notify_option_transport_conn_opened": {
+     "description": "Used for notification settings.",
+     "message": "Alkasir being used to circumvent a specific site"
+   },
+   "notify_option_transport_connected": {
+     "description": "Used for notification settings.",
+     "message": "Successful connection to a transport."
+   },
+   "notify_option_transport_error": {
+     "description": "Used for notification settings.",
+     "message": "Transport connection issues"
+   },
+   "notify_option_upgrade_error": {
+     "description": "Used for notification settings.",
+     "message": "Client version upgrade issues"
+   },
+   "notify_option_upgrade_new_version_available": {
+     "description": "Used for notification settings.",
+     "message": "New client version available"
+   },
+   "notify_option_upgrade_upgrading": {
+     "description": "Used for notification settings.",
+     "message": "Client being upgraded"
+   },
+   "notify_section_blocklist_update": {
+     "description": "Used for notification settings.",
+     "message": "Block list updates"
+   },
+   "notify_section_browser_extension": {
+     "description": "Used for notification settings.",
+     "message": "Browser extension notifications"
+   },
+   "notify_section_central": {
+     "description": "Used for notification settings.",
+     "message": "Alkasir central server communication"
+   },
+   "notify_section_general": {
+     "description": "Used for notification settings.",
+     "message": "General notifications"
+   },
+   "notify_section_suggest": {
+     "description": "Used for notification settings.",
+     "message": "Blocking content detection"
+   },
+   "notify_section_transport": {
+     "description": "Used for notification settings.",
+     "message": "Alkasir transports (encrypted tunnels)"
+   },
+   "notify_section_upgrade": {
+     "description": "Used for notification settings.",
+     "message": "Alkasir applicaton upgrades"
+   },
+   "notify_type_desktop": {
+     "description": "Used for notification settings. This option enabled desktop notifications.",
+     "message": "Desktop"
+   },
+   "notify_type_icon": {
+     "description": "Used for notification settings. This option enabled notifications by flashing either the tray/dock icon ir browser extension icon (unspecified).",
+     "message": "Flash icon"
+   },
+   "ok": {
+     "message": "ok"
+   },
+   "open_in_browser": {
+     "message": "Open in web browser"
+   },
+   "options": {
+     "description": "Used as header for",
+     "message": "Options"
+   },
+   "page_not_found": {
+     "message": "Page not found"
+   },
+   "page_title": {
+     "message": "Page title"
+   },
+   "quit_alkasir": {
+     "message": "Quit Alkasir"
+   },
+   "restore_default_settings": {
+     "description": "Used on settings pages to restore default values",
+     "message": "Restore default settings"
+   },
+   "server_error_message": {
+     "description": "A last resort generic error type, probably not used.",
+     "message": "The server responeded with an error:"
+   },
+   "server_error_title": {
+     "description": "A last resort generic error type, probably not used.",
+     "message": "Server error"
+   },
+   "setup": {
+     "description": "Header for first time setup guide",
+     "message": "Setup"
+   },
+   "setup_required_firstrun_message": {
+     "description": "Title for notification telling user that Alkasir needs to be configured for the first time.",
+     "message": "Alkasir needs to be setup before it can be used."
+   },
+   "setup_required_title": {
+     "description": "Title for notification telling user that Alkasir needs to be configured",
+     "message": "Setup required"
+   },
+   "status": {
+     "description": "...",
+     "message": "Status"
+   },
+   "status_error_message": {
+     "message": "Alkasir is not working properly."
+   },
+   "status_ok_message": {
+     "message": "Alkasir is working without problems"
+   },
+   "status_title": {
+     "message": "Alkasir status"
+   },
+   "status_warning_message": {
+     "message": "Alkasir is having issues"
+   },
+   "suggest_denied_message": {
+     "message": "Cirvumenvting this URL is not supported by Alkasir."
+   },
+   "suggest_denied_title": {
+     "message": "Unsupported URL"
+   },
+   "suggest_details": {
+     "message": "The following data will be sent to alkasir for analysis"
+   },
+   "suggest_details_title": {
+     "message": "Submission details"
+   },
+   "suggest_done_message": {
+     "message": "The request was submitted, try loading the page again to access it. "
+   },
+   "suggest_explain_short": {
+     "message": "You are submitting an url to alkasir so that it can be accessed and analysed..."
+   },
+   "suggest_not_blocked_message": {
+     "message": "This submitted URL is currently not detected as being blocked by Alkasir. "
+   },
+   "suggest_not_blocked_title": {
+     "message": "Non blocked content"
+   },
+   "suggest_this_message": {
+     "message": "Report problems viewing $URL$ to alkasir to unlock it...",
+     "placeholders": {
+       "url": {
+         "content": "$1",
+         "example": "http://google.com/?q=query"
+       }
+     }
+   },
+  "transport_connections_title": {
+    "message":"Transport connections"
+  },
+  "transport_connections_message": {
+    "message":"Enable, disable, add and remove configured connections."
+  },
+   "suggest_this_title": {
+     "message": "I'm having troubles accessing this site...."
+   },
+   "toggle_detailed_settings": {
+     "message": "Toggle detailed settings"
+   },
+   "transport_connected_message": {
+     "message": "Alkasir has established a transport connection."
+   },
+   "transport_connected_title": {
+     "message": "Transport connected"
+   },
+   "transport_disconnected_message": {
+     "message": "Transport disconnected... (?)"
+   },
+   "transport_disconnected_title": {
+     "message": "Transport disconnected"
+   },
+   "transport_error_message": {
+     "message": "Alkasir could not connect to network transport."
+   },
+   "transport_error_title": {
+     "message": "Transport error"
+   },
+   "transport_init_message": {
+     "message": "Alkasir has initiated a new transport connection"
+   },
+   "transport_init_title": {
+     "message": "Transport started"
+   },
+   "transport_warning_message": {
+     "message": "Attempting to resolve automatically..."
+   },
+   "transport_warning_title": {
+     "message": "Transport warning"
+   },
+   "transported_connection_opened_message": {
+     "message": "Alkasir is used for accessing this server because it is listed as being blocked in your region."
+   },
+   "transported_connection_opened_title": {
+     "message": "Transported connection opened"
+   },
+   "unknown_error_message": {
+     "message": "An unknown error has occured."
+   },
+   "unknown_error_title": {
+     "message": "Unknown error"
+   },
+   "update_connection_string": {
+     "message": "Update connection string"
+   },
+   "upgrade_info": {
+     "description": "Besides the application upgrade button under settings.",
+     "message": "Alkasir will restart automatically after upgrade is completed."
+   },
+   "upgrading": {
+     "description": "an upgrade button's label is replaced with this when an upgrade is in action",
+     "message": "Upgrading..."
+   },
+   "url": {
+     "description": "This probably never change",
+     "message": "URL"
+   },
+   "working": {
+     "description": "A placeholder that will be replaced when content is avialable",
+     "message": "Working..."
+   }
+ }

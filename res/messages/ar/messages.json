@@ -1,0 +1,611 @@
+{
+   "action_cancel": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "إلغاء"
+   },
+   "action_check": {
+     "description": "(several kinds of updates using a network connection)Used for buttons, links, menu items and similar occations.",
+     "message": "التحقق"
+   },
+   "action_close": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "إقفال"
+   },
+   "action_continue": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "استمرار"
+   },
+   "action_delete": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "حذف"
+   },
+   "action_exit": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "خروج"
+   },
+   "action_finish": {
+     "description": "Last step of guides unless that step is submit.",
+     "message": "إنهاء"
+   },
+   "action_help": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "مساعدة"
+   },
+   "action_ignore": {
+     "description": "(application upgrades) Used for buttons, links, menu items and similar occations.",
+     "message": "تجاهل"
+   },
+   "action_next": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "التالي"
+   },
+   "action_ok": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "تمام"
+   },
+   "action_pause": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "توقف"
+   },
+   "action_retry": {
+     "description": "Probably only used after a timeout occurred originating from a form.",
+     "message": "أعد المحاولة"
+   },
+   "action_save": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "حفظ"
+   },
+   "action_send": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "إرسال"
+   },
+   "action_settings": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "إعدادات"
+   },
+   "action_update": {
+     "description": "(several kinds of updates using a network connection)Used for buttons, links, menu items and similar occations.",
+     "message": "التحديث"
+   },
+   "action_upgrade": {
+     "description": "(application upgrades) Used for buttons, links, menu items and similar occations.",
+     "message": "بدء الترقية"
+   },
+   "actions": {
+     "description": "...",
+     "message": "الإجراءات"
+   },
+   "additional_features": {
+     "message": "مزايا إضافية"
+   },
+   "advanced_settings": {
+     "message": "الإعدادات المتقدمة"
+   },
+   "allow_applicaton_error_collection": {
+     "message": "إسمح للكاسر بأن يرسل بيانات الأخطاء إلى الخادوم لإيجاد أخطاء برمجية ولتحسين الخدمة."
+   },
+   "allow_extended_analysis": {
+     "message": "إسمح للكاسر بأن يستخدم اتصال الانترنت من الحاسوب للقيام بعمليات اضافية للكشف عن حجب المواقع."
+   },
+   "allow_local_persistence": {
+     "message": "الإعدادات المستمرة"
+   },
+   "app_docs_name": {
+     "description": "Label for the docs app, used for navigation and page titles.",
+     "message": "المساعدة"
+   },
+   "app_home_name": {
+     "description": "Label for the home app, used for navigation and page titles.",
+     "message": "الصفحة الرئيسية"
+   },
+   "app_settings_name": {
+     "description": "Label for the settings app, used for navigation and page titles.",
+     "message": "الإعدادات"
+   },
+   "app_suggest_name": {
+     "description": "Label for the suggest url app, used for navigation and page titles.",
+     "message": "الإبلاغ عن مواقع محجوبة"
+   },
+   "application_auto_upgrade": {
+     "message": "قم بترقية البرنامج تلقائياً"
+   },
+   "application_auto_upgrade_check": {
+     "message": "قم بفحص التحديثات للبرنامج تلقائياً"
+   },
+   "application_upgrades": {
+     "message": "ترقية للبرنامج"
+   },
+   "block_list_updates": {
+     "message": "تحديث لكشف المواقع المحجوبة"
+   },
+   "blocklist_auto_update": {
+     "message": "قم بفحص التحديثات لكشف المواقع المجوبة تلقائياً"
+   },
+   "blocklist_update_error_message": {
+     "message": "عملية التحديث لكشف المواقع المحجوبة فشلت"
+   },
+   "blocklist_update_error_title": {
+     "message": "عملية التحديث فشلت"
+   },
+   "blocklist_update_init_message": {
+     "message": "جاري الكشف عن أي تغير في كشف المواقع المحجوبة"
+   },
+   "blocklist_update_init_title": {
+     "message": "جاري تحديث كشف المواقع المحجوبة"
+   },
+   "blocklist_update_success_message": {
+     "message": "تم تحديث كشف المواقع المحجوبة بنجاح"
+   },
+   "blocklist_update_success_title": {
+     "message": "تم التحديث "
+   },
+   "blocklist_update_warning_message": {
+     "message": "توجد مشكلة في عملية تحديث كشف المواقع المحجوبة، جاري إعادة المحاولة..."
+   },
+   "blocklist_update_warning_title": {
+     "message": "تحذير حول"
+   },
+   "browser_code": {
+     "message": "الكود الخاص بالمتصفح"
+   },
+   "browser_code_explain": {
+     "message": "الكود الخاص بالمتصفح مطلوب لتفعيل الكاسر في المتصفح. قم بنسخه الى الذاكرة الآن، وسيتم طلبه منك بعد تنصيب ملحق المتصفح."
+   },
+   "browser_integration": {
+     "message": "الدمج مع المتصفح"
+   },
+   "browser_integration_chrome_success": {
+     "message": "تم التعرف على ملحق كروم نشط"
+   },
+   "browser_integration_error": {
+     "message": "لا يوجد أي ملحق متصل حالياً"
+   },
+   "browser_integration_firefox_success": {
+     "message": "تم التعرف على ملحق فايرفوكس نشط"
+   },
+   "central_connected_message": {
+     "message": "تم الإتصال بخادوم الكاسر."
+   },
+   "central_connected_title": {
+     "message": "تم الإتصال بخادوم الكاسر."
+   },
+   "central_error_message": {
+     "message": "لم يتمكن الكاسر بالإتصال بالخادوم الرئيسي."
+   },
+   "central_error_title": {
+     "message": "تحذير مركزي"
+   },
+   "central_warning_message": {
+     "message": "توجد مشكلة في الاتصال بخادوم الكاسر، جاري المحاولة ثانيةً"
+   },
+   "central_warning_title": {
+     "message": "تحذير مركزي"
+   },
+   "checking": {
+     "description": "This will be displayed on the check button while it's checking.",
+     "message": "جاري التحقق..."
+   },
+   "connection_string": {
+     "message": "سلسلة الإتصال"
+   },
+   "connection_string_help": {
+     "message": "معلومات قصيرة حول ماهية سلسلة الإتصال"
+   },
+   "copy_browser_code_to_clipboard": {
+     "message": "قم بنسخ كود المتصفح الآن"
+   },
+   "copy_to_clipboard": {
+     "message": "نسخ الكود"
+   },
+   "current_version": {
+     "description": "...",
+     "message": "الإصدار الحالي"
+   },
+   "done": {
+     "message": "تم"
+   },
+      "export_browser_extension_message": {
+     "message": "إحفظ الملحق في القرص في حال تعذر الوصول إلى سوق جوجل كروم."
+   },
+   "export_browser_extension_title": {
+     "message": "تصدير ملحق المتصفح"
+   },
+   "export_debuginfo_message": {
+     "message": "تصدير ملف لتصحيح المشاكل البرمجية في الكاسر. لا ترسل هذا الملف لأي شخص إلا إذا تيقنت أنه يعمل كجزء من فريق الكاسر حيث قد يحوي الملف على معلومات شخصية مثل عنوان الـIP الخاص بك والمواقع التي أبلغت عنها أو زرتها منذ قمت بتشغيل الكاسر مؤخراً."
+   },
+   "export_debuginfo_title": {
+     "message": "حفظ بيانات تصحيح الأخطاء البرمجية."
+   },
+   "ext_browser_code_explain": {
+     "message": "شرح حول كود المتصفح"
+   },
+   "ext_browser_code_field_help": {
+     "message": "إذا لم يكن لديك كود المتصفح، قم بالنقر بالزر الأيمن على أيقونة الكاسر أولا ثم قم باختيار 'نسخ كود المتصفح' أولا."
+   },
+   "ext_browser_code_field_placeholder": {
+     "message": "إلصق كود المتصفح هنا"
+   },
+   "ext_browser_code_msg_client_conn_error": {
+     "message": "لم يتم الاتصال بالبرنامج. إن كان يعمل، تأكد أن كود المتصفح وحاول الإتصال مرة أخرى."
+   },
+   "ext_browser_code_msg_client_newer_error": {
+     "message": "هذا الإصدار من الكاسر يحتاج إلى إصدار أحدث من ملحق المتصفح. نرجو تحديث الملحق عبر التأكد من إعدادت الكروم."
+   },
+   "ext_browser_code_msg_client_older_error": {
+     "message": "ِإصدار برنامج الكاسر الذي تستخدمه قديم ولا يتناسب مع محلق المتصفح. نرجو التأكد من تحديثه."
+   },
+   "ext_browser_code_msg_invalid_code": {
+     "message": "كود المتصفح غير صحيح"
+   },
+   "extension_client_not_available_message": {
+     "message": ".تأكد أن برنامج الكاسر قد تم تشغيله"
+   },
+   "extension_client_not_available_title": {
+     "message": "فشل الاتصال"
+   },
+   "extension_client_not_avialable_open_browser_options": {
+     "description": "Shown in the browser extension popup window followed by a continue button that opens the options page in a browser tab",
+     "message": "إن كان البرنامج يعمل، فقد يكون كود المتصفح غير صحيح. قم بفتح اعدادت ملحق المتصفح للتأكد من الكود."
+   },
+   "extension_connected_message": {
+     "message": "تم الاتصال بالكاسر"
+   },
+   "extension_connected_title": {
+     "message": "تم تفعيل ملحق المتصفح"
+   },
+   "extension_description": {
+     "description": "For chrome webstore and extensions page",
+     "message": "يقوم الملحق بالربط مع برنامج الكاسر لدى المستخدم"
+   },
+   "extension_disconnected_message": {
+     "message": "انقطع الاتصال مع الكاسر"
+   },
+   "extension_disconnected_title": {
+     "message": "إنقطع الإتصال"
+   },
+   "extension_extension_not_available_title": {
+     "message": "ملحق المتصفح غير نشط."
+   },
+   "extension_name": {
+     "description": "For chrome webstore and extensions page",
+     "message": "الكاسر"
+   },
+   "extension_options": {
+     "description": "For chrome popup icon right click access to extension options menu",
+     "message": "خيارات الكاسر"
+   },
+   "form_label_country": {
+     "message": "إختر بلدك"
+   },
+   "form_label_language": {
+     "message": "اللغة"
+   },
+   "language_and_location": {
+     "message": "اللغة والمكان"
+   },
+   "language_option_ar": {
+     "message": "Arabic - عربي"
+   },
+   "language_option_en": {
+     "message": "English"
+   },
+   "language_option_fa": {
+     "message": "Farsi - فارسي"
+   },
+   "language_option_sv": {
+     "message": "Swedish - Svenska"
+   },
+   "language_option_zn": {
+     "message": "Chinese (traditional) - 中國語文"
+   },
+   "last_update": {
+     "description": "...",
+     "message": "آخر تحديث"
+   },
+   "last_update_check": {
+     "description": "...",
+     "message": "الكشف عن آخر تحديث"
+   },
+   "latest_version": {
+     "description": "...",
+     "message": "الإصدار الأخير"
+   },
+   "listen_error_message": {
+     "message": "لا يستطيع الكاسر استخدام البورت $LADDR$...",
+     "placeholders": {
+       "laddr": {
+         "content": "$1",
+         "example": ":8080"
+       }
+     }
+   },
+   "listen_error_title": {
+     "message": "لا يستطيع الكاسر استخدام هذا البورت"
+   },
+   "location_setup_required": {
+     "message": "إعدادات المكان ناقصة وهي مطلوبة حتى يتم تنصيب الكاسر."
+   },
+   "network_connected_message": {
+     "message": "وجد الكاسر أن الإتصال بالإنترنت ممكن، جاري التفعيل..."
+   },
+   "network_connected_title": {
+     "message": "إتصال بالشبكة"
+   },
+   "network_error_message": {
+     "message": "لم يتمكن الكاسر من الإتصال بالإنترنت. سيبقى الكاسر غير فاعل حتى يتم الربط بالإنترنت."
+   },
+   "network_error_title": {
+     "message": "خطأ في الشبكة"
+   },
+   "network_timeout_error_message": {
+     "message": "الإتصال بالشبكة فشلت بعد نفاذ الوقت، حاول مرة أخرى  لاحقاً."
+   },
+   "network_timeout_error_title": {
+     "message": "نفذ الوقت"
+   },
+   "notification_settings": {
+     "message": "إعدادات التنبيه"
+   },
+   "notification_settings_explain_short": {
+     "message": "يقوم بعرض خيارات التنبيه"
+   },
+   "notifications": {
+     "description": "Label for the home app heading.",
+     "message": "التنبيهات"
+   },
+   "notify_option_blocklist_update_error": {
+     "description": "Used for notification settings.",
+     "message": "تم التحديث بنجاح"
+   },
+   "notify_option_blocklist_update_success": {
+     "description": "Used for notification settings.",
+     "message": "برنامج الكاسر غير متوفر"
+   },
+   "notify_option_browser_extension_client_not_available": {
+     "description": "Used for notification settings.",
+     "message": "الإتصال بالبرنامج"
+   },
+   "notify_option_browser_extension_connected": {
+     "description": "Used for notification settings.",
+     "message": "تم الإتصال بالبرنامج"
+   },
+   "notify_option_browser_extension_error": {
+     "description": "Used for notification settings.",
+     "message": "إشكاليات"
+   },
+   "notify_option_central_error": {
+     "description": "Used for notification settings.",
+     "message": "إشكاليات"
+   },
+   "notify_option_general_client_error": {
+     "description": "Used for notification settings.",
+     "message": "بعض المشكلات المتعلقة بالبرنامج"
+   },
+   "notify_option_general_network_error": {
+     "description": "Used for notification settings.",
+     "message": "بعض المشكلات المتعلقة بالإنترنت أو الشبكة"
+   },
+   "notify_option_suggest_detected": {
+     "description": "Used for notification settings.",
+     "message": "إمكانية وجود حجب"
+   },
+   "notify_option_transport_conn_opened": {
+     "description": "Used for notification settings.",
+     "message": "استخدام الكاسر لكسر الحجب عن موقع محدد"
+   },
+   "notify_option_transport_connected": {
+     "description": "Used for notification settings.",
+     "message": "تم الإتصال بنجاح بوسيط"
+   },
+   "notify_option_transport_error": {
+     "description": "Used for notification settings.",
+     "message": "إشكاليات في الإتصال بالوسيط"
+   },
+   "notify_option_upgrade_error": {
+     "description": "Used for notification settings.",
+     "message": "إشكاليات في ترقية البرنامج"
+   },
+   "notify_option_upgrade_new_version_available": {
+     "description": "Used for notification settings.",
+     "message": "يوجد إصدار جديد من البرنامج"
+   },
+   "notify_option_upgrade_upgrading": {
+     "description": "Used for notification settings.",
+     "message": "يتم حالياً ترقية إصدار البرنامج"
+   },
+   "notify_section_blocklist_update": {
+     "description": "Used for notification settings.",
+     "message": "تحديثات كشف المواقع المحجوبة"
+   },
+   "notify_section_browser_extension": {
+     "description": "Used for notification settings.",
+     "message": "تنبيهات ملحق المتصفح"
+   },
+   "notify_section_central": {
+     "description": "Used for notification settings.",
+     "message": "إتصالات بالخادوم (السيرفر) المركزي للكاسر"
+   },
+   "notify_section_general": {
+     "description": "Used for notification settings.",
+     "message": "تنبيهات عامة"
+   },
+   "notify_section_suggest": {
+     "description": "Used for notification settings.",
+     "message": "الكشف عن حجب محتمل"
+   },
+   "notify_section_transport": {
+     "description": "Used for notification settings.",
+     "message": "وسائط الكاسر (أنفاق مشفرة)"
+   },
+   "notify_section_upgrade": {
+     "description": "Used for notification settings.",
+     "message": "ترقيات برنامج الكاسر"
+   },
+   "notify_type_desktop": {
+     "description": "Used for notification settings. This option enabled desktop notifications.",
+     "message": "سطج المكتب"
+   },
+   "notify_type_icon": {
+     "description": "Used for notification settings. This option enabled notifications by flashing either the tray/dock icon ir browser extension icon (unspecified).",
+     "message": "أيقونة الفلاش"
+   },
+   "ok": {
+     "message": "تمام"
+   },
+   "open_in_browser": {
+     "message": "إفتح في متصفح الويب"
+   },
+   "options": {
+     "description": "Used as header for",
+     "message": "الخيارات"
+   },
+   "page_not_found": {
+     "message": "الصفحة غير موجودة"
+   },
+   "page_title": {
+     "message": "عنوان الصفحة"
+   },
+   "quit_alkasir": {
+     "message": "أقفل الكاسر"
+   },
+   "restore_default_settings": {
+     "description": "Used on settings pages to restore default values",
+     "message": "إعد الإعدادات الافتراضية"
+   },
+   "server_error_message": {
+     "description": "A last resort generic error type, probably not used.",
+     "message": "الخادوم أجاب بهذا الخطأ:"
+   },
+   "server_error_title": {
+     "description": "A last resort generic error type, probably not used.",
+     "message": "خلل في الخادوم"
+   },
+   "setup": {
+     "description": "Header for first time setup guide",
+     "message": "تهيئة"
+   },
+   "setup_required_firstrun_message": {
+     "description": "Title for notification telling user that Alkasir needs to be configured for the first time.",
+     "message": "يجب تنصيب الكاسر قبل استخدامه."
+   },
+   "setup_required_title": {
+     "description": "Title for notification telling user that Alkasir needs to be configured",
+     "message": "مطلوب التنصيب"
+   },
+   "status": {
+     "description": "...",
+     "message": "الحالة"
+   },
+   "status_error_message": {
+     "message": "الكاسر لا يعمل بالشكل المطلوب"
+   },
+   "status_ok_message": {
+     "message": "يعمل الكاسر دون مشكلة"
+   },
+   "status_title": {
+     "message": "وضع الكاسر"
+   },
+   "status_warning_message": {
+     "message": "الكاسر يعاني من بعض الإشكاليات"
+   },
+   "suggest_denied_message": {
+     "message": "هذا الرابط ليس مسموح لكسر الحجب عنه."
+   },
+   "suggest_denied_title": {
+     "message": "الرابط غير صالح."
+   },
+   "suggest_details": {
+     "message": "هذه المعلومات سترسل إلى الكاسر ليتم تحليلها"
+   },
+   "suggest_details_title": {
+     "message": "تفاصيل البلاغ"
+   },
+   "suggest_done_message": {
+     "message": "تم إرسال الطلب. حاول إعادة تحميل الصفحة للوصول إليها. "
+   },
+   "suggest_explain_short": {
+     "message": "انت تقوم بإرسال الرابط إلى الكاسر ليتم الوصول إليه وتحليله."
+   },
+    "suggest_not_blocked_message": {
+     "message": "هذا الرابط الذي تم البلاغ عنه ليس محجوبا على ما يبدو."
+   },
+   "suggest_not_blocked_title": {
+     "message": "رابط غير محجوب"
+   },
+   "suggest_this_message": {
+     "message": "أبلغ المشكلة في الوصول إلى $URL$ إلى الكاسر ليتم كسر الحجب عنه",
+     "placeholders": {
+       "url": {
+         "content": "$1",
+         "example": "http://google.com/?q=query"
+       }
+     }
+   },
+   "suggest_this_title": {
+     "message": "أجد صعوبة في الوصول إلى الموقع"
+   },
+   "toggle_detailed_settings": {
+     "message": "التنقل بين الإعدادات المتقدمة والأساسية"
+   },
+   "transport_connected_message": {
+     "message": "الكاسر الآن أصبح متصلاً"
+   },
+   "transport_connected_title": {
+     "message": "تم الإتصال"
+   },
+   "transport_disconnected_message": {
+     "message": "تم قطع الإتصال"
+   },
+   "transport_disconnected_title": {
+     "message": "تم قطع الإتصال"
+   },
+   "transport_error_message": {
+     "message": "لم يتمكن الكاسر من الربط بنقطة الإتصال."
+   },
+   "transport_error_title": {
+     "message": "خطأ في الإتصال"
+   },
+   "transport_init_message": {
+     "message": "الكاسر بدأ بإتصال جديد"
+   },
+   "transport_init_title": {
+     "message": "بدأ محاولة الاتصال"
+   },
+   "transport_warning_message": {
+     "message": "المحاولة بدأت لمعالجة المشكلة تلقائياً"
+   },
+   "transport_warning_title": {
+     "message": "تحذير حول مشكلة في الإتصال"
+   },
+   "transported_connection_opened_message": {
+     "message": "يقوم الكاسر الآن بالوصول إلى $URLS$"
+   },
+   "transported_connection_opened_title": {
+     "message": "تم فتح الإتصال"
+   },
+   "unknown_error_message": {
+     "message": "حدث خطأ أو خلل غير معروف."
+   },
+   "unknown_error_title": {
+     "message": "خطأ"
+   },
+   "update_connection_string": {
+     "message": "تحديث سلسلة الإتصال"
+   },
+   "upgrade_info": {
+     "description": "Besides the application upgrade button under settings.",
+     "message": "سيقوم الكاسر بإعادة تشغيل نفسه بعد الانتهاء من الترقية"
+   },
+   "upgrading": {
+     "description": "an upgrade button's label is replaced with this when an upgrade is in action",
+     "message": "عملية الترقية جارية..."
+   },
+   "url": {
+     "description": "This probably never change",
+     "message": "الرابط"
+   },
+   "working": {
+     "description": "A placeholder that will be replaced when content is avialable",
+     "message": "العمل جاري..."
+   }
+ }

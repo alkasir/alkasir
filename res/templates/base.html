@@ -1,0 +1,17 @@
+{{ define "base" }}
+<!doctype html>
+<html>
+  <head>
+    <title>Alkasir</title>
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700" type="text/css" media="screen" />
+
+  </head>
+  <body>
+    <div id="content"></div>
+  </body>
+  <script>
+   {{ template "jsondata" . }}
+  </script>
+  <script type="text/javascript" src="/generated/app.bundle.js"></script>
+</html>
+{{ end }}

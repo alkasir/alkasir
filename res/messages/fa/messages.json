@@ -1,0 +1,611 @@
+{
+   "action_cancel": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "لغو کردن "
+   },
+   "action_check": {
+     "description": "(several kinds of updates using a network connection)Used for buttons, links, menu items and similar occations.",
+     "message": "بررسی کردن"
+   },
+   "action_close": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "بستن"
+   },
+   "action_delete": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "حذف کردن"
+   },     
+   "action_continue": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "ادامه دادن "
+   },
+   "action_exit": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "خروج "
+   },
+   "action_finish": {
+     "description": "Last step of guides unless that step is submit.",
+     "message": "پایان"
+   },
+   "action_help": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "کمک"
+   },
+   "action_ignore": {
+     "description": "(application upgrades) Used for buttons, links, menu items and similar occations.",
+     "message": "رد کردن"
+   },
+   "action_next": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "گام بعدی "
+   },
+   "action_ok": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "کامل"
+   },
+   "action_pause": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "توقف"
+   },
+   "action_retry": {
+     "description": "Probably only used after a timeout occurred originating from a form.",
+     "message": "فعال‌سازی دوباره"
+   },
+   "action_save": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "ذخیره"
+   },
+   "action_send": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "ارسال"
+   },
+   "action_settings": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "تنظیمات"
+   },
+   "action_update": {
+     "description": "(several kinds of updates using a network connection)Used for buttons, links, menu items and similar occations.",
+     "message": "به روز رسانی"
+   },
+   "action_upgrade": {
+     "description": "(application upgrades) Used for buttons, links, menu items and similar occations.",
+     "message": "آغاز ارتقا"
+   },
+   "actions": {
+     "description": "...",
+     "message": "فعالیت‌ها"
+   },
+   "additional_features": {
+     "message": "ویژگی‌های اضافه"
+   },
+   "advanced_settings": {
+     "message": "تنظیمات پیشرفته"
+   },
+   "allow_applicaton_error_collection": {
+     "message": " اجازه به نرم‌افزار الکثیر برای ارسال حفره‌های خطا به الکثیر تا اشکالات را پیدا کرده و سرویس‌رسانی را بهتر کند‫.‬"
+   },
+   "allow_extended_analysis": {
+     "message": "اجازه به نرم‌افزار الکثیر برای اینکه از اینترنت کامپیوتر استفاده کند تا تست‌هایی برای یافتن سانسورهای اضافه پیدا کند‫.‬"
+   },
+   "allow_local_persistence": {
+     "message": "ساختاربندی ممتد "
+   },
+   "app_docs_name": {
+     "description": "Label for the docs app, used for navigation and page titles.",
+     "message": "کمک"
+   },
+   "app_home_name": {
+     "description": "Label for the home app, used for navigation and page titles.",
+     "message": "صفحه‌ اصلی برنامه"
+   },
+   "app_settings_name": {
+     "description": "Label for the settings app, used for navigation and page titles.",
+     "message": "تنظیمات برنامه"
+   },
+   "app_suggest_name": {
+     "description": "Label for the suggest url app, used for navigation and page titles.",
+     "message": "گزارش سایت‌های مسدود شده"
+   },
+   "application_auto_upgrade": {
+     "message": "ارتقای خودکار برنامه"
+   },
+   "application_auto_upgrade_check": {
+     "message": "بررسی خودکار به‌روزرسانی‌های برنامه"
+   },
+   "application_upgrades": {
+     "message": "اارتقای برنامه"
+   },
+   "block_list_updates": {
+     "message": "به‌روزرسانی‌های لیست مسدود شده‌ها"
+   },
+   "blocklist_auto_update": {
+     "message": "بررسی خودکار لیست مسدود شده‌ها "
+   },
+   "blocklist_update_error_message": {
+     "message": "شکست در به‌روزرسانی لیست سایت‌های میزبان مسدود شده"
+   },
+   "blocklist_update_error_title": {
+     "message": "به روزرسانی لیست مسدود شده‌ها ناموفق بود"
+   },
+   "blocklist_update_init_message": {
+     "message": "ابررسی به‌روزرسانی‌ها در سایت‌های مسدود شده"
+   },
+   "blocklist_update_init_title": {
+     "message": "آغاز به‌روزرسانی لیست مسدود شده‌ها"
+   },
+   "blocklist_update_success_message": {
+     "message": "لیست سایت‌های مسدود شده‌ها به‌روزرسانی شد"
+   },
+   "blocklist_update_success_title": {
+     "message": "لیست مسدودشده‌ها به روزرسانی شد"
+   },
+   "blocklist_update_warning_message": {
+     "message": "به‌روزرسانی لیست مسدود شده‌ها با مشکل مواجه شد‫…‬ دوباره انجام شود"
+   },
+   "blocklist_update_warning_title": {
+     "message": "پیام خطای به روزرسانی لیست مسدود شده‌ها"
+   },
+   "browser_code": {
+     "message": "کد مرورگر"
+   },
+   "browser_code_explain": {
+     "message": "‫.‬کد مرورگر برای فعال‌سازی الکثیر در مرورگر لازم است‫.‬ کدها را در کلیپ بورد کپی کنید، بعد از نصب افزونه مرورگر به آن نیاز دارید "
+   },
+   "browser_integration": {
+     "message": "ادغام مرورگر"
+   },
+   "browser_integration_chrome_success": {
+     "message": " افزونه فعال مرورگر پیدا شد "
+   },
+   "browser_integration_error": {
+     "message": "هیچ افزونه مرورگری در حال حاضر فعال نیست"
+   },
+   "browser_integration_firefox_success": {
+     "message": "افزونه فعال مرورگر فایرفاکس پیدا شد"
+   },
+   "central_connected_message": {
+     "message": "به سرور الکثیر وصل شد‫.‬"
+   },
+   "central_connected_title": {
+     "message": "به سرور الکثیر وصل شد‫.‬"
+   },
+   "central_error_message": {
+     "message": "نمی‌تواند اتصال به سرور اصلی را ایجاد کند‫.‬"
+   },
+   "central_error_title": {
+     "message": "خطای مرکزی"
+   },
+   "central_warning_message": {
+     "message": "مشکل دسترسی به سرور الکثیر، دوباره تلاش شود"
+   },
+   "central_warning_title": {
+     "message": "هشدار مرکزی"
+   },
+   "checking": {
+     "description": "This will be displayed on the check button while it's checking.",
+     "message": "در حال بررسی"
+   },
+   "connection_string": {
+     "message": "رشته اتصال"
+   },
+   "connection_string_help": {
+     "message": "اطلاعاتی کوتاه درباره اینکه رشته اتصال چیست"
+   },
+   "copy_browser_code_to_clipboard": {
+     "message": "کد مرورگر را در کلیپ‌بورد کپی کنید"
+   },
+   "copy_to_clipboard": {
+     "message": "در کلیپ‌بورد کپی کنید"
+   },
+   "current_version": {
+     "description": "...",
+     "message": "نسخه فعلی"
+   },
+   "done": {
+     "message": "انجام شد"
+   },
+   "export_browser_extension_message": {
+     "message": "افزونه مرورگر را در حافظ ذخیره کن اگر در کروم وب استور قابل دسترس نیستند."
+   },
+   "export_browser_extension_title": {
+     "message": "افزونه مرورگر را خارج کن"
+   },
+   "export_debuginfo_message": {
+     "message": "فایلی که برای اشکال‌زدایی الکسیر به کار می‌رود را خارج کن و این فایل را برای کسانی که مطمئن نیستی که با الکسیر کار می‌کنند ارسال نکن. این فایل امکان دارد حاوی اطلاعات شخصی شامل آدرس آی‌پی \"IP\"، سایت‌هایی که گزارش یا از طریق الکسیر بازدید کرده‌اید باشد. باشد."
+   },
+   "export_debuginfo_title": {
+     "message": "اطلاعات اشکال‌زدایی را ذخیره کن."
+   }, 
+   "ext_browser_code_explain": {
+     "message": "توضیحات کد مرورگر"
+   },
+   "ext_browser_code_field_help": {
+     "message": "اگر کد مرورگر را ندارید روی بخش الکثیر یا آیکون بارانداز کلیک کنید و اول گزینه «کپی کد مرورگر» را انتخاب کنید "
+   },
+   "ext_browser_code_field_placeholder": {
+     "message": "کد مرورگر را اینجا پیست کنید"
+   },
+   "ext_browser_code_msg_client_conn_error": {
+     "message": "‫.‬به کاربر وصل نمی‌شود‫.‬ اگر فعال است، کد مرورگر جدیدی بگیرید تا دوباره وصل شود"
+   },
+   "ext_browser_code_msg_client_newer_error": {
+     "message": "الکثیر نسخه جدید‌تری را فعال کرده است که این افزونه گوگل کروم به آن نیاز دارد و باید به شکل اتوماتیک به‌روزرسانی شود‫.‬ تنظیمات گوگل کروم را بررسی کنید تا مطمئن شوید که افزونه می‌تواند به روزرسانی شود‫.‬"
+   },
+   "ext_browser_code_msg_client_older_error": {
+     "message": "نسخه فعال شده الکثیر در کامپیوترتان از این افزونه مرورگر قدیمی‌تر است، پس باید به شکل خودکار به‌روزرسانی شود‫.‬ "
+   },
+   "ext_browser_code_msg_invalid_code": {
+     "message": "کد مرورگر نامعتبر"
+   },
+   "extension_client_not_available_message": {
+     "message": "مطمئن شوید که کاربر الکثیر فعال شده است"
+   },
+   "extension_client_not_available_title": {
+     "message": "نمی‌تواند به کاربر وصل شود"
+   },
+   "extension_client_not_avialable_open_browser_options": {
+     "description": "Shown in the browser extension popup window followed by a continue button that opens the options page in a browser tab",
+     "message": "‫.‬اگر کاربر کد مرورگر را فعال کرده است ممکن است نامعتبر باشد، گزینه‌های صفحه افزونه مرورگر را باز کنید تا بخش تنظیمات را مجددا تایید کنید"
+   },
+   "extension_connected_message": {
+     "message": ""
+   },
+   "extension_connected_title": {
+     "message": "Alkasir افزونه مرورگر فعال شده است"
+   },
+   "extension_description": {
+     "description": "For chrome webstore and extensions page",
+     "message": "کاربر الکثیر را ادغام می کند"
+   },
+   "extension_disconnected_message": {
+     "message": "ارتباط با کاربر قطع شد"
+   },
+   "extension_disconnected_title": {
+     "message": "الکثیر قطع شد"
+   },
+   "extension_extension_not_available_title": {
+     "message": "هیچ افزونه مرورگر فعالی پیدا نشد‫.‬"
+   },
+   "extension_name": {
+     "description": "For chrome webstore and extensions page",
+     "message": "Alkasir"
+   },
+   "extension_options": {
+     "description": "For chrome popup icon right click access to extension options menu",
+     "message": "گزینه‌های الکثیر"
+   },
+   "form_label_country": {
+     "message": "کشورتان را انتخاب کنید"
+   },
+   "form_label_language": {
+     "message": "زبان"
+   },
+   "language_and_location": {
+     "message": "زبان و مکان"
+   },
+   "language_option_ar": {
+     "message": "عربی"
+   },
+   "language_option_en": {
+     "message": "انگلیسی"
+   },
+   "language_option_fa": {
+     "message": "فارسی"
+   },
+   "language_option_sv": {
+     "message": "سوئدی"
+   },
+   "language_option_zn": {
+     "message": "چینی"
+   },
+   "last_update": {
+     "description": "...",
+     "message": "آخرین \"به روزرسانی"
+   },
+   "last_update_check": {
+     "description": "...",
+     "message": "بررسی آخرین به روزرسانی"
+   },
+   "latest_version": {
+     "description": "...",
+     "message": "آخرین نسخه"
+   },
+   "listen_error_message": {
+     "message": "الکثیر نمی‌تواند به $LADDR$ وصل شود",
+     "placeholders": {
+       "laddr": {
+         "content": "$1",
+         "example": ":8080"
+       }
+     }
+   },
+   "listen_error_title": {
+     "message": "الکثیر نمی‌تواند ساختاربندی پورت‌ را فعال کند"
+   },
+   "location_setup_required": {
+     "message": " تنظیمات مکان موجود نیست، الکثیر پیش از استفاده باید نصب شود "
+   },
+   "network_connected_message": {
+     "message": "الکثیر ارتباط به اینترنت را وصل کرده است، فعال شده است"
+   },
+   "network_connected_title": {
+     "message": "دسترسی به شبکه فعال شده است"
+   },
+   "network_error_message": {
+     "message": "الکثیر نمی‌تواند اتصال اینترنت را تشخیص دهد، تا زمانی که اتصال اینترنت در دسترس باشد الکثیر غیرفعال خواهد بود"
+   },
+   "network_error_title": {
+     "message": "خطای شبکه"
+   },
+   "network_timeout_error_message": {
+     "message": "،وقت برای اتصال به شبکه تمام شد، بعدا دوباره امتحان کنید"
+   },
+   "network_timeout_error_title": {
+     "message": "وقت درخواست تمام شد "
+   },
+   "notification_settings": {
+     "message": "تنظیمات نوتیفیکیشن "
+   },
+   "notification_settings_explain_short": {
+     "message": "گزینه‌های موجود برای نوتیفیکیشن‌ها را نشان دهید"
+   },
+   "notifications": {
+     "description": "Label for the home app heading.",
+     "message": "نوتیفیکیشن‌ها"
+   },
+   "notify_option_blocklist_update_error": {
+     "description": "Used for notification settings.",
+     "message": "موضوعات به روز شده"
+   },
+   "notify_option_blocklist_update_success": {
+     "description": "Used for notification settings.",
+     "message": "به‌روزرسانی موفق"
+   },
+   "notify_option_browser_extension_client_not_available": {
+     "description": "Used for notification settings.",
+     "message": "کاربر الکثیر در دسترس نیست"
+   },
+   "notify_option_browser_extension_connected": {
+     "description": "Used for notification settings.",
+     "message": "به کاربر وصل شد"
+   },
+   "notify_option_browser_extension_error": {
+     "description": "Used for notification settings.",
+     "message": "موضوعات"
+   },
+   "notify_option_central_error": {
+     "description": "Used for notification settings.",
+     "message": "موضوعات"
+   },
+   "notify_option_general_client_error": {
+     "description": "Used for notification settings.",
+     "message": "موضوعات اپلیکیشن الکثیر"
+   },
+   "notify_option_general_network_error": {
+     "description": "Used for notification settings.",
+     "message": "موضوعات اینترنت‫/‬شبکه"
+   },
+   "notify_option_suggest_detected": {
+     "description": "Used for notification settings.",
+     "message": "محتوای بلاک‌شده مشکوک"
+   },
+   "notify_option_transport_conn_opened": {
+     "description": "Used for notification settings.",
+     "message": "الکثیر برای رد کردن فیلتر سایتی مشخص استفاده شد"
+   },
+   "notify_option_transport_connected": {
+     "description": "Used for notification settings.",
+     "message": "اتصال موفق به اینترنت"
+   },
+   "notify_option_transport_error": {
+     "description": "Used for notification settings.",
+     "message": "مشکلات اتصال"
+   },
+   "notify_option_upgrade_error": {
+     "description": "Used for notification settings.",
+     "message": "مشکلات ارتقای نسخه کاربر"
+   },
+   "notify_option_upgrade_new_version_available": {
+     "description": "Used for notification settings.",
+     "message": "نسخه جدید کاربر در دسترس است"
+   },
+   "notify_option_upgrade_upgrading": {
+     "description": "Used for notification settings.",
+     "message": "کاربر به روز شده است"
+   },
+   "notify_section_blocklist_update": {
+     "description": "Used for notification settings.",
+     "message": "به‌روزرسانی‌های لیست مسدود شده"
+   },
+   "notify_section_browser_extension": {
+     "description": "Used for notification settings.",
+     "message": "نوتیفیکیشن‌های افزونه مرورگر"
+   },
+   "notify_section_central": {
+     "description": "Used for notification settings.",
+     "message": "ارتباط سرور مرکزی الکثیر"
+   },
+   "notify_section_general": {
+     "description": "Used for notification settings.",
+     "message": "نوتیفیکیشن‌های عمومی"
+   },
+   "notify_section_suggest": {
+     "description": "Used for notification settings.",
+     "message": "مسدودسازی تشخیص محتوا"
+   },
+   "notify_section_transport": {
+     "description": "Used for notification settings.",
+     "message": "الکثیر تونل‌های رمزگذاری شده را انتقال می‌دهد "
+   },
+   "notify_section_upgrade": {
+     "description": "Used for notification settings.",
+     "message": "به‌روزرسانی اپلیکیشن الکثیر"
+   },
+   "notify_type_desktop": {
+     "description": "Used for notification settings. This option enabled desktop notifications.",
+     "message": "دسک‌تاپ"
+   },
+   "notify_type_icon": {
+     "description": "Used for notification settings. This option enabled notifications by flashing either the tray/dock icon ir browser extension icon (unspecified).",
+     "message": "آیکون فلش"
+   },
+   "ok": {
+     "message": "کامل"
+   },
+   "open_in_browser": {
+     "message": "باز شده در مرورگر وب"
+   },
+   "options": {
+     "description": "Used as header for",
+     "message": "گزینه‌ها"
+   },
+   "page_not_found": {
+     "message": "صفحه پیدا نشد"
+   },
+   "page_title": {
+     "message": "عنوان صفحه"
+   },
+   "quit_alkasir": {
+     "message": "بستن الکثیر"
+   },
+   "restore_default_settings": {
+     "description": "Used on settings pages to restore default values",
+     "message": "تنظیمات اولیه را برگردان"
+   },
+   "server_error_message": {
+     "description": "A last resort generic error type, probably not used.",
+     "message": "سرور با خطا جواب داد"
+   },
+   "server_error_title": {
+     "description": "A last resort generic error type, probably not used.",
+     "message": "خطای سرور"
+   },
+   "setup": {
+     "description": "Header for first time setup guide",
+     "message": "نصب"
+   },
+   "setup_required_firstrun_message": {
+     "description": "Title for notification telling user that Alkasir needs to be configured for the first time.",
+     "message": "الکثیر پیش از استفاده باید نصب شود"
+   },
+   "setup_required_title": {
+     "description": "Title for notification telling user that Alkasir needs to be configured",
+     "message": "نیاز به نصب است"
+   },
+   "status": {
+     "description": "...",
+     "message": "وضعیت"
+   },
+   "status_error_message": {
+     "message": "الکثیر به خوبی کار نمی‌کند"
+   },
+   "status_ok_message": {
+     "message": "الکثیر بدون مشکل کار می‌کند"
+   },
+   "status_title": {
+     "message": "وضعیت الکثیر"
+   },
+   "status_warning_message": {
+     "message": "الکثیر مشکلاتی دارد"
+   },
+   "suggest_denied_message": {
+     "message": "آدرسی که حمایت نمی‌شود"
+   },
+   "suggest_denied_title": {
+     "message": ""
+   },
+   "suggest_details": {
+     "message": "داده‌های زیر برای آنالیز به الکثیر فرستاده می‌شود"
+   },
+   "suggest_details_title": {
+     "message": "جزئیات ارسال"
+   },
+   "suggest_done_message": {
+     "message": "درخواست فرستاده شد، سعی کنید صفحه را دوباره باز کنید تا دسترسی داشته باشید‫…‬"
+   },
+   "suggest_explain_short": {
+     "message": "شما آدرسی به الکثیر فرستادید پس آدرس می‌تواند بررسی و آنالیز شود"
+   },
+   "suggest_not_blocked_message": {
+     "message": "آدرس ارسال شده (URL) در حال حاضر به دلیل مسدود شدن توسط الکثیر تشخیص داده نشده است."
+   },
+   "suggest_not_blocked_title": {
+     "message": "محتوای مسدود نشده"
+   },   
+   "suggest_this_message": {
+     "message": "اشکال در نمایش $URL$ را به الکثیر گزارش دهید تا برطرف شود",
+     "placeholders": {
+       "url": {
+         "content": "$1",
+         "example": "httt://google.com/q=query"
+       }
+     }
+   },
+   "suggest_this_title": {
+     "message": "من در باز کردن این سایت مشکل دارم "
+   },
+   "toggle_detailed_settings": {
+     "message": "جزئیات تنظیمات را فعال کن"
+   },
+   "transport_connected_message": {
+     "message": "الکثیر وصل شده است"
+   },
+   "transport_connected_title": {
+     "message": "متصل است"
+   },
+   "transport_disconnected_message": {
+     "message": "اتصال قطع است"
+   },
+   "transport_disconnected_title": {
+     "message": "اتصال قطع است"
+   },
+   "transport_error_message": {
+     "message": "الکثیر نمی‌تواند به شبکه اینترنت وصل شود"
+   },
+   "transport_error_title": {
+     "message": "خطای اتصال"
+   },
+   "transport_init_message": {
+     "message": "الکثیر یک ارتباط جدید را شروع کرده است"
+   },
+   "transport_init_title": {
+     "message": "ارتباط آغاز شده است"
+   },
+   "transport_warning_message": {
+     "message": "تلاش برای حل مشکل به صورت خودکار"
+   },
+   "transport_warning_title": {
+     "message": "هشدار اتصال"
+   },
+   "transported_connection_opened_message": {
+     "message": "الکثیر برای دسترسی به این سرور استفاده شده است چون در منطقه شما در لیست فیلترینگ است"
+   },
+   "transported_connection_opened_title": {
+     "message": "راه اتصال باز شده است"
+   },
+   "unknown_error_message": {
+     "message": "خطای نامشخصی اتفاق افتاده است"
+   },
+   "unknown_error_title": {
+     "message": "خطای نامشخص"
+   },
+   "update_connection_string": {
+     "message": "رشته اتصال به‌روزرسانی شود"
+   },
+   "upgrade_info": {
+     "description": "Besides the application upgrade button under settings.",
+     "message": "الکثیر به شکل خودکار بعد از پایان ارتقاء شروع به کار می‌کند"
+   },
+   "upgrading": {
+     "description": "an upgrade button's label is replaced with this when an upgrade is in action",
+     "message": "در حال ارتقاء"
+   },
+   "url": {
+     "description": "This probably never change",
+     "message": "لینک"
+   },
+   "working": {
+     "description": "A placeholder that will be replaced when content is avialable",
+     "message": "در حال کار است"
+   }
+ }
