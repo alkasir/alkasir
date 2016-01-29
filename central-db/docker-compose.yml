@@ -1,0 +1,28 @@
+redis:
+  image: redis:3.0.2
+  ports:
+    - "39550:6379"
+
+db:
+  build: db/
+  ports:
+    - "39558:5432"
+  expose:
+    - "5432"
+  environment:
+    POSTGRES_PASSWORD: alkasirdev
+    POSTGRES_USER: postgres
+
+liquibase:
+  build: changelogs/
+  links:
+    - db
+  command: --version
+  environment:
+    LB_DB_HOST: db
+    LB_DB_DATABASE: alkasir_central
+    LB_DB_USER: alkasir_central
+    LB_DB_PASSWORD: alkasir_central
+    CHANGELOG_FILE: master.xml
+  volumes:
+    - "./changelogs:/changelogs/:ro"

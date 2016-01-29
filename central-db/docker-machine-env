@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# Run this command to configure your shell: eval "$(./docker-machine-dev-env.sh)"
+
+docker-machine env || exit 1
+
+ip=$(docker-machine ip)
+echo "export ALKASIR_PGCONN=\"user=alkasir_central password=alkasir_central dbname=alkasir_central host=${ip} port=39558 sslmode=disable\""
+echo "export ALKASIR_REDISSERVER=\"${ip}:39550\""
+echo "export ALKASIR_DB_HOST=${ip}"
+echo "export ALKASIR_REDIS_HOST=${ip}"

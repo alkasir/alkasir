@@ -1,0 +1,11 @@
+#!/bin/bash
+
+pgweb \
+  --bind 0.0.0.0 \
+  --listen 39348 \
+  --host=${ALKASIR_DB_HOST:-127.0.0.1} \
+  --db=alkasir_central \
+  --port=39558 \
+  --user=alkasir_central \
+  --pass=alkasir_central -s  \
+  --ssl=disable &
