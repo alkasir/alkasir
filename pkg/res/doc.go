@@ -1,0 +1,2 @@
+// binary resources
+package res

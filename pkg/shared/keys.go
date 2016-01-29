@@ -1,0 +1,41 @@
+package shared
+
+// UpgradeVerificationPublicKey is a ED25519 public key to verify binary.
+// upgrades.
+var UpgradeVerificationPublicKey = `-----BEGIN ALKASIR UPGRADES PUBLIC KEY-----
+/jeHJKHfFOJXrw99mMKubdbpPwZlyRLUXEilLwq3dt8=
+-----END ALKASIR UPGRADES PUBLIC KEY-----`
+
+// AlkasirDevGPGPublicKey is a public GPG key used used to sign full downloads.
+var AlkasirDevGPGPublicKey = `-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: GnuPG v1
+
+mQENBFYnO8YBCAC19Im9OrVNoYVxHlEWWqGdZrudSvv/1gaSoA6nlahyowrYdZK7
+D70mxbOcKyUWg5DDPruFeSlnbxgOZDVa0Op4TOonMLPymugeXyj16dx+K0yjZ1g5
+K740goRI6nHQWiSjDOQ3DLMYlqRrw3HnAe+rv9MccCni7a8vNuGSl8bCppnjsede
+15VfRUhdWzmtIv4dXykopSe5MdyGjq7becY48vqzCRh2+3vzlyTHKQpQcngEmwYB
+JX2FF/uXEKkuYj2tifCNpZir66yl1eyxq/DQBRwkkyYLL0tIDppRIreCl73ucO9e
+NppO6MXZ2xf1Du3zsq6dsbQkF17vKNg0yVvxABEBAAG0MkFsa2FzaXIgRGV2ZWxv
+cGVycyAoc2lnbmluZyBrZXkpIDxkZXZAYWxrYXNpci5jb20+iQE4BBMBAgAiBQJW
+JzvGAhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRAmQrcAWUOzKP1MB/sG
+65aDWajfgHFDOY72LjwVTOJct7toZ8cErJ3JgO01IaM/gR9tUh8R9O2v3kI8MSD8
+1GV0L/3/FZLn5CNQSqDSY0QjU1vkUrcq1qOL0GiOKY6xUOVPBQUmcUlr2yeg1Cra
+51/FunRI+LyhvSqdzhdOto61mGVyup0qa5KJSWBrP1umj/4V7bIr/axBYTEEzBNd
+pvyxoUWcKFO5Y1YsM2eZikzUDAPnLT0fp22VacNWs6/hEMHeFXJh/lUODusv/nfK
+1s6+4FbPhRqv2Jiy0L4AKrDbcOpuayyH53Rc+cQAnf3idSjPbl+rfSj17P6l3EXv
+MaCYWPiSrBPPYAn8xtU2uQENBFYnO8YBCADwS69KkAgZ8egweEaYlob32CokHEYk
+F+iadyEjCJTlaVOVa/0b48b/WG42ZJIxaCJmQwIieULEo9hFOISG1bCFSBAepHDb
+U8Nul9/4+zra8O2GsoSD8D5+keo6C76j68otxPKRkM9PoGVDJ7larlJbvzDKmyLm
+8YaZD/ndKjrA4NBcNRtRLZHJ24q/z9HVmYobkibXjulBZ9GAEJaaNOr7kBeGTSe0
+CWfyI3LjPQk4qFiQnBfy3gzdtV+dArAFsaH111qZiPADWQcFd8wCRpmkosMGwY4s
+FESiYQwlllzipDjuaED35+8R17dMbc8c7GR68/uoqLFXK3VydsRRk+/VABEBAAGJ
+AR8EGAECAAkFAlYnO8YCGwwACgkQJkK3AFlDsyhWeAgArmcsgVSfYwM3lu287rAA
+WR6wNNWFu9NcZYvmbZfmIpIfZwOMINbv2Z/9IDjzihAh6RvUsltf7uFhDdD0FGjS
+BdhiEwA/8H/NTv8mP3hCUiJ3gQYNFcJEAf0vYCz1ZMm6KeUdp2B/K2VVw3AhEAx5
+1yB5SDgsIojFNOpU0XnMoWJNl4NgNZlZ9qkImlfZe7qjSUE+jt73q6zCz6nvwMsI
+rgLX9K7Fy13ykFB/5mdjhhZiaXYvDWXPkZBNeAJ9SlzenIpixMrWLRCJmEVyaf0j
+ngYM+7hvdGLa5G7tij+c7R0n4fEhL1xA5qofMznynm8g2vMQxw0WDu0ErpCx7OYS
+5g==
+=tvUE
+-----END PGP PUBLIC KEY BLOCK-----
+`
