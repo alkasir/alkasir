@@ -1,5 +1,7 @@
 # Alkasir v2
 
+[![Join the chat at https://gitter.im/alkasir/alkasir](https://badges.gitter.im/alkasir/alkasir.svg)](https://gitter.im/alkasir/alkasir?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Alkasir is a cross-platform, open-source and robust website censorship
 circumvention tool that also maps censorship patterns around the world.
 
