@@ -1,0 +1,47 @@
+{
+  "version": "0.0.11",
+  "manifest_version": 2,
+  "default_locale": "en",
+  "description": "__MSG_extension_description__",
+  "name": "__MSG_extension_name__",
+  "icons": {
+    "128": "images/on.png",
+    "48":  "images/on48.png",
+    "16":  "images/on16.png"
+  },
+  "permissions": [
+    "proxy",
+    "tabs",
+    "unlimitedStorage",
+    "storage",
+    "<all_urls>",
+    "webRequest",
+    "webRequestBlocking",
+    "notifications",
+    "webRequest",
+    "cookies",
+    "<all_urls>"
+  ],
+  "background": {
+    "scripts": ["javascripts/background.bundle.js"]
+  },
+  "web_accessible_resources": [
+    "images/*.svg",
+    "images/*.png",
+    "images/*.gif"],
+  "commands": {
+    "open-option": {
+      "suggested_key": {
+        "default": "Alt+O"},
+      "description": "Open option page"
+    }
+  },
+  "options_page": "options.html",
+  "browser_action": {
+    "default_icon": "images/off.png",
+    "default_title": "__MSG_extension_name__",
+    "default_popup": "popup.html"
+  },
+  "minimum_chrome_version":"40.0.0"
+}
+

@@ -1,0 +1,7 @@
+*.swp
+node_modules/
+build/
+src/javascripts/bundle.*
+src/stylesheets/bundle.*
+src/src.zip
+alkasir-chrome-for-chrome-publishing.zip
