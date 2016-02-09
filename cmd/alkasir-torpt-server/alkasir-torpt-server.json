@@ -1,0 +1,12 @@
+{
+  "statelocation": ".",
+  "methods": [
+   {
+    "name": "obfs4",
+    "bindaddr": "127.0.0.1:4423",
+    "args": "drbg-seed=c23e876ddc408cc392317e017a6796a96161f76d8dd90522;iat-mode=0;node-id=4d3e4561149907025571827a1277661b5f9fca46;private-key=7886017adfd178cd139e91250dddee0b2af8ab6cf93f1fe9a7a469d3a13a3067;public-key=4393d7641042620a60881a72ebb47ef8c5a5840acb4f858e5c0026cb2e75fd6f"
+   }
+  ],
+  "extport": "",
+  "orport": "127.0.0.1:23450"
+ }
