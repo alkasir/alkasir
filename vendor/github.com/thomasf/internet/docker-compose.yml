@@ -1,0 +1,4 @@
+redis:
+  image: redis
+  ports:
+    - "28743:6379"
