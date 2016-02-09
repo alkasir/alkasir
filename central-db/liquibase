@@ -1,0 +1,10 @@
+#!/bin/sh
+
+docker-compose build liquibase > /dev/null || exit 1
+
+if [ "$#" -lt 1 ]; then
+  exec docker-compose run --rm liquibase help
+else
+  echo Running Liquibase using docker-compose...
+  exec docker-compose run --rm liquibase "$@"
+fi

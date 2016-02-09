@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+  <changeSet author="thomasf" id="20150415-222229-CEST">
+    <sql>create extension if not exists hstore</sql>
+    <rollback>
+      <sql>drop extension if exists hstore</sql>
+    </rollback>
+  </changeSet>
+
+  <changeSet author="thomasf" id="20150415-222235-CEST">
+    <comment>Add enum with all country codes</comment>
+    <sql>CREATE TYPE country_code AS ENUM (
+    'AF', 'AL', 'DZ', 'AS', 'AD', 'AO', 'AI', 'AQ', 'AG', 'AR', 'AM', 'AW',
+    'AU', 'AT', 'AZ', 'BS', 'BH', 'BD', 'BB', 'BY', 'BE', 'BZ', 'BJ', 'BM',
+    'BT', 'BO', 'BA', 'BW', 'BV', 'BR', 'IO', 'BN', 'BG', 'BF', 'BI', 'KH',
+    'CM', 'CA', 'CV', 'KY', 'CF', 'TD', 'CL', 'CN', 'CX', 'CC', 'CO', 'KM',
+    'CG', 'CK', 'CR', 'HR', 'CU', 'CY', 'CZ', 'DK', 'DJ', 'DM', 'DO', 'TP',
+    'EC', 'EG', 'SV', 'GQ', 'ER', 'EE', 'ET', 'FK', 'FO', 'FJ', 'FI', 'CS',
+    'FR', 'GF', 'TF', 'GA', 'GM', 'GE', 'DE', 'GH', 'GI', 'GB', 'GR', 'GL',
+    'GD', 'GP', 'GU', 'GT', 'GN', 'GW', 'GY', 'HT', 'HM', 'HN', 'HK', 'HU',
+    'IS', 'IN', 'ID', 'IR', 'IQ', 'IE', 'IL', 'IT', 'CI', 'JM', 'JP', 'JO',
+    'KZ', 'KE', 'KI', 'KW', 'KG', 'LA', 'LV', 'LB', 'LS', 'LR', 'LY', 'LI',
+    'LT', 'LU', 'MO', 'MK', 'MG', 'MW', 'MY', 'MV', 'ML', 'MT', 'MH', 'MQ',
+    'MR', 'MU', 'YT', 'MX', 'FM', 'MD', 'MC', 'MN', 'MS', 'MA', 'MZ', 'MM',
+    'NA', 'NR', 'NP', 'NL', 'AN', 'NC', 'NZ', 'NI', 'NE', 'NG', 'NU', 'NF',
+    'KP', 'MP', 'NO', 'OM', 'PK', 'PW', 'PA', 'PG', 'PY', 'PE', 'PH', 'PN',
+    'PL', 'PF', 'PT', 'PR', 'QA', 'RE', 'RO', 'RU', 'RW', 'GS', 'SH', 'KN',
+    'LC', 'PM', 'ST', 'VC', 'WS', 'SM', 'SA', 'SN', 'SC', 'SL', 'SG', 'SK',
+    'SI', 'SB', 'SO', 'ZA', 'KR', 'ES', 'LK', 'SD', 'SR', 'SJ', 'SZ', 'SE',
+    'CH', 'SY', 'TJ', 'TW', 'TZ', 'TH', 'TG', 'TK', 'TO', 'TT', 'TN', 'TR',
+    'TM', 'TC', 'TV', 'UG', 'UA', 'AE', 'US', 'UY', 'UM', 'UZ', 'VU',
+    'VA', 'VE', 'VN', 'VG', 'VI', 'WF', 'EH', 'YE', 'ZM', 'ZW'
+    )</sql>
+    <rollback>
+      <sql>DROP TYPE country_code</sql>
+    </rollback>
+  </changeSet>
+
+  <changeSet author="thomasf" id="20150415-222240-CEST">
+    <sql>CREATE TYPE log_action AS ENUM ('Add', 'Remove', 'Update')</sql>
+    <rollback>
+      <sql>DROP TYPE log_action</sql>
+    </rollback>
+  </changeSet>
+
+<!-- The common columns are id, host, country_code, asn and created_at which for all tables that has them begin with
+     them in this exact order. -->
+
+  <changeSet author="thomasf" id="20150415-222247-CEST">
+    <createTable tableName="hosts_publish">
+      <column name="id" type="serial" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="host" type="text">
+        <constraints nullable="false"/>
+      </column>
+      <column name="country_code" type="country_code">
+        <constraints nullable="true"/>
+      </column>
+      <column name="asn" type="int">
+        <constraints nullable="true"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE" defaultValue="now()"/>
+      <column name="sticky" type="bool" defaultValue="false">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+
+  <changeSet author="thomasf" id="20150415-222251-CEST">
+    <createTable tableName="hosts_publish_log">
+      <column name="id" type="serial" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="host" type="text">
+        <constraints nullable="false"/>
+      </column>
+      <column name="country_code"  type="country_code">
+        <constraints nullable="true"/>
+      </column>
+      <column name="asn" type="int">
+        <constraints nullable="true"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE"  defaultValue="now()"/>
+      <column name="sticky" type="bool" defaultValue="false">
+        <constraints nullable="false"/>
+      </column>
+      <column name="action" type="log_action">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+
+  <changeSet author="thomasf" id="20150415-222254-CEST">
+    <createTable tableName="hosts_unsupported">
+      <column name="id" type="serial" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="host" type="text">
+        <constraints nullable="false"/>
+      </column>
+      <column name="country_code" type="country_code">
+        <constraints nullable="true"/>
+      </column>
+      <column name="asn" type="int">
+        <constraints nullable="true"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE"  defaultValue="now()"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet author="thomasf" id="20150415-222304-CEST">
+    <sql>CREATE TYPE sample_origin AS ENUM ('Central', 'Client')</sql>
+    <rollback>
+      <sql>DROP TYPE sample_origin</sql>
+    </rollback>
+  </changeSet>
+
+  <changeSet author="thomasf" id="20150415-222307-CEST">
+    <sql>CREATE TYPE sample_type AS ENUM ('NewClientToken', 'HTTPHeader')</sql>
+    <rollback>
+      <sql>DROP TYPE sample_type</sql>
+    </rollback>
+  </changeSet>
+
+  <changeSet author="thomasf" id="20150415-222310-CEST">
+    <createTable tableName="samples">
+      <column name="id" type="serial" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="host" type="text">
+        <constraints nullable="false"/>
+      </column>
+      <column name="country_code"  type="country_code">
+        <constraints nullable="true"/>
+      </column>
+      <column name="asn" type="int">
+        <constraints nullable="true"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE"  defaultValue="now()"/>
+      <column name="origin" type="sample_origin">
+        <constraints nullable="false"/>
+      </column>
+      <column name="type" type="sample_type">
+        <constraints nullable="false"/>
+      </column>
+      <column name="token" type="text">
+        <constraints nullable="true"/>
+      </column>
+      <column name="data" type="jsonb">
+        <constraints nullable="false"/>
+      </column>
+      <column name="extra_data" type="jsonb" defaultValue="{}">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet author="thomasf" id="20150601-232449-CEST" runInTransaction="false">
+    <sql>ALTER TYPE sample_type ADD VALUE IF NOT EXISTS 'BrowserExtension'</sql>
+    <!-- postgres enum values cannot be removed -->
+    <rollback />
+  </changeSet>
+
+  <changeSet author="thomasf" id="20150610-123124-CEST" runInTransaction="false">
+    <sql>ALTER TYPE sample_type ADD VALUE IF NOT EXISTS 'DNSQuery'</sql>
+    <!-- postgres enum values cannot be removed -->
+    <rollback />
+  </changeSet>
+
+  <changeSet author="thomasf" id="20150628-034419-CEST" runInTransaction="false">
+    <sql splitStatements="false">
+    CREATE OR REPLACE FUNCTION log_host_publish() RETURNS TRIGGER AS $log_host_publish$
+        BEGIN
+            IF (TG_OP = 'DELETE') THEN
+                INSERT INTO hosts_publish_log (host, country_code, asn, sticky, action) SELECT OLD.host, OLD.country_code, OLD.ASN, OLD.sticky, 'Remove';
+                RETURN OLD;
+            ELSIF (TG_OP = 'UPDATE') THEN
+                INSERT INTO hosts_publish_log (host, country_code, asn, sticky, action) SELECT NEW.host, NEW.country_code, NEW.ASN, NEW.sticky, 'Update';
+                RETURN NEW;
+            ELSIF (TG_OP = 'INSERT') THEN
+                INSERT INTO hosts_publish_log (host, country_code, asn, sticky, action) SELECT NEW.host, NEW.country_code, NEW.ASN, NEW.sticky, 'Add';
+                RETURN NEW;
+            END IF;
+            RETURN NULL; -- result is ignored since this is an AFTER trigger
+        END;
+    $log_host_publish$ LANGUAGE plpgsql;
+
+    CREATE TRIGGER log_host_publish
+    AFTER INSERT OR UPDATE OR DELETE ON hosts_publish
+    FOR EACH ROW EXECUTE PROCEDURE log_host_publish();
+    </sql>
+    <rollback>
+      <sql>
+        drop trigger log_host_publish on hosts_publish;
+        drop function log_host_publish();
+      </sql>
+    </rollback>
+  </changeSet>
+
+  <changeSet author="thomasf" id="20150817-174218-CEST">
+    <createTable tableName="export_api_auth">
+      <column name="id" type="serial" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="enabled" type="bool" defaultValue="true">
+        <constraints nullable="false"/>
+      </column>
+      <column name="username" type="text">
+        <constraints nullable="false" unique="true" />
+      </column>
+      <column name="hash" type="text">
+        <constraints nullable="false"/>
+      </column>
+      <column name="salt" type="text">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE" defaultValue="now()"/>
+      <column name="comments" type="text">
+        <constraints nullable="true"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet author="thomasf" id="20150817-174920-CEST">
+    <createIndex
+        indexName="idx_public_auth"
+        tableName="export_api_auth"
+        unique="true">
+      <column name="enabled" type="bool"/>
+      <column name="username" type="text"/>
+    </createIndex>
+  </changeSet>
+
+  <changeSet author="thomasf" id="20150817-174924-CEST">
+    <createTable tableName="export_api_audit">
+      <column name="id" type="serial" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="export_api_auth_id" type="int">
+        <constraints foreignKeyName="fk_auth_id" references="export_api_auth(id)"/>
+      </column>
+      <column name="request" type="text">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet author="thomasf" id="20150903-053233-CEST">
+    <createTable tableName="central_state">
+      <column name="name" type="text">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="value" type="text">
+        <constraints nullable="true"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet author="thomasf" id="20150903-053236-CEST">
+    <createIndex
+        indexName="idx_name"
+        tableName="central_state"
+        unique="true">
+      <column name="name" type="text"/>
+    </createIndex>
+  </changeSet>
+
+  <changeSet author="thomasf" id="20150925-214943-CEST">
+    <sql>CREATE TYPE simple_sample_type AS ENUM ('ClientBlocklistUpdate')</sql>
+    <rollback>
+      <sql>DROP TYPE simple_sample_type</sql>
+    </rollback>
+  </changeSet>
+
+  <changeSet author="thomasf" id="20150925-214948-CEST">
+    <createTable tableName="simple_samples">
+      <column name="id" type="serial" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="country_code"  type="country_code">
+        <constraints nullable="true"/>
+      </column>
+      <column name="asn" type="int">
+        <constraints nullable="true"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE"  defaultValue="now()"/>
+      <column name="type" type="simple_sample_type">
+        <constraints nullable="false"/>
+      </column>
+      <column name="origin_id" type="text">
+        <constraints nullable="true"/>
+      </column>
+      <column name="data" type="jsonb" defaultValue="{}">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet author="thomasf" id="20150929-174022-CEST">
+    <createTable tableName="hosts_related">
+      <column name="id" type="serial" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="host" type="text">
+        <constraints nullable="false"/>
+      </column>
+      <column name="related" type="text">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet author="thomasf" id="20151005-122340-CEST">
+    <createTable tableName="upgrades">
+      <column name="id" type="serial" autoIncrement="true">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+      <column name="artifact" type="text">
+        <constraints nullable="false"/>
+      </column>
+      <column name="version" type="text">
+        <constraints nullable="false"/>
+      </column>
+      <column name="published" type="bool" defaultValue="false">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE"  defaultValue="now()"/>
+      <column name="sha256sum" type="text">
+        <constraints nullable="false"/>
+      </column>
+      <column name="ed25519sig" type="text">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet author="thomasf" id="20151005-142540-CEST">
+    <sql>
+      CREATE UNIQUE INDEX idx_published_upgrades
+      ON upgrades
+      USING btree
+      (artifact, version)
+      WHERE published = true;
+    </sql>
+    <rollback>
+      <sql>
+        drop index idx_published_upgrades;
+      </sql>
+    </rollback>
+  </changeSet>
+
+  <changeSet author="thomasf" id="20151005-144712-CEST">
+    <addUniqueConstraint
+        columnNames="artifact, version"
+        constraintName="const_uniq_upgrade"
+        tableName="upgrades" />
+  </changeSet>
+
+  <!-- <changeSet author="thomasf" id="20151214-181537-CET"> -->
+  <!--   <modifyDataType -->
+  <!--       tableName="samples" -->
+  <!--       columnName="created_at" -->
+  <!--       newDataType="DATE WITHOUT TIME ZONE" /> -->
+  <!-- </changeSet> -->
+
+  <!-- <changeSet author="thomasf" id="20151214-181540-CET"> -->
+  <!--   <modifyDataType -->
+  <!--       tableName="simple_samples" -->
+  <!--       columnName="created_at" -->
+  <!--       newDataType="DATE WITHOUT TIME ZONE" /> -->
+  <!-- </changeSet> -->
+
+</databaseChangeLog>
