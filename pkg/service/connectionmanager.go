@@ -247,7 +247,7 @@ func testSocks5Internet(addr string) (err error) {
 			ResponseHeaderTimeout: time.Duration(time.Second * 10),
 		},
 	}
-	resp, err := httpClient.Get("http://central.server.domain")
+	resp, err := httpClient.Get("https://alkasir.com/ping")
 	if err != nil {
 		return err
 	}
