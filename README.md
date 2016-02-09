@@ -23,13 +23,6 @@ The code will be modified to allow the differences to be configurable at build
 time, some public CI service will be configured as well in a not to distant
 future.
 
-**The commit history of this repository will be fully replaced continuously by
-a script during the initial open sourcing phase until
-https://github.com/alkasir/alkasir/issues/1 is resolved and/or this notice is
-removed. The contents of this repository is currently autogeneratet by a
-script**
-
-
 ## Hacking
 
 Se [hacking](hacking.md) for information on how to set up an development environment.
