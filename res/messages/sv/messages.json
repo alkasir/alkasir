@@ -1,0 +1,589 @@
+{
+   "action_cancel": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": ""
+   },
+   "action_check": {
+     "description": "(several kinds of updates using a network connection)Used for buttons, links, menu items and similar occations.",
+     "message": ""
+   },
+   "action_close": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": ""
+   },
+   "action_continue": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": ""
+   },
+   "action_exit": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": ""
+   },
+   "action_finish": {
+     "description": "Last step of guides unless that step is submit.",
+     "message": ""
+   },
+   "action_help": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": ""
+   },
+   "action_ignore": {
+     "description": "(application upgrades) Used for buttons, links, menu items and similar occations.",
+     "message": ""
+   },
+   "action_next": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": ""
+   },
+   "action_ok": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": ""
+   },
+   "action_pause": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": ""
+   },
+   "action_retry": {
+     "description": "Probably only used after a timeout occurred originating from a form.",
+     "message": ""
+   },
+   "action_save": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": ""
+   },
+   "action_send": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": ""
+   },
+   "action_settings": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": ""
+   },
+   "action_update": {
+     "description": "(several kinds of updates using a network connection)Used for buttons, links, menu items and similar occations.",
+     "message": ""
+   },
+   "action_upgrade": {
+     "description": "(application upgrades) Used for buttons, links, menu items and similar occations.",
+     "message": ""
+   },
+   "actions": {
+     "description": "...",
+     "message": ""
+   },
+   "additional_features": {
+     "message": ""
+   },
+   "advanced_settings": {
+     "message": ""
+   },
+   "allow_applicaton_error_collection": {
+     "message": ""
+   },
+   "allow_extended_analysis": {
+     "message": ""
+   },
+   "allow_local_persistence": {
+     "message": ""
+   },
+   "app_docs_name": {
+     "description": "Label for the docs app, used for navigation and page titles.",
+     "message": ""
+   },
+   "app_home_name": {
+     "description": "Label for the home app, used for navigation and page titles.",
+     "message": ""
+   },
+   "app_settings_name": {
+     "description": "Label for the settings app, used for navigation and page titles.",
+     "message": ""
+   },
+   "app_suggest_name": {
+     "description": "Label for the suggest url app, used for navigation and page titles.",
+     "message": ""
+   },
+   "application_auto_upgrade": {
+     "message": ""
+   },
+   "application_auto_upgrade_check": {
+     "message": ""
+   },
+   "application_upgrades": {
+     "message": ""
+   },
+   "block_list_updates": {
+     "message": ""
+   },
+   "blocklist_auto_update": {
+     "message": ""
+   },
+   "blocklist_update_error_message": {
+     "message": ""
+   },
+   "blocklist_update_error_title": {
+     "message": ""
+   },
+   "blocklist_update_init_message": {
+     "message": ""
+   },
+   "blocklist_update_init_title": {
+     "message": ""
+   },
+   "blocklist_update_success_message": {
+     "message": ""
+   },
+   "blocklist_update_success_title": {
+     "message": ""
+   },
+   "blocklist_update_warning_message": {
+     "message": ""
+   },
+   "blocklist_update_warning_title": {
+     "message": ""
+   },
+   "browser_code": {
+     "message": ""
+   },
+   "browser_code_explain": {
+     "message": ""
+   },
+   "browser_integration": {
+     "message": ""
+   },
+   "browser_integration_chrome_success": {
+     "message": ""
+   },
+   "browser_integration_error": {
+     "message": ""
+   },
+   "browser_integration_firefox_success": {
+     "message": ""
+   },
+   "central_connected_message": {
+     "message": ""
+   },
+   "central_connected_title": {
+     "message": ""
+   },
+   "central_error_message": {
+     "message": ""
+   },
+   "central_error_title": {
+     "message": ""
+   },
+   "central_warning_message": {
+     "message": ""
+   },
+   "central_warning_title": {
+     "message": ""
+   },
+   "checking": {
+     "description": "This will be displayed on the check button while it's checking.",
+     "message": ""
+   },
+   "connection_string": {
+     "message": ""
+   },
+   "connection_string_help": {
+     "message": ""
+   },
+   "copy_browser_code_to_clipboard": {
+     "message": ""
+   },
+   "copy_to_clipboard": {
+     "message": ""
+   },
+   "current_version": {
+     "description": "...",
+     "message": ""
+   },
+   "done": {
+     "message": ""
+   },
+   "ext_browser_code_explain": {
+     "message": ""
+   },
+   "ext_browser_code_field_help": {
+     "message": ""
+   },
+   "ext_browser_code_field_placeholder": {
+     "message": ""
+   },
+   "ext_browser_code_msg_client_conn_error": {
+     "message": ""
+   },
+   "ext_browser_code_msg_client_newer_error": {
+     "message": ""
+   },
+   "ext_browser_code_msg_client_older_error": {
+     "message": ""
+   },
+   "ext_browser_code_msg_invalid_code": {
+     "message": ""
+   },
+   "extension_client_not_available_message": {
+     "message": ""
+   },
+   "extension_client_not_available_title": {
+     "message": ""
+   },
+   "extension_client_not_avialable_open_browser_options": {
+     "description": "Shown in the browser extension popup window followed by a continue button that opens the options page in a browser tab",
+     "message": ""
+   },
+   "extension_connected_message": {
+     "message": ""
+   },
+   "extension_connected_title": {
+     "message": ""
+   },
+   "extension_description": {
+     "description": "For chrome webstore and extensions page",
+     "message": "Alkasir"
+   },
+   "extension_disconnected_message": {
+     "message": ""
+   },
+   "extension_disconnected_title": {
+     "message": ""
+   },
+   "extension_extension_not_available_title": {
+     "message": ""
+   },
+   "extension_name": {
+     "description": "For chrome webstore and extensions page",
+     "message": "Alkasir"
+   },
+   "extension_options": {
+     "description": "For chrome popup icon right click access to extension options menu",
+     "message": ""
+   },
+   "form_label_country": {
+     "message": ""
+   },
+   "form_label_language": {
+     "message": ""
+   },
+   "language_and_location": {
+     "message": ""
+   },
+   "language_option_ar": {
+     "message": ""
+   },
+   "language_option_en": {
+     "message": ""
+   },
+   "language_option_fa": {
+     "message": ""
+   },
+   "language_option_sv": {
+     "message": ""
+   },
+   "language_option_zn": {
+     "message": ""
+   },
+   "last_update": {
+     "description": "...",
+     "message": ""
+   },
+   "last_update_check": {
+     "description": "...",
+     "message": ""
+   },
+   "latest_version": {
+     "description": "...",
+     "message": ""
+   },
+   "listen_error_message": {
+     "message": "",
+     "placeholders": {
+       "laddr": {
+         "content": "$1",
+         "example": ":8080"
+       }
+     }
+   },
+   "listen_error_title": {
+     "message": ""
+   },
+   "location_setup_required": {
+     "message": ""
+   },
+   "network_connected_message": {
+     "message": ""
+   },
+   "network_connected_title": {
+     "message": ""
+   },
+   "network_error_message": {
+     "message": ""
+   },
+   "network_error_title": {
+     "message": ""
+   },
+   "network_timeout_error_message": {
+     "message": ""
+   },
+   "network_timeout_error_title": {
+     "message": ""
+   },
+   "notification_settings": {
+     "message": ""
+   },
+   "notification_settings_explain_short": {
+     "message": ""
+   },
+   "notifications": {
+     "description": "Label for the home app heading.",
+     "message": ""
+   },
+   "notify_option_blocklist_update_error": {
+     "description": "Used for notification settings.",
+     "message": ""
+   },
+   "notify_option_blocklist_update_success": {
+     "description": "Used for notification settings.",
+     "message": ""
+   },
+   "notify_option_browser_extension_client_not_available": {
+     "description": "Used for notification settings.",
+     "message": ""
+   },
+   "notify_option_browser_extension_connected": {
+     "description": "Used for notification settings.",
+     "message": ""
+   },
+   "notify_option_browser_extension_error": {
+     "description": "Used for notification settings.",
+     "message": ""
+   },
+   "notify_option_central_error": {
+     "description": "Used for notification settings.",
+     "message": ""
+   },
+   "notify_option_general_client_error": {
+     "description": "Used for notification settings.",
+     "message": ""
+   },
+   "notify_option_general_network_error": {
+     "description": "Used for notification settings.",
+     "message": ""
+   },
+   "notify_option_suggest_detected": {
+     "description": "Used for notification settings.",
+     "message": ""
+   },
+   "notify_option_transport_conn_opened": {
+     "description": "Used for notification settings.",
+     "message": ""
+   },
+   "notify_option_transport_connected": {
+     "description": "Used for notification settings.",
+     "message": ""
+   },
+   "notify_option_transport_error": {
+     "description": "Used for notification settings.",
+     "message": ""
+   },
+   "notify_option_upgrade_error": {
+     "description": "Used for notification settings.",
+     "message": ""
+   },
+   "notify_option_upgrade_new_version_available": {
+     "description": "Used for notification settings.",
+     "message": ""
+   },
+   "notify_option_upgrade_upgrading": {
+     "description": "Used for notification settings.",
+     "message": ""
+   },
+   "notify_section_blocklist_update": {
+     "description": "Used for notification settings.",
+     "message": ""
+   },
+   "notify_section_browser_extension": {
+     "description": "Used for notification settings.",
+     "message": ""
+   },
+   "notify_section_central": {
+     "description": "Used for notification settings.",
+     "message": ""
+   },
+   "notify_section_general": {
+     "description": "Used for notification settings.",
+     "message": ""
+   },
+   "notify_section_suggest": {
+     "description": "Used for notification settings.",
+     "message": ""
+   },
+   "notify_section_transport": {
+     "description": "Used for notification settings.",
+     "message": ""
+   },
+   "notify_section_upgrade": {
+     "description": "Used for notification settings.",
+     "message": ""
+   },
+   "notify_type_desktop": {
+     "description": "Used for notification settings. This option enabled desktop notifications.",
+     "message": ""
+   },
+   "notify_type_icon": {
+     "description": "Used for notification settings. This option enabled notifications by flashing either the tray/dock icon ir browser extension icon (unspecified).",
+     "message": ""
+   },
+   "ok": {
+     "message": ""
+   },
+   "open_in_browser": {
+     "message": ""
+   },
+   "options": {
+     "description": "Used as header for",
+     "message": ""
+   },
+   "page_not_found": {
+     "message": ""
+   },
+   "page_title": {
+     "message": ""
+   },
+   "quit_alkasir": {
+     "message": ""
+   },
+   "restore_default_settings": {
+     "description": "Used on settings pages to restore default values",
+     "message": ""
+   },
+   "server_error_message": {
+     "description": "A last resort generic error type, probably not used.",
+     "message": ""
+   },
+   "server_error_title": {
+     "description": "A last resort generic error type, probably not used.",
+     "message": ""
+   },
+   "setup": {
+     "description": "Header for first time setup guide",
+     "message": ""
+   },
+   "setup_required_firstrun_message": {
+     "description": "Title for notification telling user that Alkasir needs to be configured for the first time.",
+     "message": ""
+   },
+   "setup_required_title": {
+     "description": "Title for notification telling user that Alkasir needs to be configured",
+     "message": ""
+   },
+   "status": {
+     "description": "...",
+     "message": ""
+   },
+   "status_error_message": {
+     "message": ""
+   },
+   "status_ok_message": {
+     "message": ""
+   },
+   "status_title": {
+     "message": ""
+   },
+   "status_warning_message": {
+     "message": ""
+   },
+   "suggest_denied_message": {
+     "message": ""
+   },
+   "suggest_denied_title": {
+     "message": ""
+   },
+   "suggest_details": {
+     "message": ""
+   },
+   "suggest_details_title": {
+     "message": ""
+   },
+   "suggest_done_message": {
+     "message": ""
+   },
+   "suggest_explain_short": {
+     "message": ""
+   },
+   "suggest_this_message": {
+     "message": "",
+     "placeholders": {
+       "url": {
+         "content": "$1",
+         "example": "httt://google.com/q=query"
+       }
+     }
+   },
+   "suggest_this_title": {
+     "message": ""
+   },
+   "toggle_detailed_settings": {
+     "message": ""
+   },
+   "transport_connected_message": {
+     "message": ""
+   },
+   "transport_connected_title": {
+     "message": ""
+   },
+   "transport_disconnected_message": {
+     "message": ""
+   },
+   "transport_disconnected_title": {
+     "message": ""
+   },
+   "transport_error_message": {
+     "message": ""
+   },
+   "transport_error_title": {
+     "message": ""
+   },
+   "transport_init_message": {
+     "message": ""
+   },
+   "transport_init_title": {
+     "message": ""
+   },
+   "transport_warning_message": {
+     "message": ""
+   },
+   "transport_warning_title": {
+     "message": ""
+   },
+   "transported_connection_opened_message": {
+     "message": ""
+   },
+   "transported_connection_opened_title": {
+     "message": ""
+   },
+   "unknown_error_message": {
+     "message": ""
+   },
+   "unknown_error_title": {
+     "message": ""
+   },
+   "update_connection_string": {
+     "message": ""
+   },
+   "upgrade_info": {
+     "description": "Besides the application upgrade button under settings.",
+     "message": ""
+   },
+   "upgrading": {
+     "description": "an upgrade button's label is replaced with this when an upgrade is in action",
+     "message": ""
+   },
+   "url": {
+     "description": "This probably never change",
+     "message": ""
+   },
+   "working": {
+     "description": "A placeholder that will be replaced when content is avialable",
+     "message": ""
+   }
+ }
