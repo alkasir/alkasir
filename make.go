@@ -23,7 +23,6 @@ import (
 	"path/filepath"
 	"runtime"
 	"sort"
-	"strconv"
 	"strings"
 	"sync"
 	"text/template"
@@ -1152,22 +1151,27 @@ func CITask() {
 	runCmd("coffeelint", "-f", "browser/.coffeelint", "browser/")
 	runCmd("eslint", "-c", "browser/.eslintrc", "browser/script/")
 
-	buildRelese := false
-	branch := os.Getenv("DRONE_BRANCH")
-	if branch == "release-snapshot" {
-		buildRelese = true
-	} else if strings.HasPrefix(branch, "refs/tags/") {
-		trimmed := strings.TrimPrefix(branch, "refs/tags/")
-		if len(trimmed) > 0 {
-			_, err := strconv.Atoi(string(trimmed[0]))
-			if err == nil {
-				buildRelese = true
-			}
-		}
-	}
-	if buildRelese {
+	releaseTag := os.Getenv("ALKASIR_RELEASE_TAG")
+	if releaseTag != "" {
 		Run("release")
 	}
+
+	// buildRelease := false
+	// branch := os.Getenv("DRONE_BRANCH")
+	// if branch == "release-snapshot" {
+	// 	buildRelease = true
+	// } else if strings.HasPrefix(branch, "refs/tags/") {
+	// 	trimmed := strings.TrimPrefix(branch, "refs/tags/")
+	// 	if len(trimmed) > 0 {
+	// 		_, err := strconv.Atoi(string(trimmed[0]))
+	// 		if err == nil {
+	// 			buildRelease = true
+	// 		}
+	// 	}
+	// }
+	// if buildRelease {
+	// Run("release")
+	// }
 }
 
 // GenMakefileTask creates a simple Makefile. Using make.go directly is more
