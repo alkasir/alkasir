@@ -14,13 +14,13 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/alkasir/alkasir/pkg/central/db"
+	"github.com/alkasir/alkasir/pkg/shared"
 	"github.com/garyburd/redigo/redis"
 	maxminddb "github.com/oschwald/maxminddb-golang"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/thomasf/internet"
 	"github.com/thomasf/lg"
-	"github.com/alkasir/alkasir/pkg/central/db"
-	"github.com/alkasir/alkasir/pkg/shared"
 )
 
 var (
@@ -41,12 +41,10 @@ var mmCountryDB, mmCityDB *maxminddb.Reader
 
 // Init initializes the server.
 func Init() error {
-	emptyRev := shared.InitialRevision()
 	lg.SetSrcHighlight("alkasir/cmd", "alkasir/pkg")
 	lg.CopyStandardLogTo("INFO")
 	lg.V(1).Info("Log v-level:", lg.Verbosity())
 	lg.V(1).Info("Active country codes:", shared.CountryCodes)
-	lg.V(1).Info("Empty hash is:", emptyRev.Hash)
 	lg.Flush()
 
 	if *datadirFlag == "" {
