@@ -15,8 +15,9 @@ func (fn verifyFn) VerifySignature(checksum []byte, signature []byte, hash crypt
 	return fn(checksum, signature, hash, publicKey)
 }
 
-// NewECDSAVerifier returns a Verifier that uses the ECDSA algorithm to verify updates.
-func NewED25519Verifier() update.Verifier {
+// NewED25519Verifierr returns a Verifier that uses the ED25519 algorithm to verify updates.
+func NewED25519Verifier(targetVersion string) update.Verifier {
+
 	return verifyFn(func(checksum, signature []byte, hash crypto.Hash, publicKey crypto.PublicKey) error {
 		key, ok := publicKey.(*[32]byte)
 		if !ok {
@@ -30,7 +31,10 @@ func NewED25519Verifier() update.Verifier {
 		for i, v := range signature {
 			sigRes[i] = v
 		}
-
+		var b []byte
+		b = append(b, []byte(targetVersion)...)
+		b = append(b, byte(0))
+		b = append(b, checksum...)
 		if !ed25519.Verify(key, checksum, sigRes) {
 			return errors.New("failed to verify signature")
 		}
