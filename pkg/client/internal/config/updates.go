@@ -81,7 +81,8 @@ func (m *modifyConnections) Update() []shared.Connection {
 	return result
 }
 
-var centralAddr string // this value is overridden on release builds
+// the default central server url, the value value is overridden on release builds
+var centralAddr string
 
 // UpgradeConfig updates the config, if needed.
 func UpgradeConfig() (bool, error) {
