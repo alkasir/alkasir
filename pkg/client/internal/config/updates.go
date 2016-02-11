@@ -10,77 +10,6 @@ import (
 	"github.com/thomasf/lg"
 )
 
-// modifyConnections .
-type modifyConnections struct {
-	Connections []shared.Connection
-	Remove      []string // values of shared.Connection.Hash()
-	Add         []string // values of shared.Connection.Encode()
-	Protect     []string // valiues of shared.Connection.ID
-}
-
-func (m *modifyConnections) Update() []shared.Connection {
-
-	lg.Infoln("updating connections..")
-
-	if lg.V(19) {
-		lg.Infof("pre upgrade state:")
-		for _, v := range m.Connections {
-			lg.Infoln(v)
-
-		}
-	}
-
-	// create map for id lookups
-	conns := make(map[string]shared.Connection, 0)
-	for _, connection := range m.Connections {
-		conns[connection.ID] = connection
-	}
-
-	// remove old old connections
-	for _, ID := range m.Remove {
-		if _, ok := conns[ID]; ok {
-			lg.V(19).Infof("remove connection: %s", ID)
-			delete(conns, ID)
-		}
-	}
-
-	// add new connections
-	for _, v := range m.Add {
-		conn, err := shared.DecodeConnection(v)
-		if err != nil {
-			lg.Fatal(err)
-		}
-		ID := conn.ID
-		if _, ok := conns[ID]; !ok {
-			lg.V(19).Infof("add connection: %s", ID)
-			conns[ID] = conn
-		}
-	}
-
-	// protect connections
-	for _, ID := range m.Protect {
-		if _, ok := conns[ID]; ok {
-			c := conns[ID]
-			c.Protected = true
-			conns[ID] = c
-			lg.V(19).Infof("protected connection: %s", ID)
-		}
-	}
-
-	var result []shared.Connection
-	for _, v := range conns {
-		result = append(result, v)
-	}
-	if lg.V(19) {
-		lg.Infof("upgraded connections result:")
-		for _, v := range result {
-			lg.Infoln(v)
-
-		}
-	}
-	return result
-}
-
 // the default central server url, the value value is overridden on release builds
 var centralAddr string
 
@@ -156,4 +85,75 @@ func UpgradeConfig() (bool, error) {
 		lg.Errorln("Future configuration version!", currentConfig.Settings.Version)
 	}
 	return currentConfig.Settings.Version != prevVer, nil
+}
+
+// modifyConnections .
+type modifyConnections struct {
+	Connections []shared.Connection
+	Remove      []string // values of shared.Connection.Hash()
+	Add         []string // values of shared.Connection.Encode()
+	Protect     []string // valiues of shared.Connection.ID
+}
+
+func (m *modifyConnections) Update() []shared.Connection {
+
+	lg.Infoln("updating connections..")
+
+	if lg.V(19) {
+		lg.Infof("pre upgrade state:")
+		for _, v := range m.Connections {
+			lg.Infoln(v)
+
+		}
+	}
+
+	// create map for id lookups
+	conns := make(map[string]shared.Connection, 0)
+	for _, connection := range m.Connections {
+		conns[connection.ID] = connection
+	}
+
+	// remove old old connections
+	for _, ID := range m.Remove {
+		if _, ok := conns[ID]; ok {
+			lg.V(19).Infof("remove connection: %s", ID)
+			delete(conns, ID)
+		}
+	}
+
+	// add new connections
+	for _, v := range m.Add {
+		conn, err := shared.DecodeConnection(v)
+		if err != nil {
+			lg.Fatal(err)
+		}
+		ID := conn.ID
+		if _, ok := conns[ID]; !ok {
+			lg.V(19).Infof("add connection: %s", ID)
+			conns[ID] = conn
+		}
+	}
+
+	// protect connections
+	for _, ID := range m.Protect {
+		if _, ok := conns[ID]; ok {
+			c := conns[ID]
+			c.Protected = true
+			conns[ID] = c
+			lg.V(19).Infof("protected connection: %s", ID)
+		}
+	}
+
+	var result []shared.Connection
+	for _, v := range conns {
+		result = append(result, v)
+	}
+	if lg.V(19) {
+		lg.Infof("upgraded connections result:")
+		for _, v := range result {
+			lg.Infoln(v)
+
+		}
+	}
+	return result
 }
