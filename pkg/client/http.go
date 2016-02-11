@@ -1,21 +1,25 @@
 package client
 
 import (
+	"crypto/rand"
+	"encoding/hex"
 	"errors"
 	"fmt"
 	"html/template"
+	mrand "math/rand"
 	"net"
 	"net/http"
 	"strings"
+	"sync"
 	"time"
 
-	"github.com/elazarl/go-bindata-assetfs"
-	"github.com/pkg/browser"
-	"github.com/thomasf/lg"
 	"github.com/alkasir/alkasir/pkg/browsercode"
 	"github.com/alkasir/alkasir/pkg/client/internal/config"
 	"github.com/alkasir/alkasir/pkg/client/ui"
 	"github.com/alkasir/alkasir/pkg/res"
+	"github.com/elazarl/go-bindata-assetfs"
+	"github.com/pkg/browser"
+	"github.com/thomasf/lg"
 )
 
 func startInternalHTTPServer(authKey string) error {
@@ -40,8 +44,10 @@ func startInternalHTTPServer(authKey string) error {
 		lg.Errorln("Could not bind any local port (bootstrap)")
 		return err
 	}
-	url := fmt.Sprintf("http://%s?authKey=%s", listener.Addr().String(), authKey)
-	go func() {
+
+	go func(listenaddr string) {
+		// baseURL := fmt.Sprintf()
+		baseURL := fmt.Sprintf("http://%s?suk=", listenaddr)
 		for {
 			select {
 			case <-ui.Actions.CopyBrowserCodeToClipboard:
@@ -57,13 +63,14 @@ func startInternalHTTPServer(authKey string) error {
 				}
 
 			case <-ui.Actions.OpenInBrowser:
-				browser.OpenURL(url + "#/")
+				browser.OpenURL(baseURL + singleUseKeys.New() + "#/")
 
 			case <-ui.Actions.Help:
-				browser.OpenURL(url + "#/docs/__/index")
+				browser.OpenURL(baseURL + singleUseKeys.New() + "#/docs/__/index")
 			}
+			singleUseKeys.Cleanup()
 		}
-	}()
+	}(listener.Addr().String())
 
 	doneC := make(chan bool, 1)
 	go func() {
@@ -145,6 +152,56 @@ func loadTemplates() (t *template.Template) {
 	return
 }
 
+type singleUseAuthKeyStore struct {
+	sync.Mutex
+	entries map[string]time.Time
+	ttl     time.Duration
+}
+
+func (s *singleUseAuthKeyStore) Authenticate(key string) bool {
+	s.Lock()
+	defer s.Unlock()
+	if v, ok := s.entries[key]; ok {
+		delete(s.entries, key)
+		return time.Now().Before(v.Add(s.ttl))
+	}
+	return false
+
+}
+func (s *singleUseAuthKeyStore) New() string {
+
+	b := make([]byte, 10)
+	_, err := rand.Read(b)
+	if err != nil {
+		lg.Warningln("could not generate secure random key, using non secure random instead")
+		lg.Warningln(err)
+		for i := 0; i < len(b); i++ {
+			b[i] = byte(mrand.Intn(256))
+		}
+	}
+	key := hex.EncodeToString(b)
+
+	s.Lock()
+	defer s.Unlock()
+	s.entries[key] = time.Now()
+	return key
+}
+
+func (s *singleUseAuthKeyStore) Cleanup() {
+	s.Lock()
+	defer s.Unlock()
+	for k, v := range s.entries {
+		if time.Now().After(v.Add(s.ttl)) {
+			delete(s.entries, k)
+		}
+	}
+}
+
+var singleUseKeys = singleUseAuthKeyStore{
+	entries: make(map[string]time.Time, 0),
+	ttl:     5 * time.Minute,
+}
+
 // Auth .
 type Auth struct {
 	Key     string
@@ -155,11 +212,20 @@ func (a Auth) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	authenticated := false
 
 	if !authenticated {
+		key := r.URL.Query().Get("suk") // single use key
+		if singleUseKeys.Authenticate(key) {
+			authenticated = true
+			http.SetCookie(w, &http.Cookie{Name: "authKey", Value: a.Key})
+		}
+	}
+
+	// TODO: this could probably be removed, I don't have time to verify
+	// something is expecting this feature right now.
+	if !authenticated {
 		key := r.URL.Query().Get("authKey")
 		if key == a.Key {
 			authenticated = true
 			http.SetCookie(w, &http.Cookie{Name: "authKey", Value: key})
-
 		}
 	}
 
@@ -188,5 +254,4 @@ func (a Auth) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	lg.V(50).Infoln("unauthenticated call to", r.URL.String())
 	w.WriteHeader(401)
-
 }
