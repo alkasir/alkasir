@@ -6,6 +6,7 @@ import { T } from '../i18n';
 import { Input, Panel } from 'react-bootstrap';
 import Stores from "../Stores";
 import { Document } from ".";
+import Disabled from "./Disabled";
 
 
 var handleBrowserCode = function(str) {
@@ -114,8 +115,8 @@ export default class ChromeOptions extends React.Component {
             <Panel>
               <h1>{T("extension_options")}</h1>
               <Document name="browser_code" />
-              <p>
-                <BrowserCodeInput /> </p>
+              <p><BrowserCodeInput /></p>
+              <Disabled>
                 <h2>{T("status")}</h2>
                 <p>(NOTE only one satatus will be displayed at the same time)</p>
                 <p> {T("status_ok_message")}</p>
@@ -123,6 +124,7 @@ export default class ChromeOptions extends React.Component {
                 <p>{T("ext_browser_code_msg_client_newer_error")}</p>
                 <p>{T("ext_browser_code_msg_client_older_error")}</p>
                 <p>{T("ext_browser_code_msg_invalid_code")}</p>
+              </Disabled>
             </Panel>
         );
     }
