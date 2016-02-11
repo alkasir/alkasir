@@ -21,8 +21,17 @@ gotoPage = (url) ->
     return
   return
 
+setAuthCookie = () ->
+  chrome.cookies.set({
+    url: "#{settings.baseURL}"
+    name: "authKey"
+    value: getAuthKey()
+    domain: "localhost"
+  })
+
 gotoClientPage = (page) ->
-  gotoPage "#{settings.baseURL}/?authKey=#{getAuthKey()}##{page}"
+  setAuthCookie()
+  gotoPage "#{settings.baseURL}/##{page}"
 
 
 module.exports = {
