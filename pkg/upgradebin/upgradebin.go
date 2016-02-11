@@ -6,17 +6,12 @@ import (
 	"encoding/pem"
 	"fmt"
 	"io"
-	"net/http"
 
 	"github.com/agl/ed25519"
+	"github.com/alkasir/alkasir/pkg/shared"
 	"github.com/inconshreveable/go-update"
 	"github.com/thomasf/lg"
-	"github.com/alkasir/alkasir/pkg/shared"
 )
-
-func DownloadAndApplyUpgrade(upgradeResponse shared.BinaryUpgradeResponse, publicKey string, httpclient *http.Client) error {
-	return nil
-}
 
 func NewUpdaterOptions(meta shared.BinaryUpgradeResponse, publicKey string) (update.Options, error) {
 	sum, err := base64.RawURLEncoding.DecodeString(meta.SHA256Sum)
