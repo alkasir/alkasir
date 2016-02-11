@@ -2,14 +2,15 @@ package client
 
 import (
 	"fmt"
+	"net/url"
 	"path"
 	"runtime"
 	"sync"
 
-	"github.com/thomasf/lg"
 	"github.com/alkasir/alkasir/pkg/service"
 	"github.com/alkasir/alkasir/pkg/shared"
 	"github.com/alkasir/alkasir/pkg/upgradebin"
+	"github.com/thomasf/lg"
 )
 
 var (
@@ -94,8 +95,15 @@ func upgradeBinaryCheck(diffsBaseURL string) error {
 		return err
 	}
 
-	URL := path.Join(diffsBaseURL, artifact, VERSION, res.Version)
-	lg.Infoln("downloading %s", URL)
+	u, err := url.Parse(diffsBaseURL)
+	if err != nil {
+		lg.Errorln(err)
+		return err
+	}
+	u.Path = path.Join(u.Path, artifact, VERSION, res.Version)
+	URL := u.String()
+
+	lg.Infoln("downloading", URL)
 	resp, err := httpclient.Get(URL)
 	if err != nil {
 		lg.Errorln(err)
