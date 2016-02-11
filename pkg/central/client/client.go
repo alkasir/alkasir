@@ -123,7 +123,7 @@ func (c *Client) CheckBinaryUpgrade(request shared.BinaryUpgradeRequest) (shared
 
 	if resp.StatusCode != http.StatusOK {
 		return response, false,
-			fmt.Errorf("Updatehostlist http status response: %d", resp.StatusCode)
+			fmt.Errorf("Upgradeversion http status response: %d", resp.StatusCode)
 	}
 	if err := json.NewDecoder(resp.Body).Decode(&response); err != nil {
 		return response, false, err
