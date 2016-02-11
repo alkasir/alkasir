@@ -33,7 +33,8 @@ import (
 
 // ClientAPIVersion is used to verify that the browser/extension and client can
 // speak to eachother.
-const ClientAPIVersion = 1
+//
+const ClientAPIVersion = 2
 
 // routes for alkasir-client
 var routes = []*rest.Route{

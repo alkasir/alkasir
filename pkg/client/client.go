@@ -15,12 +15,12 @@ import (
 	"sync"
 	"time"
 
-	"github.com/thomasf/lg"
 	clientconfig "github.com/alkasir/alkasir/pkg/client/internal/config"
 	"github.com/alkasir/alkasir/pkg/client/ui"
 	"github.com/alkasir/alkasir/pkg/pac"
 	"github.com/alkasir/alkasir/pkg/service"
 	"github.com/alkasir/alkasir/pkg/shared"
+	"github.com/thomasf/lg"
 )
 
 var (

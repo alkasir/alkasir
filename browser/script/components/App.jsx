@@ -22,7 +22,7 @@ var getVersionLoop = _.once(function() {
     }, 3000);
 });
 
-var CLIENT_API_VERSION = 1;
+var CLIENT_API_VERSION = 2;
 
 /**
  *  App
