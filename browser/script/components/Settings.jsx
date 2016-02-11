@@ -433,6 +433,7 @@ var Settings = React.createClass({
                   <Input label={T( "last_update")} wrapperClassName="wrapper">
                   <p>{this.state.statusSummary.lastBlocklistChange}</p>
                   </Input>
+                  <Hidden>
                   <Input label={T( "options")}
                          wrapperClassName="wrapper">
                   <Input type="checkbox"
@@ -449,6 +450,7 @@ var Settings = React.createClass({
                     </Col>
                   </Row>
                   </Input>
+                  </Hidden>
                 </MaybePanel>
             );
         }
