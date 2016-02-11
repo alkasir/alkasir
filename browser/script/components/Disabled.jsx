@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { T } from '../i18n';
+import Hidden from "./Hidden";
 
 
 class Disabeled extends React.Component {
@@ -48,4 +49,8 @@ Disabeled.propTypes = {
     description: React.PropTypes.any,
 };
 
-export default Disabeled;
+// TODO: NOTE: Temorarily just hiding all disabled ui parts for the public
+// release:
+
+// export default Disabeled;
+export default Hidden;
