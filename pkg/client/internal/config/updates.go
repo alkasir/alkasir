@@ -1,11 +1,13 @@
 package clientconfig
 
 import (
+	"crypto/md5"
+	"encoding/hex"
 	"errors"
 
-	"github.com/thomasf/lg"
 	"github.com/alkasir/alkasir/pkg/browsercode"
 	"github.com/alkasir/alkasir/pkg/shared"
+	"github.com/thomasf/lg"
 )
 
 // modifyConnections .
@@ -138,6 +140,16 @@ func UpgradeConfig() (bool, error) {
 		currentConfig.Settings.Version = 4
 		fallthrough
 	case 4:
+		// If the beta url to central server was set, replace it with the default value
+		s := md5.New()
+		s.Write([]byte(currentConfig.Settings.Local.CentralAddr))
+		hsum := hex.EncodeToString(s.Sum(nil))
+		if hsum == "796547bd38f0d8722c2e0802de34b53f" {
+			currentConfig.Settings.Local.CentralAddr = centralAddr
+		}
+		currentConfig.Settings.Version = 5
+		fallthrough
+	case 5:
 		lg.Infoln("Settings version", currentConfig.Settings.Version)
 	default:
 		lg.Errorln("Future configuration version!", currentConfig.Settings.Version)
