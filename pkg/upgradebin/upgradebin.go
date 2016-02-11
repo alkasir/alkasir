@@ -35,7 +35,7 @@ func NewUpdaterOptions(meta shared.BinaryUpgradeResponse, publicKey string) (upd
 
 	return update.Options{
 		Patcher:   update.NewBSDiffPatcher(),
-		Verifier:  NewED25519Verifier(),
+		Verifier:  NewED25519Verifier(meta.Version),
 		Hash:      crypto.SHA256,
 		Checksum:  sum,
 		Signature: sig[:],

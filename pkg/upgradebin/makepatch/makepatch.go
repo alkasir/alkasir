@@ -16,11 +16,11 @@ import (
 	"sync"
 
 	"github.com/agl/ed25519"
+	"github.com/alkasir/alkasir/pkg/nexus"
+	"github.com/alkasir/alkasir/pkg/upgradebin"
 	"github.com/inconshreveable/go-update"
 	"github.com/kr/binarydist"
 	"github.com/thomasf/lg"
-	"github.com/alkasir/alkasir/pkg/nexus"
-	"github.com/alkasir/alkasir/pkg/upgradebin"
 )
 
 // patchJob .
@@ -208,9 +208,12 @@ func CreatePatch(job CreatePatchJob) (CreatePatchResult, error) {
 		if err != nil {
 			return emptyResult, err
 		}
+		var b []byte
+		b = append(b, []byte(job.NewVersion)...)
+		b = append(b, byte(0))
+		b = append(b, latestSumBytes...)
 		latestSig = base64.RawURLEncoding.EncodeToString(
 			ed25519.Sign(privateKey, latestSumBytes)[:])
-
 	}
 
 	var diff []byte
@@ -293,7 +296,7 @@ func testPatch(pr CreatePatchResult, publicKey string) error {
 
 	opts := update.Options{
 		Patcher:    update.NewBSDiffPatcher(),
-		Verifier:   upgradebin.NewED25519Verifier(),
+		Verifier:   upgradebin.NewED25519Verifier(pr.NewVersion),
 		Hash:       crypto.SHA256,
 		Checksum:   sum,
 		Signature:  sig[:],
