@@ -15,6 +15,7 @@ import (
 	"github.com/alkasir/alkasir/pkg/measure/sampletypes"
 	"github.com/alkasir/alkasir/pkg/shared"
 	"github.com/alkasir/alkasir/pkg/shared/apierrors"
+	version "github.com/hashicorp/go-version"
 )
 
 func NewClient(baseurl string, httpclient *http.Client) *Client {
@@ -127,6 +128,18 @@ func (c *Client) CheckBinaryUpgrade(request shared.BinaryUpgradeRequest) (shared
 	}
 	if err := json.NewDecoder(resp.Body).Decode(&response); err != nil {
 		return response, false, err
+	}
+
+	currentVersion, err := version.NewVersion(request.FromVersion)
+	if err != nil {
+		return response, false, fmt.Errorf("Cannot parse current version from %s", request.FromVersion)
+	}
+	newVersion, err := version.NewVersion(response.Version)
+	if err != nil {
+		return response, false, fmt.Errorf("Cannot parse new version from %s", response.Version)
+	}
+	if currentVersion.GreaterThan(newVersion) {
+		return response, false, fmt.Errorf("Received version %s is older than current version %s", newVersion, currentVersion)
 	}
 
 	return response, true, nil

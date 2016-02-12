@@ -71,7 +71,7 @@ func upgradeBinaryCheck(diffsBaseURL string) error {
 	if err != nil {
 		return err
 	}
-	// TODO: check for current artifact + version (need to add artifact id to cmd's)
+
 	res, found, err := cl.CheckBinaryUpgrade(shared.BinaryUpgradeRequest{
 		Artifact:    artifact,
 		FromVersion: VERSION,
