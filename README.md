@@ -1,3 +1,5 @@
+[![GoDoc](https://godoc.org/github.com/alkasir/alkasir?status.svg)](https://godoc.org/github.com/alkasir/alkasir)
+
 # Alkasir v2
 
 Alkasir is a cross-platform, open-source and robust website censorship
