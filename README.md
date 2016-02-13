@@ -1,4 +1,4 @@
-[![GoDoc](https://godoc.org/github.com/alkasir/alkasir?status.svg)](https://godoc.org/github.com/alkasir/alkasir)
+[![GoDoc](https://godoc.org/github.com/alkasir/alkasir?status.svg)](https://godoc.org/github.com/alkasir/alkasir) [![gitter.im alkasir chat](https://badges.gitter.im/alkasir/alkasir.svg)](https://gitter.im/alkasir/alkasir?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 # Alkasir v2
 
@@ -7,9 +7,6 @@ circumvention tool that also maps censorship patterns around the world.
 
 See [alkasir.com](https://alkasir.com) for general information about the
 software **(NOT updated to v2.0 yet)**.
-
-Drop by the [![gitter.im alkasir chat](https://badges.gitter.im/alkasir/alkasir.svg)](https://gitter.im/alkasir/alkasir?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) for development related discussions.
-
 
 # IMPORTANT INITIAL OPEN SOURCE RELEASE NOTE
 
