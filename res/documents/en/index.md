@@ -6,6 +6,6 @@
 * [What makes Alkasir different?](why-alkasir-is-unique)
 * [Limitations](limitations)
 * [Frequently Asked Questions](faq)
-* [Reporting a URL](reporting-a-url)
+* [Reporting a URL](report-url)
 
 * [Debug information](debug-information)
