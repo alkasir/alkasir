@@ -455,9 +455,10 @@ func getGoBuilders() Builders {
 
 	var clientBuildVars []string
 	for envkey, fqn := range map[string]string{
-		"ALKASIR_CLIENT_VERSION":     "github.com/alkasir/alkasir/pkg/client.VERSION",
-		"ALKASIR_CLIENT_DIFF_URL":    "github.com/alkasir/alkasir/pkg/client.upgradeDiffsBaseURL",
-		"ALKASIR_CLIENT_CENTRAL_URL": "github.com/alkasir/alkasir/pkg/client/internal/config.centralAddr",
+		"ALKASIR_CLIENT_VERSION":      "github.com/alkasir/alkasir/pkg/client.VERSION",
+		"ALKASIR_CLIENT_DIFF_URL":     "github.com/alkasir/alkasir/pkg/client.upgradeDiffsBaseURL",
+		"ALKASIR_CLIENT_CENTRAL_URL":  "github.com/alkasir/alkasir/pkg/client/internal/config.centralAddr",
+		"ALKASIR_CLIENT_DEBUG_PUBKEY": "github.com/alkasir/alkasir/pkg/debugexport.PublicKey",
 	} {
 		envval := os.Getenv(envkey)
 		if envval != "" {

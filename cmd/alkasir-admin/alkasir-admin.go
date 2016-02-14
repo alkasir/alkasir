@@ -4,6 +4,7 @@ package main
 import (
 	"archive/tar"
 	"crypto/rand"
+	"encoding/hex"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -19,14 +20,15 @@ import (
 	"strings"
 	"time"
 
-	"github.com/davecgh/go-spew/spew"
-	"github.com/facebookgo/flagenv"
-	"github.com/thomasf/lg"
 	"github.com/alkasir/alkasir/pkg/central/db"
 	"github.com/alkasir/alkasir/pkg/debugexport"
 	"github.com/alkasir/alkasir/pkg/nexus"
 	"github.com/alkasir/alkasir/pkg/upgradebin"
 	"github.com/alkasir/alkasir/pkg/upgradebin/makepatch"
+	"github.com/davecgh/go-spew/spew"
+	"github.com/facebookgo/flagenv"
+	"github.com/thomasf/lg"
+	"golang.org/x/crypto/nacl/box"
 )
 
 // Command
@@ -101,6 +103,11 @@ var rootCommand = &Command{
 					Func: debugPprof,
 					Help: "[file] - if not speicied the latest import is used",
 				},
+				{
+					Name: "makekeys",
+					Func: makeDebugKeys,
+					Help: " - Generate a key pair for debug export/import",
+				},
 			},
 		},
 	},
@@ -137,6 +144,9 @@ func printHelp() {
 var (
 	pgConnFlag   string
 	nWorkersFlag int
+
+	debugPublicKey string
+	debugSecretKey string
 )
 
 func init() {
@@ -153,6 +163,9 @@ func init() {
 	flag.StringVar(&pgConnFlag, "pgconn",
 		"user=alkasir_central password=alkasir_central dbname=alkasir_central port=39558 sslmode=disable",
 		"postgresql connection string")
+
+	flag.StringVar(&debugSecretKey, "debug_sk", "", "Secret key used to decrypt debug logs")
+	flag.StringVar(&debugPublicKey, "debug_pk", "", "Public key used to decrypt debug logs")
 }
 
 func main() {
@@ -415,6 +428,20 @@ func makeUpgradeKeys([]string) error {
 	return nil
 }
 
+func makeDebugKeys([]string) error {
+	PK, SK, err := box.GenerateKey(rand.Reader)
+	if err != nil {
+		return err
+	}
+	fmt.Println("")
+	fmt.Println("Public key:")
+	fmt.Println(hex.EncodeToString(PK[:]))
+
+	fmt.Println("Secret key:")
+	fmt.Println(hex.EncodeToString(SK[:]))
+	return nil
+}
+
 func createUpgrade(args []string) error {
 	var (
 		privPemFlag string
@@ -606,17 +633,27 @@ func debugImportDebug(files []string) error {
 		fmt.Println("need argument: files...")
 		return errNoValue
 	}
+
+files:
 	for _, filename := range files {
 		data, err := ioutil.ReadFile(filename)
 		if err != nil {
 			fmt.Println(err)
 			os.Exit(1)
 		}
+
 		var debuginfo debugexport.DebugResponse
 		err = json.Unmarshal(data, &debuginfo)
 		if err != nil {
 			fmt.Printf("could not decode %s: %s \n", filename, err.Error())
 			os.Exit(1)
+		}
+		if debuginfo.Encrypted != "" {
+			err := debuginfo.Decrypt(debugPublicKey, debugSecretKey)
+			if err != nil {
+				lg.Errorf("%s could not be decrypted, skipping: %v", filename, err)
+				continue files
+			}
 		}
 		debuginfo.WriteToDisk()
 	}
