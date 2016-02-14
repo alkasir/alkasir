@@ -82,72 +82,75 @@ var App = React.createClass({
         Stores.settings.reset.remove(this._updateLanguage);
         Stores.translation.reset.remove(this._updateTranslation);
     },
+
     render: function() {
-        if (!this.state.clientConnected) {
-            var item = {
-                level: "warning",
-                title: "extension_client_not_available_title",
-                message: "extension_client_not_avialable_open_browser_options",
-                actions: [{
-                    name: "action_help",
-                    route: "/help"
-                }]
-            };
-            return (
-                <div className={this.state.dirclass}>
-                  <Panel>
-                    <Notification item={item} />
-                  </Panel>
-                </div>
-            );
-        } else if (this.state.apiVersion !== CLIENT_API_VERSION) {
-            var msg = '';
-            if (this.state.apiVersion < CLIENT_API_VERSION) {
-                msg = "ext_browser_code_msg_client_older_error";
-            } else {
-                msg = "ext_browser_code_msg_client_newer_error";
+        debugger  // FIXME do not commit this line!
+        if (!this.getPath().startsWith("/docs/")){
+            if (!this.state.clientConnected) {
+                var item = {
+                    level: "warning",
+                    title: "extension_client_not_available_title",
+                    message: "extension_client_not_avialable_open_browser_options",
+                    actions: [{
+                        name: "action_help",
+                        route: "/docs/__/index"
+                    }]
+                };
+                return (
+                    <div className={this.state.dirclass}>
+                      <Panel>
+                        <Notification item={item} />
+                      </Panel>
+                    </div>
+                );
+            } else if (this.state.apiVersion !== CLIENT_API_VERSION) {
+                var msg = '';
+                if (this.state.apiVersion < CLIENT_API_VERSION) {
+                    msg = "ext_browser_code_msg_client_older_error";
+                } else {
+                    msg = "ext_browser_code_msg_client_newer_error";
+                }
+                var apiItem = {
+                    level: "warning",
+                    title: "extension_client_not_available_title",
+                    message: msg,
+                    actions: [{
+                        name: "action_help",
+                        route: "/docs/__/index"
+                    }]
+                };
+                return (
+                    <div className={this.state.dirclass}>
+                      <Panel>
+                        <Notification item={apiItem} />
+                      </Panel>
+                    </div>
+                );
             }
-            var apiItem = {
-                level: "warning",
-                title: "extension_client_not_available_title",
-                message: msg,
-                actions: [{
-                    name: "action_help",
-                    route: "/help"
-                }]
-            };
-            return (
-                <div className={this.state.dirclass}>
-                  <Panel>
-                    <Notification item={apiItem} />
-                  </Panel>
-                </div>
-            );
-        } else {
-            var dev = (<span/>);
-            // dev=(
-            //     <DropdownButton eventKey={3} title="Dev">
-            //             <NavItemLink to="uitest">uitest</NavItemLink>
-            //             <NavItemLink to="services">services</NavItemLink>
-            //             <NavItemLink to="hostpatterns">hostpatterns</NavItemLink>
-            //           </DropdownButton>
-            // );
-            return (
-                <div className={this.state.dirclass}>
-                  <Navbar>
-                    <Nav>
-                      <NavItemLink to="home">{T("app_home_name")}</NavItemLink>
-                      <NavItemLink to="settings">{T("app_settings_name")}</NavItemLink>
-                      <NavItemLink to="document" params={{ language: "__", name: "index" }}>
-                        {T("app_docs_name")}
-                      </NavItemLink>
-                      {dev}
-                    </Nav>
-                  </Navbar>
-                  <RouteHandler />
-                </div>
-            );
         }
+        var dev = (<span/>);
+        // dev=(
+        //     <DropdownButton eventKey={3} title="Dev">
+        //             <NavItemLink to="uitest">uitest</NavItemLink>
+        //             <NavItemLink to="services">services</NavItemLink>
+        //             <NavItemLink to="hostpatterns">hostpatterns</NavItemLink>
+        //           </DropdownButton>
+        // );
+        return (
+            <div className={this.state.dirclass}>
+              <Navbar>
+                <Nav>
+                  <NavItemLink to="home">{T("app_home_name")}</NavItemLink>
+                  <NavItemLink to="settings">{T("app_settings_name")}</NavItemLink>
+                  <NavItemLink to="document" params={{ language: "__", name: "index" }}>
+                    {T("app_docs_name")}
+                  </NavItemLink>
+                  {dev}
+                </Nav>
+              </Navbar>
+              <RouteHandler />
+            </div>
+        );
     }
 });
 
