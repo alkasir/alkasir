@@ -1,4 +1,6 @@
-The word ‘Alkasir’ is the English transliteration of الكاسر, which is the Arabic word for ‘the circumventor’ or ‘the breaker’ as a way to metaphorically signal its main task of breaking digital firewalls. 
+# About Alkasir
+
+The word ‘Alkasir’ is the English transliteration of الكاسر, which is the Arabic word for ‘the circumventor’ or ‘the breaker’ as a way to metaphorically signal its main task of breaking digital firewalls.
 
 It was originally developed by Walid Al-Saqaf, a Yemeni software developer who had been subjected to censorship himself and decided to start a movement to confront and map censorship in the Arab world, which explains the source of its naming.
 

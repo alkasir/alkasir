@@ -1,9 +1,11 @@
-# Hello
+# Alkasir help documents
 
-This is the us manual
+* [Setting up Alkasir 2.0 for the first time](first-time-setup)
 
-## Random items (TO becomde index)
-* [transport error](transport_error)
-* [link to the swedish manual](sv/index)
+* [About Alkasir](about-alkasir)
+* [What makes Alkasir different?](why-alkasir-is-unique)
+* [Limitations](limitations)
+* [Frequently Asked Questions](faq)
+* [Reporting a URL](report-url)
 
-
+* [Debug information](debug-information)

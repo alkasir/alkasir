@@ -1,8 +1,10 @@
+# Advanced Settings
+
 You can find advanced settings under the Setting menu of the Chrome extension.
 
 The following two options exist:
 
-1) Blocked list updates: 
+1) Blocked list updates:
 Here, you can keep your client up-to-date as regards the list of URLs found to be blocked by your ISP. You can do this by ensuring that the checkbox next to "Check for blocklist automatically" is checked. If you uncheck this box, you will no longer get updates from the central database and when therefore need to report a blocked URL every time you want to access it.
 
 2) Advanced feature:

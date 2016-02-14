@@ -1,2 +1,0 @@
-# Reporting blocked sites
-
