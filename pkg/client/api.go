@@ -144,7 +144,7 @@ func GetNotifications(w rest.ResponseWriter, r *rest.Request) {
 			Message: "suggest_this_message",
 			Actions: []NotificationAction{
 				{"action_continue", "/suggestions/"},
-				{"action_help", "/docs/__/suggest/"},
+				{"action_help", "/docs/en/report-url/"},
 			},
 		})
 
@@ -156,7 +156,7 @@ func GetNotifications(w rest.ResponseWriter, r *rest.Request) {
 			Title:   "status_title",
 			Message: "transport_error_message",
 			Actions: []NotificationAction{
-				{"action_help", "/docs/__/transport_error"},
+				{"action_help", "/docs/en/index"},
 			},
 		})
 	}
