@@ -457,7 +457,6 @@ var Settings = React.createClass({
 
         if (section === undefined || section === "update") {
             sections.push(
-<Disabled>
                 <MaybePanel panel={this.props.panels}
                             key="update-client"
                             header={T( "application_upgrades")}>
@@ -469,18 +468,21 @@ var Settings = React.createClass({
                     <p>{this.state.statusSummary.alkasirVersion}</p>
                     </Col>
                     <Col xs={6}>
+                    <Hidden>
                     <p>{T("latest_version")}</p>
                     <p>0.2.2</p>
+                    </Hidden>
                     </Col>
                   </Row>
                   </Input>
                   <Input label={T( "options")}
                          wrapperClassName="wrapper">
                   <Input type="checkbox"
-                         checked={this.state.clientAutoUpdate}
-                         onChange={this.handleChangeclientAutoUpdate}
+                         checked
+                         disabled
                          label={T( "application_auto_upgrade")} />
                   </Input>
+                  <Hidden>
                   <Input label={T( "actions")}
                          wrapperClassName="wrapper">
                   <Row>
@@ -492,8 +494,9 @@ var Settings = React.createClass({
                     </Col>
                   </Row>
                   </Input>
+                  </Hidden>
                 </MaybePanel>
-</Disabled>
+
             );
         }
 
