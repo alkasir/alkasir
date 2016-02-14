@@ -1009,6 +1009,7 @@ func GetDebug(w rest.ResponseWriter, r *rest.Request) {
 		w.Header().Set("Content-Disposition",
 			fmt.Sprintf("inline; filename=alkasir-debuginfo\"%s.txt\"", response.Header.ID))
 	}
+
 	_ = w.WriteJson(response)
 }
 

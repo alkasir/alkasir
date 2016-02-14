@@ -168,6 +168,11 @@
 			"revisionTime": "2015-07-20T05:18:42+08:00"
 		},
 		{
+			"path": "github.com/dchest/blake2b",
+			"revision": "3c8c640cd7bea3ca78209d812b5854442ab92fed",
+			"revisionTime": "2015-10-22T12:35:02+02:00"
+		},
+		{
 			"path": "github.com/dchest/siphash",
 			"revision": "6d8617816bb5d8268011ffbfb8720f17ce9af63c",
 			"revisionTime": "2015-10-25T06:24:29+01:00"
@@ -331,6 +336,11 @@
 			"path": "github.com/matttproud/golang_protobuf_extensions/pbutil",
 			"revision": "d0c3fe89de86839aecf2e0579c40ba3bb336a453",
 			"revisionTime": "2015-10-11T12:25:29+02:00"
+		},
+		{
+			"path": "github.com/mdp/sodiumbox",
+			"revision": "0023c75ca9e2f1bc7cc1cd6157f138f6cf7c9faa",
+			"revisionTime": "2016-02-12T08:15:34-08:00"
 		},
 		{
 			"path": "github.com/miekg/dns",
@@ -604,6 +614,11 @@
 		},
 		{
 			"path": "golang.org/x/crypto/hkdf",
+			"revision": "1f22c0103821b9390939b6776727195525381532",
+			"revisionTime": "2016-01-26T09:50:25-08:00"
+		},
+		{
+			"path": "golang.org/x/crypto/nacl/box",
 			"revision": "1f22c0103821b9390939b6776727195525381532",
 			"revisionTime": "2016-01-26T09:50:25-08:00"
 		},
