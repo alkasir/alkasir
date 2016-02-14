@@ -84,7 +84,6 @@ var App = React.createClass({
     },
 
     render: function() {
-        debugger  // FIXME do not commit this line!
         if (!this.getPath().startsWith("/docs/")){
             if (!this.state.clientConnected) {
                 var item = {
