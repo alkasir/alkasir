@@ -12,8 +12,6 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ant0ine/go-json-rest/rest"
-	"github.com/thomasf/lg"
 	"github.com/alkasir/alkasir/pkg/browsercode"
 	"github.com/alkasir/alkasir/pkg/central/client"
 	"github.com/alkasir/alkasir/pkg/client/internal/config"
@@ -28,6 +26,8 @@ import (
 	"github.com/alkasir/alkasir/pkg/shared/apiutils"
 	"github.com/alkasir/alkasir/pkg/shared/fielderrors"
 	"github.com/alkasir/alkasir/pkg/shared/middlewares"
+	"github.com/ant0ine/go-json-rest/rest"
+	"github.com/thomasf/lg"
 	"h12.me/socks"
 )
 
@@ -463,8 +463,12 @@ type StatusSummary struct {
 // JSON api function
 func GetStatusSummary(w rest.ResponseWriter, r *rest.Request) {
 	conf := clientconfig.Get()
+	version := VERSION
+	if version == "" {
+		version = "development version"
+	}
 	summary := &StatusSummary{
-		AlkasirVersion:      VERSION,
+		AlkasirVersion:      version,
 		CountryCode:         conf.Settings.Local.CountryCode,
 		TransportOk:         service.TransportOk(),
 		LastBlocklistChange: lastBlocklistChange,
@@ -478,11 +482,15 @@ func GetStatusSummary(w rest.ResponseWriter, r *rest.Request) {
 
 // GetVersion returns the alkasir-client version.
 func GetVersion(w rest.ResponseWriter, r *rest.Request) {
+	version := VERSION
+	if version == "" {
+		version = "development version"
+	}
 	summary := &struct {
 		AlkasirVersion   string `json:"alkasirVersion"`
 		ClientAPIVersion int    `json:"apiVersion"`
 	}{
-		AlkasirVersion:   VERSION,
+		AlkasirVersion:   version,
 		ClientAPIVersion: ClientAPIVersion,
 	}
 	w.WriteJson(summary)
