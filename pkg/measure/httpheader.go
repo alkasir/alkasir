@@ -2,15 +2,15 @@ package measure
 
 import (
 	"encoding/json"
+	"errors"
 	"net"
 	"net/http"
 	"net/url"
 	"strings"
 	"time"
 
-	"github.com/thomasf/lg"
-
 	"github.com/alkasir/alkasir/pkg/measure/sampletypes"
+	"github.com/thomasf/lg"
 )
 
 // HTTPHeader .
@@ -22,7 +22,65 @@ type HTTPHeader struct {
 type HTTPHeaderResult struct {
 	URL            string            `json:"url"`
 	ResponseHeader map[string]string `json:"response_header"`
+	Redirects      []Redirect        `json:"redirects,omitempty"`
 	Error          string            `json:"error"`
+	StatusCode     int               `json:"status_code"`
+}
+
+// Redirect is recorded on HTTP redirects.
+type Redirect struct {
+	StatusCode int               `json:"status_code"`
+	Header     map[string]string `json:"header"`
+	URL        string            `json:"url"`
+}
+
+func (h HTTPHeader) Measure() (Measurement, error) {
+	resultchan := make(chan HTTPHeaderResult, 0)
+	go func() {
+		rr := &redirectRecorder{
+			Transport: http.DefaultTransport.(*http.Transport),
+		}
+		client := http.Client{
+			Timeout:   defaultTimeout + 10*time.Second,
+			Transport: rr,
+			CheckRedirect: func(req *http.Request, via []*http.Request) error {
+				if len(via) >= 10 {
+					return errors.New("stopped after 10 redirects")
+				}
+				return nil
+			},
+		}
+		resp, err := client.Get(h.URL)
+		if err != nil {
+			resultchan <- HTTPHeaderResult{
+				URL:   h.URL,
+				Error: err.Error(),
+			}
+			return
+		}
+		defer resp.Body.Close()
+		respHeaders := make(map[string]string, 0)
+		for k := range resp.Header {
+			respHeaders[k] = resp.Header.Get(k)
+		}
+		resp.Body.Close()
+		resultchan <- HTTPHeaderResult{
+			URL:            h.URL,
+			ResponseHeader: respHeaders,
+			StatusCode:     resp.StatusCode,
+			Redirects:      rr.Redirects,
+		}
+	}()
+	select {
+	case res := <-resultchan:
+		return res, nil
+	case <-time.After(defaultTimeout):
+		return HTTPHeaderResult{
+			URL:   h.URL,
+			Error: "timeout: " + defaultTimeout.String(),
+		}, nil
+	}
+
 }
 
 func (h HTTPHeaderResult) Type() sampletypes.SampleType {
@@ -45,43 +103,39 @@ func (h HTTPHeaderResult) Host() string {
 	return host
 }
 
-func (h HTTPHeader) Measure() (Measurement, error) {
-	resultchan := make(chan HTTPHeaderResult, 0)
-	go func() {
-		client := http.Client{
-			Timeout: defaultTimeout + 5*time.Second,
-		}
-		resp, err := client.Get(h.URL)
-		if err != nil {
-			resultchan <- HTTPHeaderResult{
-				URL:   h.URL,
-				Error: err.Error(),
-			}
-			return
-		}
-		defer resp.Body.Close()
-		respHeaders := make(map[string]string, 0)
-		for k := range resp.Header {
-			respHeaders[k] = resp.Header.Get(k)
-		}
-		resp.Body.Close()
-		resultchan <- HTTPHeaderResult{
-			URL:            h.URL,
-			ResponseHeader: respHeaders,
-		}
-	}()
-	select {
-	case res := <-resultchan:
-		return res, nil
-	case <-time.After(defaultTimeout):
-		return HTTPHeaderResult{
-			URL:   h.URL,
-			Error: "timeout: " + defaultTimeout.String(),
-		}, nil
-	}
-
-}
-
 func (h HTTPHeaderResult) Marshal() ([]byte, error) {
 	return json.Marshal(h)
+}
+
+type redirectRecorder struct {
+	*http.Transport
+	Redirects []Redirect
+}
+
+func (t *redirectRecorder) RoundTrip(req *http.Request) (*http.Response, error) {
+	transport := t.Transport
+	if transport == nil {
+		transport = http.DefaultTransport.(*http.Transport)
+	}
+
+	resp, err := transport.RoundTrip(req)
+	if err != nil {
+		return resp, err
+	}
+
+	switch resp.StatusCode {
+	case http.StatusMovedPermanently, http.StatusFound, http.StatusSeeOther, http.StatusTemporaryRedirect:
+		header := make(map[string]string, 0)
+		for k := range resp.Header {
+			header[k] = resp.Header.Get(k)
+		}
+		t.Redirects = append(
+			t.Redirects, Redirect{
+				StatusCode: resp.StatusCode,
+				URL:        req.URL.String(),
+				Header:     header,
+			},
+		)
+	}
+	return resp, err
 }

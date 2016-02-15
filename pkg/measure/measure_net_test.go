@@ -1,9 +1,8 @@
-// +build net
+// -- +build net
 
 package measure
 
 import (
-	"fmt"
 	"log"
 	"testing"
 )
@@ -45,6 +44,7 @@ func TestHTTPHeader(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	fmt.Printf("%+v", r)
+	_ = r
+	// fmt.Printf("%+v", r)
 
 }
