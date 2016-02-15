@@ -1,3 +1,4 @@
+// Package measure contains network measurements to support censorship detection
 package measure
 
 import (
