@@ -789,7 +789,7 @@ func ReleaseChromeExtTask() {
 	Run("clean")
 	Run("chrome")
 
-	credCmd := exec.Command("gpg", "--decrypt", "browser/chrome-ext/publisher/publish.json.gpg")
+	credCmd := exec.Command("gpg", "--decrypt", "chrome-ext-publish.json.gpg")
 	stdout, err := credCmd.StdoutPipe()
 	if err != nil {
 		panic(err)
@@ -818,19 +818,6 @@ func ReleaseChromeExtTask() {
 	if err != nil {
 		panic(err)
 	}
-
-	publisher := newCmd("grunt")
-	publisher.Dir = "browser/chrome-ext/publisher/"
-	env := os.Environ()
-	env = append(env, fmt.Sprintf("CLIENT_ID=%s", creds.ClientID))
-	env = append(env, fmt.Sprintf("CLIENT_SECRET=%s", creds.ClientSecret))
-	env = append(env, fmt.Sprintf("APP_ID=%s", creds.AppID))
-	publisher.Env = env
-	err = publisher.Run()
-	if err != nil {
-		panic(err)
-	}
-
 }
 
 // DepsTask installs various build dependencies
