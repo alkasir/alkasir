@@ -1,4 +1,4 @@
-[![GoDoc](https://godoc.org/github.com/alkasir/alkasir?status.svg)](https://godoc.org/github.com/alkasir/alkasir) [![gitter.im alkasir chat](https://badges.gitter.im/alkasir/alkasir.svg)](https://gitter.im/alkasir/alkasir?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![GoDoc](https://godoc.org/github.com/alkasir/alkasir?status.svg)](https://godoc.org/github.com/alkasir/alkasir) [![Build Status](https://drone-alkasir.23c.se/api/badges/alkasir/alkasir/status.svg)](https://drone-alkasir.23c.se/alkasir/alkasir) [![gitter.im alkasir chat](https://badges.gitter.im/alkasir/alkasir.svg)](https://gitter.im/alkasir/alkasir?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 # Alkasir v2
 
