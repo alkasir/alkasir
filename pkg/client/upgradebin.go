@@ -10,6 +10,7 @@ import (
 	"github.com/alkasir/alkasir/pkg/service"
 	"github.com/alkasir/alkasir/pkg/shared"
 	"github.com/alkasir/alkasir/pkg/upgradebin"
+	"github.com/hashicorp/go-version"
 	"github.com/thomasf/lg"
 )
 
@@ -29,6 +30,20 @@ func SetUpgradeArtifact(name string) {
 //
 // This function runs in it's own goroutine.
 func StartBinaryUpgradeChecker(diffsBaseURL string) {
+	if !upgradeEnabled {
+		lg.Infoln("binary upgrades are disabled using the command line flag")
+		return
+	}
+	if VERSION == "" {
+		lg.Warningln("VERSION not set, binary upgrades are disabled")
+		return
+	}
+	_, err := version.NewVersion(VERSION)
+	if err != nil {
+		lg.Warningf("VERSION '%s' is not a valid semver version, binary upgrades are disabled: %v", VERSION, err)
+		return
+	}
+
 	connectionEventListener := make(chan service.ConnectionHistory)
 	uChecker, _ := NewUpdateChecker("binary")
 	service.AddListener(connectionEventListener)
@@ -55,14 +70,6 @@ func StartBinaryUpgradeChecker(diffsBaseURL string) {
 }
 
 func upgradeBinaryCheck(diffsBaseURL string) error {
-	if !upgradeEnabled {
-		lg.Infoln("binary upgrades are disabled using the command line flag")
-		return nil
-	}
-	if VERSION == "" {
-		lg.Warningln("VERSION not set, binary upgrades are disabled")
-		return nil
-	}
 	artifactNameMu.Lock()
 	artifact := artifactName
 	artifactNameMu.Unlock()
