@@ -51,7 +51,8 @@ func apiError(w rest.ResponseWriter, error string, code int) {
 		"Ok":    "false",
 	})
 	if err != nil {
-		panic(err)
+		lg.Error(err)
+		return
 	}
 }
 
@@ -181,7 +182,8 @@ func GetHosts(dbclients db.Clients) func(w rest.ResponseWriter, r *rest.Request)
 			Hosts: relh.fill(hosts),
 		})
 		if err != nil {
-			panic(err)
+			lg.Error(err)
+			return
 		}
 
 	}
