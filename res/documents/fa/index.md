@@ -1,11 +1,11 @@
-# Alkasir help documents
+# ‏Alkasir
 
-* [Setting up Alkasir 2.0 for the first time](first-time-setup)
+* [راه‌اندازی نسخه «الكاسر ۲.۰» برای نخستین با](first-time-setup)
 
-* [About Alkasir](about-alkasir)
-* [What makes Alkasir different?](why-alkasir-is-unique)
-* [Limitations](limitations)
-* [Frequently Asked Questions](faq)
-* [Reporting a URL](report-url)
+* [ درباره نرم‌افزار الكاس](about-alkasir)
+* [ آدرس آی‌پی هیچ کاربری را نگهداری نکند.](why-alkasir-is-unique)
+* [ محدودیت‌ه](limitations)
+* [ سوالات متداول](faq)
+* [ گزارش یک وب‌سایت](report-url)
 
-* [Debug information](debug-information)
+* [ ارسال اطلاعات اشکال‌زدایی](debug-information)
