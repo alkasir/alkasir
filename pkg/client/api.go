@@ -144,7 +144,7 @@ func GetNotifications(w rest.ResponseWriter, r *rest.Request) {
 			Message: "suggest_this_message",
 			Actions: []NotificationAction{
 				{"action_continue", "/suggestions/"},
-				{"action_help", "/docs/__/report-url/"},
+				{"action_help", "/docs/__/report-url"},
 			},
 		})
 
