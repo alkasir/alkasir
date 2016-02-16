@@ -181,7 +181,7 @@ var AddConnectionEditor = React.createClass({
         return (
             <div>
                 <ModalTrigger modal={<ConnectionStringSetting connection={{}} />}>
-                    <Button bsStyle="info">Add</Button>
+                  <Button bsStyle="info">{T("action_add")}</Button>
             </ModalTrigger>
             </div>
 

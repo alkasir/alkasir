@@ -1,4 +1,8 @@
 {
+   "action_add": {
+     "description": "Used for buttons, links, menu items and similar occations.",
+     "message": "Add"
+   },
    "action_cancel": {
      "description": "Used for buttons, links, menu items and similar occations.",
      "message": "Cancel"
