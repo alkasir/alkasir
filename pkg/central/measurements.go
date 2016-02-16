@@ -5,16 +5,21 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/thomasf/lg"
 	"github.com/alkasir/alkasir/pkg/central/db"
 	"github.com/alkasir/alkasir/pkg/measure"
 	"github.com/alkasir/alkasir/pkg/measure/sampleorigins"
 	"github.com/alkasir/alkasir/pkg/measure/sampletypes"
 	"github.com/alkasir/alkasir/pkg/shared"
+	"github.com/thomasf/lg"
 )
 
+type centralMeasurer struct {
+	token     shared.SuggestionToken
+	measurers []measure.Measurer
+}
+
 var (
-	requestMeasurements = make(chan []measure.Measurer, 5000)
+	requestMeasurements = make(chan centralMeasurer, 5000)
 )
 
 // PreparedSample .
@@ -79,7 +84,7 @@ func startMeasurer(dbclients db.Clients) {
 
 				}
 			measurerLoop:
-				for _, v := range r {
+				for _, v := range r.measurers {
 					measurement, err := v.Measure()
 					if err != nil {
 						lg.Errorf("could not measure:%v error:%s", v, err.Error())
@@ -96,6 +101,7 @@ func startMeasurer(dbclients db.Clients) {
 						err = dbclients.DB.InsertSample(db.Sample{
 							Host:        measurement.Host(),
 							CountryCode: ps.s.CountryCode,
+							Token:       r.token,
 							ASN:         ps.s.ASN,
 							Type:        measurement.Type().String(),
 							Origin:      sampleorigins.Central.String(),
@@ -115,6 +121,9 @@ func startMeasurer(dbclients db.Clients) {
 	}
 }
 
-func queueMeasurements(measurers ...measure.Measurer) {
-	requestMeasurements <- measurers
+func queueMeasurements(token shared.SuggestionToken, measurers ...measure.Measurer) {
+	requestMeasurements <- centralMeasurer{
+		token: token,
+		measurers: measurers,
+	}
 }

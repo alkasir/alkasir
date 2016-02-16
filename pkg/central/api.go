@@ -10,14 +10,14 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ant0ine/go-json-rest/rest"
-	version "github.com/hashicorp/go-version"
-	"github.com/thomasf/lg"
 	"github.com/alkasir/alkasir/pkg/central/db"
 	"github.com/alkasir/alkasir/pkg/measure"
 	"github.com/alkasir/alkasir/pkg/shared"
 	"github.com/alkasir/alkasir/pkg/shared/apierrors"
 	"github.com/alkasir/alkasir/pkg/shared/apiutils"
+	"github.com/ant0ine/go-json-rest/rest"
+	version "github.com/hashicorp/go-version"
+	"github.com/thomasf/lg"
 )
 
 // apiMux creates the servermux for the json api server
@@ -323,7 +323,7 @@ func SuggestionToken(dbclients db.Clients) func(w rest.ResponseWriter, r *rest.R
 		if err != nil {
 			lg.Warningf("could not create standard measurements: %s", err.Error())
 		} else {
-			queueMeasurements(measurements...)
+			queueMeasurements(token, measurements...)
 		}
 
 		// write json response
