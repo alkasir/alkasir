@@ -293,15 +293,48 @@ func exit() {
 	}
 	atexitFuncs = atexitFuncs[:0]
 	lg.V(9).Infoln("atexit funcs done")
-	lg.V(9).Infoln("stopping connectionmanager")
-	service.StopConnectionManager()
-	lg.V(9).Infoln("stopping services")
-	service.StopAll()
-	lg.V(9).Infoln("services stopped")
-	lg.V(9).Infoln("waiting for UI shutdown to finish")
-	uiRunning.Wait()
-	lg.V(9).Infoln("ui shut down")
 
+	{
+		lg.V(9).Infoln("stopping connectionmanager")
+		done := make(chan bool)
+		go func() {
+			service.StopConnectionManager()
+			done <- true
+		}()
+		select {
+		case <-done:
+		case <-time.After(10 * time.Second):
+			lg.Errorln("services stop timed out")
+		}
+	}
+
+	{
+		done := make(chan bool)
+		go func() {
+			service.StopAll()
+			done <- true
+		}()
+		select {
+		case <-done:
+			lg.V(9).Infoln("services stopped")
+		case <-time.After(10 * time.Second):
+			lg.Errorln("services stop timed out")
+		}
+	}
+
+	{
+		lg.V(9).Infoln("waiting for UI shutdown to finish")
+		done := make(chan bool)
+		go func() {
+			uiRunning.Wait()
+			done <- true
+		}()
+		select {
+		case <-done:
+		case <-time.After(10 * time.Second):
+			lg.Errorln("timed out watning for ui shutdown")
+		}
+	}
 	lg.Flush()
 	lg.Infoln("alkasir shutdown complete")
 	lg.Flush()
