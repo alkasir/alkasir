@@ -161,9 +161,15 @@ getDocument = (name, fname, lng) ->
   try
     doc = docsReq docpath
   catch err
-    doc = """# document not found
-    Cannot find #{docpath}
-    """
+    fname = name.replace "__", "en"
+    docpath =  "./" + fname + ".md"
+    try
+      doc = docsReq docpath
+    catch err
+      doc = """# document not found
+      Cannot find #{docpath}
+      """
+
   Stores.documents.set(name, doc)
   true
 
