@@ -14,6 +14,7 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/alkasir/alkasir/pkg/central/analysis"
 	"github.com/alkasir/alkasir/pkg/central/db"
 	"github.com/alkasir/alkasir/pkg/shared"
 	"github.com/garyburd/redigo/redis"
@@ -217,7 +218,7 @@ func Run() {
 		}
 	}(*exportApiBindAddr, clients)
 
-	startAnalysis(clients)
+	go analysis.StartAnalysis(clients)
 	startMeasurer(clients)
 
 	wg.Wait()

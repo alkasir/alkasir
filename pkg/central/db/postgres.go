@@ -7,14 +7,13 @@ import (
 	"fmt"
 	"log"
 	"net/url"
+	"strconv"
 	"time"
 
-	"strconv"
-
 	"github.com/Masterminds/squirrel"
+	"github.com/alkasir/alkasir/pkg/shared"
 	_ "github.com/lib/pq" // add postgresql driver
 	"github.com/thomasf/lg"
-	"github.com/alkasir/alkasir/pkg/shared"
 )
 
 // DB .
@@ -31,12 +30,17 @@ type DBClient interface {
 	SetLastProcessedSampleID(id uint64) error
 
 	// client/server api
-	InsertSample(s Sample) error
-	InsertSimpleSample(s SimpleSample) error
 	IsURLAllowed(url *url.URL, countryCode string) (bool, error)
 	RecentSuggestionSessions(n uint64) ([]tokenData, error)
+
+	InsertSample(s Sample) error
+	InsertSimpleSample(s SimpleSample) error
 	GetSamples(fromID uint64, sampleType string) (chan Sample, error)
 	PublishHost(sample Sample) error
+
+	// GetURLSamples(URL string) ([]Sample, error)
+	GetSessionSamples(Token shared.SuggestionToken) ([]Sample, error)
+
 	GetBlockedHosts(CountryCode string, ASN int) ([]string, error)
 	GetRelatedHosts() (map[string][]string, error)
 	GetUpgrade(GetUpgradeQuery) (UpgradeMeta, bool, error)
@@ -413,6 +417,103 @@ func (d *DB) GetSamples(fromID uint64, sampleType string) (chan Sample, error) {
 	}(rows)
 	return results, nil
 }
+
+// func (d *DB) GetURLSamples(URL string) ([]Sample, error) {
+// 	psql := squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar)
+
+// 	u, err := url.Parse(URL)
+// 	if err != nil {
+// 		return nil, err
+// 	}
+
+// 	host := u.Host
+// 	_ = host
+
+// 	//	fromID := 0
+// 	i := psql.
+// 		Select("id", "host", "country_code", "asn", "created_at", "origin", "type", "data", "extra_data").
+// 		From("samples").
+// 		Where("created_at > ?", time.Now().Add(-24*time.Hour)).
+// 		Where(squirrel.Eq{"host": host}).
+// 		OrderBy("ID desc")
+
+// 	rows, err := i.RunWith(d.cache).Query()
+
+// 	if err != nil {
+// 		return nil, err
+// 	}
+// 	defer rows.Close()
+
+// 	var results []Sample
+
+// 	for rows.Next() {
+// 		var sample Sample
+// 		err := rows.Scan(
+// 			&sample.ID,
+// 			&sample.Host,
+// 			&sample.CountryCode,
+// 			&sample.ASN,
+// 			&sample.CreatedAt,
+// 			&sample.Origin,
+// 			&sample.Type,
+// 			&sample.Data,
+// 			&sample.ExtraData,
+// 		)
+// 		if err != nil {
+// 			lg.Warning(err)
+// 			continue
+// 		}
+
+// 		results = append(results, sample)
+// 	}
+
+// 	return results, nil
+// }
+
+func (d *DB) GetSessionSamples(token shared.SuggestionToken) ([]Sample, error) {
+	psql := squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar)
+
+
+	//	fromID := 0
+	i := psql.
+		Select("id", "host", "country_code", "asn", "created_at", "origin", "type", "data", "extra_data").
+		From("samples").
+		Where(squirrel.Eq{"token": string(token)})
+
+
+	rows, err := i.RunWith(d.cache).Query()
+
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var results []Sample
+
+	for rows.Next() {
+		var sample Sample
+		err := rows.Scan(
+			&sample.ID,
+			&sample.Host,
+			&sample.CountryCode,
+			&sample.ASN,
+			&sample.CreatedAt,
+			&sample.Origin,
+			&sample.Type,
+			&sample.Data,
+			&sample.ExtraData,
+		)
+		if err != nil {
+			lg.Warning(err)
+			continue
+		}
+
+		results = append(results, sample)
+	}
+
+	return results, nil
+}
+
 
 func (d *DB) GetBlockedHosts(CountryCode string, ASN int) ([]string, error) {
 	psql := squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar)
