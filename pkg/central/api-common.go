@@ -4,11 +4,12 @@ import (
 	"github.com/ant0ine/go-json-rest/rest"
 	"github.com/thomasf/lg"
 	"github.com/alkasir/alkasir/pkg/shared/middlewares"
+	"github.com/alkasir/alkasir/pkg/shared/middlewares/prometheusMW"
 )
 
 func defaultAPI(servername string) *rest.Api {
 	api := rest.NewApi()
-	api.Use(&middlewares.PrometheusMiddleware{ServiceName: servername})
+	api.Use(&prometheusMW.PrometheusMiddleware{ServiceName: servername})
 	if lg.V(100) {
 		api.Use(&middlewares.AccessLogApacheMiddleware{
 			Format: "%S\033[0m \033[36;1m%Dμs\033[0m \"%r\" \033[1;30m%u \"%{User-Agent}i\"\033[0m",
