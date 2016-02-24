@@ -1,5 +1,3 @@
-'use strict';
-
 var _interopRequire = function(obj) {
     return obj && (obj.default || obj);
 };
@@ -62,10 +60,10 @@ var Remarkable = React.createClass({
             this.md = new Markdown(this.props.options);
         }
         if (this.props.smallHeadings) {
-            this.md.renderer.rules.heading_open = function(tokens, idx /*, options, env */ ) {
+            this.md.renderer.rules.heading_open = function(tokens, idx /*, options, env */ ) { // eslint-disable-line camelcase
                 return '<h' + (tokens[idx].hLevel + 3) + '>';
             };
-            this.md.renderer.rules.heading_close = function(tokens, idx /*, options, env */ ) {
+            this.md.renderer.rules.heading_close = function(tokens, idx /*, options, env */ ) { // eslint-disable-line camelcase
                 return '</h' + (tokens[idx].hLevel + 3) + '>\n';
             };
         }

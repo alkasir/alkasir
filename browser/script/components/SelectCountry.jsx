@@ -1,5 +1,3 @@
-'use strict';
-
 /* jshint esnext: true */
 
 var React = require('react'),
@@ -8,7 +6,7 @@ var React = require('react'),
 
     Constants = require("../constants"),
     T = require("../i18n").T,
-    {Input, Panel, Table, Nav, NavItem, Button, Label, Glyphicon} = Bootstrap;
+    {Input, Glyphicon} = Bootstrap;
 
 
 /**

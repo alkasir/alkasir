@@ -1,5 +1,3 @@
-'use strict';
-
 /* global location, localStorage */
 
 import React from 'react';

@@ -1,5 +1,3 @@
-'use strict';
-
 /* global require, module */
 
 // Very simple

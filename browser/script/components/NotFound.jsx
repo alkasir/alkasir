@@ -1,10 +1,5 @@
-'use strict';
-
 /* jshint esnext: true */
 /* global require, module */
-
-
-
 
 var React = require("react"),
     T = require("../i18n").T,

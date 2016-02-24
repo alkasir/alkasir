@@ -1,7 +1,5 @@
-'use strict';
-
 /* jshint esnext: true */
-/* global require, module */
+/* global require, module, chrome */
 
 var React = require('react'),
     Bootstrap = require("react-bootstrap"),
@@ -9,7 +7,7 @@ var React = require('react'),
     Router = require('react-router'),
     {Link} = Router,
 
-    {Alert, Button} = Bootstrap,
+    {Alert} = Bootstrap,
     T = require("../i18n").T;
 
 
@@ -24,7 +22,7 @@ var Notification = React.createClass({
 
     componentWillMount: function() {
 
-        if (this.props.item.title === "suggest_this_title"  && chrome != null && chrome.tabs != null) {
+        if (this.props.item.title === "suggest_this_title" && chrome != null && chrome.tabs != null) {
             chrome.tabs.query({
                 active: true,
                 currentWindow: true
@@ -90,7 +88,7 @@ var Notification = React.createClass({
                 if (this.state.URL === "") {
                     hidden = true;
                 } else {
-                    message = (<p key="msg">{T(this.props.item.message, {url:this.state.URL})}</p>);
+                    message = (<p key="msg">{T(this.props.item.message, {url: this.state.URL})}</p>);
                 }
             } else {
                 message = (<p key="msg">{T(this.props.item.message)}</p>);

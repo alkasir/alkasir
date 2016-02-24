@@ -1,5 +1,3 @@
-'use strict';
-
 /* jshint esnext: true */
 /* global require, module */
 
@@ -11,7 +9,7 @@ var React = require('react'),
     Actions = require("../Actions"),
     Notification = require("./Notification"),
     _ = require('lodash'),
-    {Input, Panel, Table, Nav, NavItem, Button, Label} = Bootstrap;
+    {Panel} = Bootstrap;
 
 
 

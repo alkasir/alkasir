@@ -1,5 +1,3 @@
-'use strict';
-
 /* jshint esnext: true */
 /* global require, module, chrome */
 
@@ -9,8 +7,7 @@ var React = require('react'),
     Bootstrap = require("react-bootstrap"),
     chromeutil = require("../chromeutil"),
     Actions = require('../Actions'),
-    T = require("../i18n").T,
-    {Input, Panel, Table, Nav, NavItem, Button, Label, Well, Alert} = Bootstrap;
+    {Panel} = Bootstrap;
 
 import SuggestionStatus from "./SuggestionStatus";
 

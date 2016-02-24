@@ -1,11 +1,9 @@
-'use strict';
 
 /* jshint esnext: true */
 /* global require, module */
 
 var React = require('react'),
     Router = require('react-router'),
-    {Panel} = require('react-bootstrap'),
     Markdown = require('./Markdown'),
     _ = require('lodash'),
     Actions = require("../Actions"),

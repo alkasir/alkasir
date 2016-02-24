@@ -1,5 +1,4 @@
 /* global location, localStorage */
-'use strict';
 
 import React from 'react';
 import { T } from '../i18n';
