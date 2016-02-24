@@ -24,7 +24,7 @@ func StartBlocklistUpgrader() {
 	uChecker, _ := NewUpdateChecker("blocklist")
 	service.AddListener(connectionEventListener)
 	currentCountry := clientconfig.Get().Settings.Local.CountryCode
-	checkCountrySettingC := time.NewTicker(time.Duration(2 * time.Second))
+	checkCountrySettingC := time.NewTicker(2 * time.Second)
 	defer checkCountrySettingC.Stop()
 loop:
 	for {

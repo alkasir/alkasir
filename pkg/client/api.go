@@ -895,10 +895,11 @@ func testSocks5Internet(addr string) (err error) {
 		Transport: &http.Transport{
 			Dial:                  dialSocksProxy,
 			DisableKeepAlives:     true,
-			ResponseHeaderTimeout: time.Duration(time.Second * 5),
+			ResponseHeaderTimeout: 10 * time.Second,
 		},
+		Timeout: 20 * time.Second,
 	}
-	resp, err := httpClient.Get("http://ip.appspot.com")
+	resp, err := httpClient.Get("https://alkasir.com/ping")
 	if err != nil {
 		return
 	}

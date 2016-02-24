@@ -270,7 +270,7 @@ func startMonitoring(addr string) {
 	http.Handle("/metrics", prometheus.Handler())
 	redisMaxConn.Set(float64(redisPool.MaxActive))
 	go func() {
-		tick := time.NewTicker(time.Duration(1 * time.Second))
+		tick := time.NewTicker(1 * time.Second)
 		for range tick.C {
 			if redisPool == nil {
 				redisActiveConn.Set(0)

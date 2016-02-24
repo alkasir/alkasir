@@ -4,12 +4,13 @@ import (
 	"net"
 	"net/url"
 	"strings"
+	"time"
 
-	"github.com/thomasf/lg"
 	"github.com/alkasir/alkasir/pkg/central/client"
 	"github.com/alkasir/alkasir/pkg/client/internal/config"
 	"github.com/alkasir/alkasir/pkg/service"
 	"github.com/alkasir/alkasir/pkg/shared"
+	"github.com/thomasf/lg"
 )
 
 // deprecated, function moved to shared package
@@ -39,7 +40,7 @@ func NewRestClient() (*client.Client, error) {
 		return client.NewClient(apiurl, nil), nil
 	}
 
-	httpclient, err := service.NewTransportHTTPClient()
+	httpclient, err := service.NewTransportHTTPClient(time.Minute)
 	if err != nil {
 		return nil, err
 	}

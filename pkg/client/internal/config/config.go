@@ -233,7 +233,7 @@ func (l *localSettings) ApplicationUpdateDuration() time.Duration {
 	if !l.ClientAutoUpdate {
 		return time.Duration(0)
 	}
-	return time.Duration(time.Hour * 2)
+	return 2 * time.Hour
 }
 
 // BlocklistUpdateDuration returns BlocklistUpdateInterval as a duration.
@@ -241,7 +241,7 @@ func (l *localSettings) BlocklistUpdateDuration() time.Duration {
 	if !l.BlocklistAutoUpdate {
 		return time.Duration(0)
 	}
-	return time.Duration(time.Hour * 6)
+	return 6 * time.Hour
 }
 
 // settingsTemplate is default when there is no config file or if it's broken.
