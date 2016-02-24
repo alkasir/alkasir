@@ -6,6 +6,7 @@ import (
 	"path"
 	"runtime"
 	"sync"
+	"time"
 
 	"github.com/alkasir/alkasir/pkg/service"
 	"github.com/alkasir/alkasir/pkg/shared"
@@ -92,7 +93,7 @@ func upgradeBinaryCheck(diffsBaseURL string) error {
 	}
 	lg.Warningf("found update %+v", res)
 
-	httpclient, err := service.NewTransportHTTPClient()
+	httpclient, err := service.NewTransportHTTPClient(2 * time.Hour)
 	if err != nil {
 		return err
 	}

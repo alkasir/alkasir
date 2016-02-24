@@ -111,6 +111,7 @@ var reconnectCh = make(chan bool)
 var connectionTestedCh = make(chan bool)
 
 func StartConnectionManager(authKey string) {
+	go updateTransportOkLoop()
 
 	listeners := make([]chan ConnectionHistory, 0)
 
@@ -244,8 +245,9 @@ func testSocks5Internet(addr string) (err error) {
 		Transport: &http.Transport{
 			Dial:                  dialSocksProxy,
 			DisableKeepAlives:     true,
-			ResponseHeaderTimeout: time.Duration(time.Second * 10),
+			ResponseHeaderTimeout: 10 * time.Second,
 		},
+		Timeout: 20 * time.Second,
 	}
 	resp, err := httpClient.Get("https://alkasir.com/ping")
 	if err != nil {
@@ -263,7 +265,7 @@ func testConn(event *ConnectionEvent) error {
 	defaultTransportM.Lock()
 	defer defaultTransportM.Unlock()
 	if defaultTransport == nil {
-		transportOk = false
+		transportOkC <- false
 		event.newState(TestFailed)
 		event.newState(NotConfigured)
 		event.newState(Ended)
@@ -271,7 +273,7 @@ func testConn(event *ConnectionEvent) error {
 	}
 	err := testSocks5Internet(defaultTransport.Service.Response["bindaddr"])
 	if err != nil {
-		transportOk = false
+		transportOkC <- false
 		event.newState(TestFailed)
 		event.newState(Failed)
 		event.newState(Ended)
@@ -280,12 +282,12 @@ func testConn(event *ConnectionEvent) error {
 		if event.State != Up && lg.V(4) {
 			lg.Infof("event: tested %s -> %s (%s)", event.State, Up, event.ServiceID)
 		}
-		transportOk = true
+		transportOkC <- true
 		if event.State != Up {
 			event.newState(Up)
 		}
 	}
-	transportOk = true
+	transportOkC <- true
 	return nil
 }
 
@@ -374,24 +376,38 @@ func connect(connection shared.Connection, authKey string) {
 var (
 	defaultTransportM sync.Mutex
 	defaultTransport  *TransportService
-	transportOk       = false
+
+	transportOk   = false
+	transportOkMu sync.RWMutex
+	transportOkC  = make(chan bool, 0)
 )
 
 func TransportOk() bool {
-	defaultTransportM.Lock()
-	defer defaultTransportM.Unlock()
+	transportOkMu.RLock()
+	defer transportOkMu.RUnlock()
 	return transportOk
+}
 
+func updateTransportOkLoop() {
+	for {
+		select {
+		case ok := <-transportOkC:
+			transportOkMu.Lock()
+			transportOk = ok
+			transportOkMu.Unlock()
+		}
+	}
 }
 
 // NewTransportHTTPClient returns a http client of the default transport
-func NewTransportHTTPClient() (*http.Client, error) {
+func NewTransportHTTPClient(timeout time.Duration) (*http.Client, error) {
 	defaultTransportM.Lock()
-	defer defaultTransportM.Unlock()
-	if defaultTransport == nil {
+	t := defaultTransport
+	defaultTransportM.Unlock()
+	if t == nil {
 		return nil, errors.New("transport not connected)")
 	}
-	client := defaultTransport.HTTPClient()
+	client := t.HTTPClient()
 	return client, nil
 }
 
@@ -406,6 +422,8 @@ func (t *TransportService) Dial() Dialer {
 func (t *TransportService) HTTPClient() *http.Client {
 	dial := t.Dial()
 	tr := &http.Transport{Dial: dial}
-	httpClient := &http.Client{Transport: tr}
+	httpClient := &http.Client{
+		Transport: tr,
+	}
 	return httpClient
 }

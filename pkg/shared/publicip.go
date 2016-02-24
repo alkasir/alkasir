@@ -50,9 +50,8 @@ func GetPublicIPAddr() net.IP {
 		publicIP.hasIP.Add(1)
 
 		go func() {
-			timeout := time.Duration(10 * time.Second)
 			client := http.Client{
-				Timeout:   timeout,
+				Timeout:   15 * time.Second,
 				Transport: v4Transport,
 			}
 			var services []string = make([]string, 0)
