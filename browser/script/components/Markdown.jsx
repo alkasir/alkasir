@@ -16,7 +16,9 @@ var Remarkable = React.createClass({
         return {
             container: "div",
             smallHeadings: false,
-            options: {}
+            options: {
+                html: true,
+            }
         };
     },
 
