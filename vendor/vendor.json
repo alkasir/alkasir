@@ -179,8 +179,8 @@
 		},
 		{
 			"path": "github.com/dgrijalva/jwt-go",
-			"revision": "afef698c326bfd906b11659432544e5aae441d44",
-			"revisionTime": "2015-12-30T10:00:00-08:00"
+			"revision": "f2193411bd642f7db03249fd79d5292c9b34916a",
+			"revisionTime": "2016-02-09T11:43:28-08:00"
 		},
 		{
 			"path": "github.com/elazarl/go-bindata-assetfs",
@@ -199,8 +199,8 @@
 		},
 		{
 			"path": "github.com/facebookgo/stack",
-			"revision": "d9d227395bc3d7a635388c75b2e3b3a750e11888",
-			"revisionTime": "2015-12-07T10:16:08+05:30"
+			"revision": "751773369052141c013c6e827a71e8f35c07879c",
+			"revisionTime": "2016-02-09T10:44:15-08:00"
 		},
 		{
 			"path": "github.com/facebookgo/subset",
@@ -264,8 +264,8 @@
 		},
 		{
 			"path": "github.com/hashicorp/go-version",
-			"revision": "7e3c02b30806fa5779d3bdfc152ce4c6f40e7b38",
-			"revisionTime": "2016-01-19T13:13:26-08:00"
+			"revision": "2e7f5ea8e27bb3fdf9baa0881d16757ac4637332",
+			"revisionTime": "2016-02-13T16:24:39-08:00"
 		},
 		{
 			"path": "github.com/inconshreveable/go-update",
@@ -319,8 +319,8 @@
 		},
 		{
 			"path": "github.com/lib/pq",
-			"revision": "f59175c2986495ff94109dee3835c504a96c3e81",
-			"revisionTime": "2016-01-27T14:38:42-08:00"
+			"revision": "69552e54d2a9d4c6a2438926a774930f7bc398ec",
+			"revisionTime": "2016-02-09T23:37:49+09:00"
 		},
 		{
 			"path": "github.com/lib/pq/oid",
@@ -514,8 +514,8 @@
 		},
 		{
 			"path": "github.com/osrg/gobgp/packet",
-			"revision": "d280168106c9ef9ed68ad117b913f52e6bae1827",
-			"revisionTime": "2016-02-06T14:19:43-08:00"
+			"revision": "00a592ef3a852c7fe5ac0c1ccac1f0c7345e5537",
+			"revisionTime": "2016-02-24T14:13:22+09:00"
 		},
 		{
 			"path": "github.com/pivotal-golang/archiver/extractor",
@@ -664,8 +664,8 @@
 		},
 		{
 			"path": "h12.me/socks",
-			"revision": "c19db44edd3ca0f7992809b55412dbb57805bc8e",
-			"revisionTime": "2015-04-10T14:41:13+08:00"
+			"revision": "6e16ba984922477eab6518c89653a051ac4cc508",
+			"revisionTime": "2016-02-15T18:25:21+08:00"
 		},
 		{
 			"path": "launchpad.net/gocheck",

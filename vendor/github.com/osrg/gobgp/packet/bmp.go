@@ -105,7 +105,7 @@ func (h *BMPPeerHeader) DecodeFromBytes(data []byte) error {
 	if h.Flags&(1<<7) != 0 {
 		h.PeerAddress = net.IP(data[10:26]).To16()
 	} else {
-		h.PeerAddress = net.IP(data[10:14]).To4()
+		h.PeerAddress = net.IP(data[22:26]).To4()
 	}
 	h.PeerAS = binary.BigEndian.Uint32(data[26:30])
 	h.PeerBGPID = data[30:34]
@@ -124,7 +124,7 @@ func (h *BMPPeerHeader) Serialize() ([]byte, error) {
 	if h.Flags&(1<<7) != 0 {
 		copy(buf[10:26], h.PeerAddress)
 	} else {
-		copy(buf[10:14], h.PeerAddress.To4())
+		copy(buf[22:26], h.PeerAddress.To4())
 	}
 	binary.BigEndian.PutUint32(buf[26:30], h.PeerAS)
 	copy(buf[30:34], h.PeerBGPID)
@@ -297,7 +297,7 @@ func (body *BMPPeerUpNotification) ParseBody(msg *BMPMessage, data []byte) error
 	if msg.PeerHeader.Flags&(1<<7) != 0 {
 		body.LocalAddress = net.IP(data[:16]).To16()
 	} else {
-		body.LocalAddress = net.IP(data[:4]).To4()
+		body.LocalAddress = net.IP(data[12:16]).To4()
 	}
 
 	body.LocalPort = binary.BigEndian.Uint16(data[16:18])
@@ -320,7 +320,7 @@ func (body *BMPPeerUpNotification) ParseBody(msg *BMPMessage, data []byte) error
 func (body *BMPPeerUpNotification) Serialize() ([]byte, error) {
 	buf := make([]byte, 20)
 	if body.LocalAddress.To4() != nil {
-		copy(buf[:4], body.LocalAddress.To4())
+		copy(buf[12:16], body.LocalAddress.To4())
 	} else {
 		copy(buf[:16], body.LocalAddress.To16())
 	}
