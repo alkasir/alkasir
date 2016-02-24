@@ -1,5 +1,4 @@
 /* global require, module */
-"use strict";
 
 module.exports = {
     App: require('./App'),

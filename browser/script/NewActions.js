@@ -1,5 +1,3 @@
-'use strict';
-
 // import Reflux from "reflux"
 // import requests from "superagent"
 // import Immutable from "immutable"
