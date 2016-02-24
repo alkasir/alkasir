@@ -2,6 +2,7 @@ package nexus
 
 import (
 	"flag"
+	"fmt"
 	"runtime"
 
 	"github.com/hanjos/nexus"
@@ -19,11 +20,14 @@ func init() {
 
 }
 
-func getNexusClient() nexus.Client {
+func getNexusClient() (nexus.Client, error) {
+	if nexusURL == "" {
+		return nil, fmt.Errorf("nexus-url argument not set")
+	}
 	if nexusClient == nil {
 		nexusClient = nexus.New(nexusURL, credentials.None)
 	}
-	return nexusClient
+	return nexusClient, nil
 }
 
 var baseDir = "as-downloads"
