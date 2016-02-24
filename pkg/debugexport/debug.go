@@ -88,6 +88,8 @@ func NewDebugResposne(version string, config interface{}) *DebugResponse {
 
 	if PublicKey != "" {
 		response.Encrypt(PublicKey)
+	} else {
+		lg.Warningln("PublicKey not set, exporting unencrypted debug log")
 	}
 
 	return response
