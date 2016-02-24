@@ -1,5 +1,3 @@
-'use strict';
-
 /* jshint esnext: true */
 /* global require, module */
 
@@ -11,7 +9,7 @@ var React = require('react'),
     Actions = require('../Actions'),
     Stores = require('../Stores'),
     T = require("../i18n").T,
-    {Input, Panel, Table, Nav, NavItem, Button, Label, Well, Alert} = Bootstrap;
+    {Input, Panel, Well} = Bootstrap;
 
 import SuggestionStatus from "./SuggestionStatus";
 import Hidden from "./Hidden";

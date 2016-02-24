@@ -1137,7 +1137,8 @@ func CITask() {
 	Run("chrome")
 	runCmd("jsxhint", "browser/")
 	runCmd("coffeelint", "-f", "browser/.coffeelint", "browser/")
-	runCmd("eslint", "-c", "browser/.eslintrc", "browser/script/")
+	runCmd("eslint", "-c", "browser/.eslintrc", "browser/script/",
+		"--ext", ".jsx,.js", "--ignore-pattern", "**/components/dev/**")
 
 	releaseTag := os.Getenv("ALKASIR_RELEASE_TAG")
 	if releaseTag != "" {

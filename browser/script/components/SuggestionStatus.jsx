@@ -1,5 +1,3 @@
-'use strict';
-
 /* jshint esnext: true */
 /* global require, module */
 
@@ -9,25 +7,25 @@ var React = require('react'),
 
 
     T = require("../i18n").T,
-    {Input, Panel, Table, Nav, NavItem, Button, Label, Well, Alert} = Bootstrap;
+    {Alert} = Bootstrap;
 
-var statusToI18n = function(x) {
-    var newStatus = "unknown_error";
-    if (x.reason === "ServerTimeout" ) {
-        newStatus = "central_error";
-    } else if (x.reason === "NotFound") {
-        newStatus = "not_found";
-    } else if (x.reason === "Invalid") {
-        x.details.causes.forEach(function(cause) {
-            if (cause.field === "URL" && cause.reason === "FieldValueNotSupported") {
-                newStatus = "invalid_url";
-            }
-        });
-        // TODO ???
-        newStatus = "invalid_url";
-    }
-    return newStatus;
-}
+// var statusToI18n = function(x) {
+//     var newStatus = "unknown_error";
+//     if (x.reason === "ServerTimeout" ) {
+//         newStatus = "central_error";
+//     } else if (x.reason === "NotFound") {
+//         newStatus = "not_found";
+//     } else if (x.reason === "Invalid") {
+//         x.details.causes.forEach(function(cause) {
+//             if (cause.field === "URL" && cause.reason === "FieldValueNotSupported") {
+//                 newStatus = "invalid_url";
+//             }
+//         });
+//         // TODO ???
+//         newStatus = "invalid_url";
+//     }
+//     return newStatus;
+// }
 
 
 var SuggestionStatus = React.createClass({
@@ -43,11 +41,11 @@ var SuggestionStatus = React.createClass({
     render: function() {
         var body;
         var status = this.props.status;
-        var responseStatus={};
-        if (this.props.response !== {}) {
-            responseStatus = statusToI18n(this.props.response)
-        }
-        switch(status){
+        // var responseStatus={};
+        // if (this.props.response !== {}) {
+            // responseStatus = statusToI18n(this.props.response)
+        // }
+        switch (status){
             case "initial":
                 body = (
                     <span />

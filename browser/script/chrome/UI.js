@@ -1,5 +1,3 @@
-"use strict";
-
 require("../../style/main.less");
 
 import settings from "../settings";

@@ -1,5 +1,3 @@
-'use strict';
-
 /* jshint esnext: true */
 /* global require, module */
 

@@ -1,5 +1,3 @@
-'use strict';
-
 /* jshint esnext: true */
 /* global require, module */
 
@@ -14,7 +12,7 @@ var React = require('react'),
     Stores = require('../Stores'),
     T = require('../i18n').T,
     _ = require("lodash"),
-    {Input, Panel, Table, Nav, NavItem, Button, Label, Modal, ProgressBar, ModalTrigger, Glyphicon, Row, Col, Alert, Well} = Bootstrap;
+    {Input, Panel, Button, Modal, ModalTrigger, Glyphicon, Row, Col, Alert, Well} = Bootstrap;
 
 import Disabled from "./Disabled";
 import Hidden from "./Hidden";
@@ -56,7 +54,7 @@ var ConnectionStringSetting = React.createClass({
             this.props.onRequestHide();
         });
         promise.otherwise((res)=> {
-            console.log("SAVING CONNECTION FAILED");
+            // console.log("SAVING CONNECTION FAILED");
         });
     },
 
@@ -68,7 +66,7 @@ var ConnectionStringSetting = React.createClass({
         var encoded = e.target.value;
         var c = this;
         promise.then(function(response) {
-            console.log(response);
+            // console.log(response);
             if (response.ok) {
                 c.setState({
                     encoded: encoded,

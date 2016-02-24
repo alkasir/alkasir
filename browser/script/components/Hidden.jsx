@@ -1,7 +1,4 @@
-"use strict";
-
 import React from 'react';
-import { T } from '../i18n';
 
 
 class Hidden extends React.Component {

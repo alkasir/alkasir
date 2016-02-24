@@ -1,5 +1,3 @@
-'use strict';
-
 /* jshint esnext: true */
 /* global require, module */
 
@@ -9,8 +7,7 @@ var React = require('react'),
     Stores = require("../Stores"),
     T = require("../i18n").T,
     Settings = require("./Settings"),
-    {Input, Panel, Table, Nav, NavItem, Button, Label, Well, Alert} = Bootstrap;
-
+    {Panel, Button} = Bootstrap;
 
 
 /*

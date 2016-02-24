@@ -1,5 +1,3 @@
-"use strict";
-
 // imported for side effects only
 import "./initUI";
 
