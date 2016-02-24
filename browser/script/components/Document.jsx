@@ -62,6 +62,8 @@ var Document = React.createClass({
         if (e.target.nodeName === "A") {
             if (_.startsWith(e.target.attributes.href.textContent, "http")) {
                 return;
+            } else if (_.startsWith(e.target.attributes.href.textContent, "mailto:")) {
+                return;
             }
             e.preventDefault();
             e.stopPropagation();
