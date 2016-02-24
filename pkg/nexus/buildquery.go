@@ -20,8 +20,12 @@ type BuildQuery struct {
 
 func (b *BuildQuery) GetVersions() (Artifacts, error) {
 	lg.Infof("Getting versions of %s", b.ArtifactDisplayName())
+	c, err :=  getNexusClient()
+	if err != nil {
+		return nil, err
+	}
 
-	artifacts, err := getNexusClient().Artifacts(
+	artifacts, err := c.Artifacts(
 		search.InRepository{
 			RepositoryID: repoID,
 			Criteria: search.ByCoordinates{
@@ -142,7 +146,11 @@ func (b *BuildQuery) packaging() string {
 }
 
 func (b *BuildQuery) getMasterSnapshot(repoID string) (*Artifact, error) {
-	artifacts, err := getNexusClient().Artifacts(
+	c, err := getNexusClient()
+	if err != nil {
+		return nil, err
+	}
+	artifacts, err := c.Artifacts(
 		search.InRepository{
 			RepositoryID: repoID,
 			Criteria: search.ByCoordinates{
@@ -166,7 +174,12 @@ func (b *BuildQuery) getMasterSnapshot(repoID string) (*Artifact, error) {
 
 func (b *BuildQuery) getVersion() (*Artifact, error) {
 	lg.Infof("Getting versions of %s", b.ArtifactDisplayName())
-	artifacts, err := getNexusClient().Artifacts(
+	c, err := getNexusClient()
+	if err != nil {
+		return nil, err
+	}
+
+	artifacts, err := c.Artifacts(
 		search.InRepository{
 			RepositoryID: repoID,
 			Criteria: search.ByCoordinates{

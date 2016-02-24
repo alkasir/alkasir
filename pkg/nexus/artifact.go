@@ -45,8 +45,12 @@ func (a *Artifact) Path() string {
 }
 
 func (a *Artifact) Info() *nexus.ArtifactInfo {
+	c, err := getNexusClient()
+	if err != nil {
+		panic(err)
+	}
 
-	info, err := getNexusClient().InfoOf(a.Artifact)
+	info, err := c.InfoOf(a.Artifact)
 	if err != nil {
 		panic(err)
 	}
