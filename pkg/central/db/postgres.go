@@ -383,7 +383,7 @@ func (d *DB) GetSamples(fromID uint64, sampleType string) (chan Sample, error) {
 	psql := squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar)
 
 	i := psql.
-		Select("id", "host", "country_code", "asn", "created_at", "origin", "type", "data", "extra_data").
+		Select("id", "host", "country_code", "asn", "created_at", "origin", "type", "token", "data", "extra_data").
 		From("samples").
 		Where("id > ?", fromID)
 	rows, err := i.RunWith(d.cache).Query()
@@ -396,6 +396,7 @@ func (d *DB) GetSamples(fromID uint64, sampleType string) (chan Sample, error) {
 		defer rows.Close()
 		defer close(results)
 		for rows.Next() {
+			var token string
 			var sample Sample
 			err := rows.Scan(
 				&sample.ID,
@@ -405,6 +406,7 @@ func (d *DB) GetSamples(fromID uint64, sampleType string) (chan Sample, error) {
 				&sample.CreatedAt,
 				&sample.Origin,
 				&sample.Type,
+				&token,
 				&sample.Data,
 				&sample.ExtraData,
 			)
@@ -412,6 +414,7 @@ func (d *DB) GetSamples(fromID uint64, sampleType string) (chan Sample, error) {
 				lg.Warning(err)
 				continue
 			}
+			sample.Token = shared.SuggestionToken(token)
 			results <- sample
 		}
 	}(rows)
@@ -473,13 +476,11 @@ func (d *DB) GetSamples(fromID uint64, sampleType string) (chan Sample, error) {
 func (d *DB) GetSessionSamples(token shared.SuggestionToken) ([]Sample, error) {
 	psql := squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar)
 
-
 	//	fromID := 0
 	i := psql.
-		Select("id", "host", "country_code", "asn", "created_at", "origin", "type", "data", "extra_data").
+		Select("id", "host", "country_code", "asn", "created_at", "origin", "type", "token", "data", "extra_data").
 		From("samples").
 		Where(squirrel.Eq{"token": string(token)})
-
 
 	rows, err := i.RunWith(d.cache).Query()
 
@@ -492,6 +493,7 @@ func (d *DB) GetSessionSamples(token shared.SuggestionToken) ([]Sample, error) {
 
 	for rows.Next() {
 		var sample Sample
+		var token string
 		err := rows.Scan(
 			&sample.ID,
 			&sample.Host,
@@ -500,6 +502,7 @@ func (d *DB) GetSessionSamples(token shared.SuggestionToken) ([]Sample, error) {
 			&sample.CreatedAt,
 			&sample.Origin,
 			&sample.Type,
+			&token,
 			&sample.Data,
 			&sample.ExtraData,
 		)
@@ -507,13 +510,12 @@ func (d *DB) GetSessionSamples(token shared.SuggestionToken) ([]Sample, error) {
 			lg.Warning(err)
 			continue
 		}
-
+		sample.Token = shared.SuggestionToken(token)
 		results = append(results, sample)
 	}
 
 	return results, nil
 }
-
 
 func (d *DB) GetBlockedHosts(CountryCode string, ASN int) ([]string, error) {
 	psql := squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar)
