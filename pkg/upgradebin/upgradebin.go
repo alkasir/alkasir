@@ -61,7 +61,7 @@ func DecodeKeys(priv, pub []byte) (*KeyPair, error) {
 }
 
 func DecodePrivateKey(priv []byte) (*[64]byte, error) {
-	privblk, _ := pem.Decode([]byte(priv))
+	privblk, _ := pem.Decode(priv)
 	if privblk == nil {
 		return nil, fmt.Errorf("could not decode private key")
 	}
@@ -79,7 +79,7 @@ func DecodePrivateKey(priv []byte) (*[64]byte, error) {
 }
 
 func DecodePublicKey(pub []byte) (*[32]byte, error) {
-	pubblk, _ := pem.Decode([]byte(pub))
+	pubblk, _ := pem.Decode(pub)
 	if pubblk == nil {
 		return nil, fmt.Errorf("could not decode public key")
 	}

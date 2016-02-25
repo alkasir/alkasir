@@ -67,4 +67,4 @@ func DefaultMeasurements(URL string) ([]Measurer, error) {
 	return result, nil
 }
 
-var defaultTimeout = time.Duration(45 * time.Second)
+var defaultTimeout = 45 * time.Second

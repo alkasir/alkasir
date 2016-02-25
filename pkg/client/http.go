@@ -85,7 +85,7 @@ func startInternalHTTPServer(authKey string) error {
 		if !ok {
 			return errors.New("Could not start internal http server")
 		}
-	case <-time.After(time.Duration(time.Millisecond * 200)):
+	case <-time.After(time.Millisecond * 200):
 		return nil
 	}
 	return nil
