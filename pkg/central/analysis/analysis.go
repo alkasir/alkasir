@@ -38,7 +38,7 @@ func samplesAnalyzer() {
 loop:
 	for samples := range sampleAnalysisC {
 		var (
-			newTokenSample *db.Sample
+			newTokenSample db.Sample
 			clientSamples  = make(map[string]db.Sample, 0)
 			centralSamples = make(map[string]db.Sample, 0)
 		)
@@ -47,11 +47,11 @@ loop:
 		for _, s := range samples {
 			switch s.Type {
 			case "NewClientToken":
-				if newTokenSample != nil {
+				if newTokenSample.Token != "" {
 					lg.Error("got more than one newTokenSample, aborting")
 					continue loop
 				}
-				newTokenSample = &s
+				newTokenSample = s
 			case "HTTPHeader", "DNSQuery":
 				switch s.Origin {
 				case "Central":
@@ -65,7 +65,7 @@ loop:
 		}
 
 		// validate that wanted data types are available
-		if newTokenSample == nil {
+		if newTokenSample.Token == "" {
 			lg.Errorln("No newTokenSample, aborting")
 			continue loop
 		}
@@ -97,11 +97,13 @@ loop:
 			continue loop
 		}
 
+		// score data
 		score := scoreHTTPHeaders(clientHeader, centralHeader)
 		lg.V(10).Infof("session:%s %s", newTokenSample.Token, score)
+
 		if score.Score() >= 0.5 {
 			lg.Infoln("publishing session", newTokenSample.Token)
-			hostPublishC <- *newTokenSample
+			hostPublishC <- newTokenSample
 		} else {
 			lg.Infoln("not publishing session", newTokenSample.Token)
 		}
