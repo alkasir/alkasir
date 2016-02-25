@@ -131,7 +131,6 @@ func StartAnalysis(clients db.Clients) {
 		go hostPublisher(clients)
 	}
 
-	lastID = lastID - 1 // TODO TESTING
 	lg.Infof("starting analysis from sample ID %d", lastID)
 
 	lastPersistedID := lastID
