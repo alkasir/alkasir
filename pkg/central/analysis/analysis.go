@@ -139,7 +139,8 @@ func StartAnalysis(clients db.Clients) {
 	for range tick.C {
 		results, err := clients.DB.GetSamples(uint64(lastID), "")
 		if err != nil {
-			lg.Fatal(err)
+			lg.Errorf("database err (skipping): %v", err)
+			continue
 		}
 		n := 0
 		start := time.Now()
