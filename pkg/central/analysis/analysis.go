@@ -119,7 +119,7 @@ func hostPublisher(clients db.Clients) {
 
 func StartAnalysis(clients db.Clients) {
 
-	tick := time.NewTicker(10 * time.Second)
+	tick := time.NewTicker(5 * time.Second)
 	lastID, err := clients.DB.GetLastProcessedSampleID()
 	if err != nil {
 		lg.Warningln(err)
@@ -131,7 +131,6 @@ func StartAnalysis(clients db.Clients) {
 		go hostPublisher(clients)
 	}
 
-	lastID = lastID - 1 // TODO TESTING
 	lg.Infof("starting analysis from sample ID %d", lastID)
 
 	lastPersistedID := lastID
@@ -139,7 +138,8 @@ func StartAnalysis(clients db.Clients) {
 	for range tick.C {
 		results, err := clients.DB.GetSamples(uint64(lastID), "")
 		if err != nil {
-			lg.Fatal(err)
+			lg.Errorf("database err (skipping): %v", err)
+			continue
 		}
 		n := 0
 		start := time.Now()
