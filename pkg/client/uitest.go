@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/ant0ine/go-json-rest/rest"
 	"github.com/alkasir/alkasir/pkg/client/internal/config"
 	"github.com/alkasir/alkasir/pkg/i18n"
+	"github.com/ant0ine/go-json-rest/rest"
 )
 
 const UITEST = false

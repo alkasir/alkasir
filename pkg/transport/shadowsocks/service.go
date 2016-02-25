@@ -5,8 +5,8 @@ import (
 	"net"
 	"strconv"
 
-	ss "github.com/shadowsocks/shadowsocks-go/shadowsocks"
 	"github.com/alkasir/alkasir/pkg/service/server"
+	ss "github.com/shadowsocks/shadowsocks-go/shadowsocks"
 )
 
 type ShadowsocksTransport struct {

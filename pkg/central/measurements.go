@@ -123,7 +123,7 @@ func startMeasurer(dbclients db.Clients) {
 
 func queueMeasurements(token shared.SuggestionToken, measurers ...measure.Measurer) {
 	requestMeasurements <- centralMeasurer{
-		token: token,
+		token:     token,
 		measurers: measurers,
 	}
 }

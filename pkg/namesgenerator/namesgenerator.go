@@ -24,7 +24,7 @@ func toBase(bi *big.Int, destBase []string) string {
 	src.Add(bi, big.NewInt(0))
 
 	if big.NewInt(0).Cmp(src) == 0 {
-		return string(destBase[0])
+		return destBase[0]
 	}
 
 	var digits []string

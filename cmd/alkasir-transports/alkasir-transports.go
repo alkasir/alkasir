@@ -4,11 +4,11 @@ package main
 import (
 	"flag"
 
-	_ "github.com/thomasf/lg"
 	"github.com/alkasir/alkasir/pkg/service/server"
 	"github.com/alkasir/alkasir/pkg/transport/shadowsocks"
 	"github.com/alkasir/alkasir/pkg/transport/socks5"
 	"github.com/alkasir/alkasir/pkg/transport/torpt"
+	_ "github.com/thomasf/lg"
 )
 
 func main() {

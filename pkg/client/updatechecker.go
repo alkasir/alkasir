@@ -44,7 +44,7 @@ type UpdateChecker struct {
 func NewUpdateChecker(name string) (*UpdateChecker, error) {
 
 	c := &UpdateChecker{
-		Interval: time.Duration(1*time.Hour + (time.Minute * (time.Duration(rand.Intn(120))))),
+		Interval: 1*time.Hour + (time.Minute * (time.Duration(rand.Intn(120)))),
 	}
 	c.response = make(chan UpdateResult)
 	c.RequestC = make(chan UpdateRequest)

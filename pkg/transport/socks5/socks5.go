@@ -3,8 +3,8 @@ package socks5
 import (
 	"net"
 
-	"github.com/armon/go-socks5"
 	"github.com/alkasir/alkasir/pkg/service/server"
+	"github.com/armon/go-socks5"
 )
 
 type Socks5Transport struct {

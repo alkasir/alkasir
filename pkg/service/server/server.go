@@ -19,8 +19,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/getlantern/bytecounting"
 	"github.com/alkasir/alkasir/pkg/shared"
+	"github.com/getlantern/bytecounting"
 )
 
 // Check if service is supported

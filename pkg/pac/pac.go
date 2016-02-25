@@ -10,8 +10,8 @@ import (
 	"sync"
 	"text/template"
 
-	"github.com/thomasf/lg"
 	"github.com/alkasir/alkasir/pkg/service"
+	"github.com/thomasf/lg"
 )
 
 var pac struct {

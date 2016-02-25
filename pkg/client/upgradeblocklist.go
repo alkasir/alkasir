@@ -6,13 +6,13 @@ import (
 	"sort"
 	"time"
 
-	"github.com/nu7hatch/gouuid"
-	"github.com/thomasf/lg"
 	"github.com/alkasir/alkasir/pkg/client/internal/config"
 	"github.com/alkasir/alkasir/pkg/client/ui"
 	"github.com/alkasir/alkasir/pkg/pac"
 	"github.com/alkasir/alkasir/pkg/service"
 	"github.com/alkasir/alkasir/pkg/shared"
+	"github.com/nu7hatch/gouuid"
+	"github.com/thomasf/lg"
 )
 
 // StartBlocklistUpgrader react to certain conitions for when the list of

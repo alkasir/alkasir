@@ -3,10 +3,10 @@ package apiutils
 import (
 	"fmt"
 
-	"github.com/ant0ine/go-json-rest/rest"
-	"github.com/thomasf/lg"
 	"github.com/alkasir/alkasir/pkg/shared"
 	"github.com/alkasir/alkasir/pkg/shared/apierrors"
+	"github.com/ant0ine/go-json-rest/rest"
+	"github.com/thomasf/lg"
 )
 
 func WriteRestError(w rest.ResponseWriter, err error) {

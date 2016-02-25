@@ -6,11 +6,11 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/ant0ine/go-json-rest/rest"
 	"github.com/alkasir/alkasir/pkg/central/db"
 	"github.com/alkasir/alkasir/pkg/shared"
 	"github.com/alkasir/alkasir/pkg/shared/jwtmw"
 	"github.com/alkasir/alkasir/pkg/shared/linkheader"
+	"github.com/ant0ine/go-json-rest/rest"
 )
 
 // apiMux creates the servermux for the json api server

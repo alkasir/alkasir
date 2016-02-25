@@ -5,8 +5,8 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/thomasf/lg"
 	"github.com/alkasir/alkasir/pkg/shared"
+	"github.com/thomasf/lg"
 )
 
 // A list of services to manage and monitor running services
