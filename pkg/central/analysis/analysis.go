@@ -119,7 +119,7 @@ func hostPublisher(clients db.Clients) {
 
 func StartAnalysis(clients db.Clients) {
 
-	tick := time.NewTicker(10 * time.Second)
+	tick := time.NewTicker(5 * time.Second)
 	lastID, err := clients.DB.GetLastProcessedSampleID()
 	if err != nil {
 		lg.Warningln(err)
