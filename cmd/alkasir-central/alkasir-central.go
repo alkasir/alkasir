@@ -5,8 +5,8 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/facebookgo/flagenv"
 	"github.com/alkasir/alkasir/pkg/central"
+	"github.com/facebookgo/flagenv"
 )
 
 func main() {

@@ -3,9 +3,9 @@ package client
 import (
 	"fmt"
 
-	"github.com/thomasf/lg"
 	"github.com/alkasir/alkasir/pkg/i18n"
 	"github.com/alkasir/alkasir/pkg/res"
+	"github.com/thomasf/lg"
 )
 
 func loadTranslations(languages ...string) {

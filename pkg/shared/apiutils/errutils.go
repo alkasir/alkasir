@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/thomasf/lg"
 	api "github.com/alkasir/alkasir/pkg/shared"
+	"github.com/thomasf/lg"
 )
 
 // statusError is an object that can be converted into an api.Status

@@ -87,10 +87,9 @@ func TestSingleUseKeystore(t *testing.T) {
 			t.Errorf("expected 2 items in store")
 		}
 		s.Cleanup()
-				if len(s.entries) != 0 {
+		if len(s.entries) != 0 {
 			t.Errorf("all keys should have expired")
 		}
-
 
 	}
 

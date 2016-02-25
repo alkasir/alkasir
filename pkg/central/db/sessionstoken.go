@@ -4,8 +4,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/thomasf/lg"
 	"github.com/alkasir/alkasir/pkg/shared"
+	"github.com/thomasf/lg"
 
 	"github.com/prometheus/client_golang/prometheus"
 )

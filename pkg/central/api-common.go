@@ -1,10 +1,10 @@
 package central
 
 import (
-	"github.com/ant0ine/go-json-rest/rest"
-	"github.com/thomasf/lg"
 	"github.com/alkasir/alkasir/pkg/shared/middlewares"
 	"github.com/alkasir/alkasir/pkg/shared/middlewares/prometheusMW"
+	"github.com/ant0ine/go-json-rest/rest"
+	"github.com/thomasf/lg"
 )
 
 func defaultAPI(servername string) *rest.Api {

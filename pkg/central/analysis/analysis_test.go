@@ -14,25 +14,25 @@ func TestAnalysis(t *testing.T) {
 	go samplesAnalyzer()
 
 	sampleAnalysisC <- []db.Sample{
-		db.Sample{
+		{
 			Token:  "1",
 			Type:   "NewClientToken",
 			Origin: "Central",
 			Host:   "youtube.com",
 		},
-		db.Sample{
+		{
 			Token:  "1",
 			Type:   "HTTPHeader",
 			Origin: "Central",
 			Host:   "youtube.com",
-			Data: ytresponse,
+			Data:   ytresponse,
 		},
-		db.Sample{
+		{
 			Token:  "1",
 			Type:   "HTTPHeader",
 			Origin: "Client",
 			Host:   "youtube.com",
-			Data: ytresponse2,
+			Data:   ytresponse2,
 		},
 		// db.Sample{
 		// 	Token:  "1",
@@ -48,10 +48,7 @@ func TestAnalysis(t *testing.T) {
 		// },
 	}
 
-
 }
-
-
 
 var ytresponse = []byte(`{
   "url":"http://www.youtube.com/watch?v=wflisz67bpe&feature=share&bpctr=1345276397&has_verified=1",
@@ -92,7 +89,6 @@ var ytresponse = []byte(`{
   "error":"",
   "status_code":200
 }`)
-
 
 var ytresponse2 = []byte(`{
   "url":"http://www.youtube.com/watch?v=wflisz67bpe&feature=share&bpctr=1345276397&has_verified=1",

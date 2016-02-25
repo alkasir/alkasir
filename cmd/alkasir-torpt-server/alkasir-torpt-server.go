@@ -10,12 +10,12 @@ import (
 	"path/filepath"
 	"sync"
 
+	"github.com/alkasir/alkasir/pkg/obfs4proxy"
+	"github.com/alkasir/alkasir/pkg/shared"
 	"github.com/alkasir/ptc"
 	"github.com/armon/go-socks5"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/thomasf/lg"
-	"github.com/alkasir/alkasir/pkg/obfs4proxy"
-	"github.com/alkasir/alkasir/pkg/shared"
 )
 
 var (

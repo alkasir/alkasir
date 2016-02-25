@@ -18,9 +18,9 @@ package fielderrors
 
 import (
 	"fmt"
+	"github.com/alkasir/alkasir/pkg/shared/errors"
 	"github.com/davecgh/go-spew/spew"
 	glog "github.com/thomasf/lg"
-	"github.com/alkasir/alkasir/pkg/shared/errors"
 	"strings"
 )
 

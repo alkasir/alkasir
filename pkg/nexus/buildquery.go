@@ -20,7 +20,7 @@ type BuildQuery struct {
 
 func (b *BuildQuery) GetVersions() (Artifacts, error) {
 	lg.Infof("Getting versions of %s", b.ArtifactDisplayName())
-	c, err :=  getNexusClient()
+	c, err := getNexusClient()
 	if err != nil {
 		return nil, err
 	}

@@ -7,10 +7,10 @@ import (
 	"os/exec"
 	"testing"
 
-	"github.com/thomasf/lg"
 	"github.com/alkasir/alkasir/pkg/service"
 	"github.com/alkasir/alkasir/pkg/service/server"
 	"github.com/alkasir/alkasir/pkg/shared"
+	"github.com/thomasf/lg"
 )
 
 var (

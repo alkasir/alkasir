@@ -7,12 +7,12 @@ import (
 	"runtime"
 	"sync"
 
-	"github.com/atotto/clipboard"
-	"github.com/thomasf/lg"
 	"github.com/alkasir/alkasir/pkg/client/ui"
 	"github.com/alkasir/alkasir/pkg/client/ui/systray"
 	"github.com/alkasir/alkasir/pkg/i18n"
 	"github.com/alkasir/alkasir/pkg/res"
+	"github.com/atotto/clipboard"
+	"github.com/thomasf/lg"
 )
 
 type WMGUI struct {

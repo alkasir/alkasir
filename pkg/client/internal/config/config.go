@@ -11,9 +11,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/thomasf/lg"
 	"github.com/alkasir/alkasir/pkg/osutil"
 	"github.com/alkasir/alkasir/pkg/shared"
+	"github.com/thomasf/lg"
 )
 
 // The current configuration in memory

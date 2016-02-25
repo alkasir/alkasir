@@ -9,8 +9,8 @@ import (
 
 	"github.com/facebookgo/flagenv"
 
-	_ "github.com/thomasf/lg"
 	"github.com/alkasir/alkasir/pkg/obfs4proxy"
+	_ "github.com/thomasf/lg"
 
 	"github.com/alkasir/alkasir/pkg/client"
 	"github.com/alkasir/alkasir/pkg/client/ui"

@@ -15,8 +15,8 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/thomasf/lg"
 	"github.com/alkasir/alkasir/pkg/shared"
+	"github.com/thomasf/lg"
 )
 
 // Service is the central data structure for service client and manager.
