@@ -8,11 +8,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/influxdb/influxdb/client"
 	"github.com/thomasf/lg"
 )
 
-var testclient *client.Client
 var sqlDB *DB
 var pgConnString = flag.String("pgconn", "user=alkasir_central password=alkasir_central dbname=alkasir_central port=39558 sslmode=disable", "postgresql connection string")
 
