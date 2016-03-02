@@ -129,6 +129,7 @@ func upgradeBlockList() error {
 			lg.V(2).Infoln("hosts list updated and changed")
 			conf.BlockedHostsCentral.Hosts = newHosts
 			pac.UpdateBlockedList(conf.BlockedHostsCentral.Hosts, conf.BlockedHosts.Hosts)
+			lastBlocklistChange = time.Now()
 			return nil
 		})
 		if err != nil {
