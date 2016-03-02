@@ -14,7 +14,7 @@ import (
 
 	"github.com/alkasir/alkasir/pkg/browsercode"
 	"github.com/alkasir/alkasir/pkg/central/client"
-	"github.com/alkasir/alkasir/pkg/client/internal/config"
+	clientconfig "github.com/alkasir/alkasir/pkg/client/internal/config"
 	"github.com/alkasir/alkasir/pkg/client/ui"
 	"github.com/alkasir/alkasir/pkg/debugexport"
 	"github.com/alkasir/alkasir/pkg/measure"
@@ -74,6 +74,7 @@ var routes = []*rest.Route{
 }
 
 func GetPAC(w rest.ResponseWriter, r *rest.Request) {
+	lg.V(19).Infoln("api /pac/ endpoint called")
 	w.Header().Set("Content-Type", "application/octet-stream")
 	w.(http.ResponseWriter).Write(pac.GenPAC())
 }

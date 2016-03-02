@@ -52,11 +52,13 @@ loop:
 				continue loop
 			}
 			currentCountry = conf.Settings.Local.CountryCode
-			err := upgradeBlockList()
+			n, err := upgradeBlockList()
 			if err != nil {
+				lg.Errorf("blocklist update cc:%s err:%v", currentCountry, err)
 				ui.Notify("blocklist_update_error_message")
 				request.ResponseC <- UpdateError
 			} else {
+				lg.V(5).Infof("blocklist update success cc:%s, got %d entries", currentCountry, n)
 				ui.Notify("blocklist_update_success_message")
 				request.ResponseC <- UpdateSuccess
 			}
@@ -64,12 +66,11 @@ loop:
 	}
 }
 
-func upgradeBlockList() error {
-
+func upgradeBlockList() (int, error) {
 	conf := clientconfig.Get()
 	restclient, err := NewRestClient()
 	if err != nil {
-		return err
+		return 0, err
 	}
 	// a new update ID is sent every week
 	var updateID string
@@ -88,7 +89,6 @@ func upgradeBlockList() error {
 			}
 		}
 	}
-
 	if updateID != "" {
 		lg.Infoln("sending UpdateID", updateID)
 	}
@@ -98,13 +98,13 @@ func upgradeBlockList() error {
 		ClientVersion: VERSION,
 	}
 	resp, err := restclient.UpdateHostlist(req)
+	n := len(resp.Hosts)
 	if err != nil {
-		return err
+		return n, err
 	}
 	if nowID != savedID {
 		err := clientconfig.Update(func(conf *clientconfig.Config) error {
 			conf.Settings.LastID = nowID
-
 			return nil
 		})
 
@@ -113,7 +113,7 @@ func upgradeBlockList() error {
 		}
 		err = clientconfig.Write()
 		if err != nil {
-			return err
+			return n, err
 		}
 
 	}
@@ -127,6 +127,7 @@ func upgradeBlockList() error {
 	if !reflect.DeepEqual(newHosts, prevHosts) {
 		err := clientconfig.Update(func(conf *clientconfig.Config) error {
 			lg.V(2).Infoln("hosts list updated and changed")
+			lg.V(20).Infoln("hosts received: %v", newHosts)
 			conf.BlockedHostsCentral.Hosts = newHosts
 			pac.UpdateBlockedList(conf.BlockedHostsCentral.Hosts, conf.BlockedHosts.Hosts)
 			lastBlocklistChange = time.Now()
@@ -135,7 +136,8 @@ func upgradeBlockList() error {
 		if err != nil {
 			lg.Errorln(err)
 		}
-
+	} else {
+		lg.V(19).Infoln("Hostlists equal after update")
 	}
-	return nil
+	return n, nil
 }
