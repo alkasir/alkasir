@@ -8,7 +8,7 @@ Alkasir does not grant access to all blocked websites. Although we strongly beli
 
 ### Requires Chrome
 
-Unlike other circumvention tools, Alkasir depends on Chrome due to the need for internal functionality provided byt the browser to adjust the proxy settings and keep the list of blocked websites up-to-date. This is a temporary limitation as we plan to introduce plug-ins to other major browsers.
+Unlike other circumvention tools, Alkasir depends on Chrome due to the need for internal functionality provided by the browser to adjust the proxy settings and keep the list of blocked websites up-to-date. This is a temporary limitation as we plan to introduce plug-ins to other major browsers.
 
 ### Not an anonymizer
 
