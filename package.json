@@ -45,9 +45,9 @@
     "remarkable": "^1.6.0",
     "signals": "^1.0.0",
     "style-loader": "^0.10.1",
-    "superagent": "^1.2.0",
+    "superagent": "^1.7.0",
     "webpack": "^1.8.4",
     "webpack-dev-server": "^1.8.0",
-    "when": "^3.7.2"
+    "when": "^3.7.7"
   }
 }
