@@ -262,8 +262,8 @@ func testSocks5Internet(addr string) (err error) {
 }
 
 func testConn(event *ConnectionEvent) error {
-	defaultTransportM.Lock()
-	defer defaultTransportM.Unlock()
+	defaultTransportM.RLock()
+	defer defaultTransportM.RUnlock()
 	if defaultTransport == nil {
 		transportOkC <- false
 		event.newState(TestFailed)
@@ -326,14 +326,14 @@ var DefaultProxyBindAddr = "127.0.0.1:0"
 
 func connect(connection shared.Connection, authKey string) {
 
-	defaultTransportM.Lock()
+	defaultTransportM.RLock()
 	if defaultTransport != nil {
 		err := defaultTransport.Remove()
 		if err != nil {
 			lg.Warningln(err)
 		}
 	}
-	defaultTransportM.Unlock()
+	defaultTransportM.RUnlock()
 
 	event := newConnectionEventhistory(connection)
 
@@ -374,7 +374,7 @@ func connect(connection shared.Connection, authKey string) {
 }
 
 var (
-	defaultTransportM sync.Mutex
+	defaultTransportM sync.RWMutex
 	defaultTransport  *TransportService
 
 	transportOk   = false
@@ -401,9 +401,9 @@ func updateTransportOkLoop() {
 
 // NewTransportHTTPClient returns a http client of the default transport
 func NewTransportHTTPClient(timeout time.Duration) (*http.Client, error) {
-	defaultTransportM.Lock()
+	defaultTransportM.RLock()
 	t := defaultTransport
-	defaultTransportM.Unlock()
+	defaultTransportM.RUnlock()
 	if t == nil {
 		return nil, errors.New("transport not connected)")
 	}
