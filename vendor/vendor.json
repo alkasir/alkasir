@@ -3,86 +3,107 @@
 	"ignore": "",
 	"package": [
 		{
+			"checksumSHA1": "zYjNdU1u8J8drZoUKEC1Y76ClBc=",
 			"path": "git.torproject.org/pluggable-transports/goptlib.git",
-			"revision": "1b43761ebbb97d54de2253dcd28090f99efaa239",
-			"revisionTime": "2015-12-13T21:46:49-08:00"
+			"revision": "f17a5f239f705d7e39a8bccbebdf9927cc99dbeb",
+			"revisionTime": "2016-03-14T17:24:42Z"
 		},
 		{
+			"path": "git.torproject.org/pluggable-transports/obfs4.gi",
+			"revision": ""
+		},
+		{
+			"checksumSHA1": "9FjAFzCl4t9s2I/2LrLcmTqprJc=",
 			"path": "git.torproject.org/pluggable-transports/obfs4.git/common/csrand",
 			"revision": "1df5c8ffe8f4aa2614323698e8008f1ab1fb7a18",
 			"revisionTime": "2016-01-25T14:40:14Z"
 		},
 		{
+			"checksumSHA1": "QcRA+Vo62wjolAdMtjWmtyE+j2g=",
 			"path": "git.torproject.org/pluggable-transports/obfs4.git/common/drbg",
 			"revision": "1df5c8ffe8f4aa2614323698e8008f1ab1fb7a18",
 			"revisionTime": "2016-01-25T14:40:14Z"
 		},
 		{
+			"checksumSHA1": "f8cBFdzutGb8MKsDdjJoz95fjPM=",
 			"path": "git.torproject.org/pluggable-transports/obfs4.git/common/log",
 			"revision": "1df5c8ffe8f4aa2614323698e8008f1ab1fb7a18",
 			"revisionTime": "2016-01-25T14:40:14Z"
 		},
 		{
+			"checksumSHA1": "e3hHxODDsZunKOK6+M01DsFe8jw=",
 			"path": "git.torproject.org/pluggable-transports/obfs4.git/common/ntor",
 			"revision": "1df5c8ffe8f4aa2614323698e8008f1ab1fb7a18",
 			"revisionTime": "2016-01-25T14:40:14Z"
 		},
 		{
+			"checksumSHA1": "9peoo0YOo9xRVveyqaUnq+UrdGM=",
 			"path": "git.torproject.org/pluggable-transports/obfs4.git/common/probdist",
 			"revision": "1df5c8ffe8f4aa2614323698e8008f1ab1fb7a18",
 			"revisionTime": "2016-01-25T14:40:14Z"
 		},
 		{
+			"checksumSHA1": "6Zab4/mLs/ii8n8R8fb2S6sjG9A=",
 			"path": "git.torproject.org/pluggable-transports/obfs4.git/common/replayfilter",
 			"revision": "1df5c8ffe8f4aa2614323698e8008f1ab1fb7a18",
 			"revisionTime": "2016-01-25T14:40:14Z"
 		},
 		{
+			"checksumSHA1": "oMoOPMbOUrJpAcTw53fOcTWUOzM=",
 			"path": "git.torproject.org/pluggable-transports/obfs4.git/common/socks5",
 			"revision": "1df5c8ffe8f4aa2614323698e8008f1ab1fb7a18",
 			"revisionTime": "2016-01-25T14:40:14Z"
 		},
 		{
+			"checksumSHA1": "lVdvRt5OlAd/4aSyW2lkcMcI60c=",
 			"path": "git.torproject.org/pluggable-transports/obfs4.git/common/uniformdh",
 			"revision": "1df5c8ffe8f4aa2614323698e8008f1ab1fb7a18",
 			"revisionTime": "2016-01-25T14:40:14Z"
 		},
 		{
+			"checksumSHA1": "UxSv/PAWg9FxSyb2x1Cg/yUUD7s=",
 			"path": "git.torproject.org/pluggable-transports/obfs4.git/transports",
 			"revision": "1df5c8ffe8f4aa2614323698e8008f1ab1fb7a18",
 			"revisionTime": "2016-01-25T14:40:14Z"
 		},
 		{
+			"checksumSHA1": "bLggyj50IADuEWoWSoyYdU6MaFo=",
 			"path": "git.torproject.org/pluggable-transports/obfs4.git/transports/base",
 			"revision": "1df5c8ffe8f4aa2614323698e8008f1ab1fb7a18",
 			"revisionTime": "2016-01-25T14:40:14Z"
 		},
 		{
+			"checksumSHA1": "7ncTE5jwGROJBNik6Ll7cuwLo8M=",
 			"path": "git.torproject.org/pluggable-transports/obfs4.git/transports/meeklite",
 			"revision": "1df5c8ffe8f4aa2614323698e8008f1ab1fb7a18",
 			"revisionTime": "2016-01-25T14:40:14Z"
 		},
 		{
+			"checksumSHA1": "pxaMnZaWAWZMKwZ4QIOxiOBXtgI=",
 			"path": "git.torproject.org/pluggable-transports/obfs4.git/transports/obfs2",
 			"revision": "1df5c8ffe8f4aa2614323698e8008f1ab1fb7a18",
 			"revisionTime": "2016-01-25T14:40:14Z"
 		},
 		{
+			"checksumSHA1": "m2lhCF/MXh14e0PBTMOqE4Medxc=",
 			"path": "git.torproject.org/pluggable-transports/obfs4.git/transports/obfs3",
 			"revision": "1df5c8ffe8f4aa2614323698e8008f1ab1fb7a18",
 			"revisionTime": "2016-01-25T14:40:14Z"
 		},
 		{
+			"checksumSHA1": "hnKu+iwMPmk0W9DfUSv+nKDr7WY=",
 			"path": "git.torproject.org/pluggable-transports/obfs4.git/transports/obfs4",
 			"revision": "1df5c8ffe8f4aa2614323698e8008f1ab1fb7a18",
 			"revisionTime": "2016-01-25T14:40:14Z"
 		},
 		{
+			"checksumSHA1": "k9DkZvcawfEA1ZldKe89GZcoD/c=",
 			"path": "git.torproject.org/pluggable-transports/obfs4.git/transports/obfs4/framing",
 			"revision": "1df5c8ffe8f4aa2614323698e8008f1ab1fb7a18",
 			"revisionTime": "2016-01-25T14:40:14Z"
 		},
 		{
+			"checksumSHA1": "jFTnL5RD5CPFoHkYRWUBVlcGK/c=",
 			"path": "git.torproject.org/pluggable-transports/obfs4.git/transports/scramblesuit",
 			"revision": "1df5c8ffe8f4aa2614323698e8008f1ab1fb7a18",
 			"revisionTime": "2016-01-25T14:40:14Z"
@@ -672,5 +693,6 @@
 			"revision": "87",
 			"revisionTime": "2014-02-25T14:30:54-03:00"
 		}
-	]
+	],
+	"rootPath": "github.com/alkasir/alkasir"
 }

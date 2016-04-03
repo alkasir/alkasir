@@ -25,9 +25,12 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-// Package scramblesuit provides an implementation of the ScrambleSuit
-// obfuscation protocol.  The implementation is client only.
-package scramblesuit
+// Package meeklite provides an implementation of the Meek circumvention
+// protocol.  Only a client implementation is provided, and no effort is
+// made to normalize the TLS fingerprint.
+//
+// It borrows quite liberally from the real meek-client code.
+package meeklite
 
 import (
 	"fmt"
@@ -37,63 +40,50 @@ import (
 	"git.torproject.org/pluggable-transports/obfs4.git/transports/base"
 )
 
-const transportName = "scramblesuit"
+const transportName = "meek_lite"
 
-// Transport is the ScrambleSuit implementation of the base.Transport interface.
+// Transport is the Meek implementation of the base.Transport interface.
 type Transport struct{}
 
-// Name returns the name of the ScrambleSuit transport protocol.
+// Name returns the name of the Meek transport protocol.
 func (t *Transport) Name() string {
 	return transportName
 }
 
-// ClientFactory returns a new ssClientFactory instance.
+// ClientFactory returns a new meekClientFactory instance.
 func (t *Transport) ClientFactory(stateDir string) (base.ClientFactory, error) {
-	tStore, err := loadTicketStore(stateDir)
-	if err != nil {
-		return nil, err
-	}
-	cf := &ssClientFactory{transport: t, ticketStore: tStore}
+	cf := &meekClientFactory{transport: t}
 	return cf, nil
 }
 
-// ServerFactory will one day return a new ssServerFactory instance.
+// ServerFactory will one day return a new meekServerFactory instance.
 func (t *Transport) ServerFactory(stateDir string, args *pt.Args) (base.ServerFactory, error) {
-	// TODO: Fill this in eventually, though obfs4 is better.
+	// TODO: Fill this in eventually, though for servers people should
+	// just use the real thing.
 	return nil, fmt.Errorf("server not supported")
 }
 
-type ssClientFactory struct {
-	transport   base.Transport
-	ticketStore *ssTicketStore
+type meekClientFactory struct {
+	transport base.Transport
 }
 
-func (cf *ssClientFactory) Transport() base.Transport {
+func (cf *meekClientFactory) Transport() base.Transport {
 	return cf.transport
 }
 
-func (cf *ssClientFactory) ParseArgs(args *pt.Args) (interface{}, error) {
+func (cf *meekClientFactory) ParseArgs(args *pt.Args) (interface{}, error) {
 	return newClientArgs(args)
 }
 
-func (cf *ssClientFactory) Dial(network, addr string, dialFn base.DialFunc, args interface{}) (net.Conn, error) {
+func (cf *meekClientFactory) Dial(network, addr string, dialFn base.DialFunc, args interface{}) (net.Conn, error) {
 	// Validate args before opening outgoing connection.
-	ca, ok := args.(*ssClientArgs)
+	ca, ok := args.(*meekClientArgs)
 	if !ok {
 		return nil, fmt.Errorf("invalid argument type for args")
 	}
 
-	conn, err := dialFn(network, addr)
-	if err != nil {
-		return nil, err
-	}
-	dialConn := conn
-	if conn, err = newScrambleSuitClientConn(conn, cf.ticketStore, ca); err != nil {
-		dialConn.Close()
-		return nil, err
-	}
-	return conn, nil
+	return newMeekConn(network, addr, dialFn, ca)
 }
 
-var _ base.ClientFactory = (*ssClientFactory)(nil)
+var _ base.ClientFactory = (*meekClientFactory)(nil)
 var _ base.Transport = (*Transport)(nil)
