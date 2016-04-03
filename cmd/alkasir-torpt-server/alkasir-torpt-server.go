@@ -10,6 +10,8 @@ import (
 	"path/filepath"
 	"sync"
 
+	"golang.org/x/net/context"
+
 	"github.com/alkasir/alkasir/pkg/obfs4proxy"
 	"github.com/alkasir/alkasir/pkg/shared"
 	"github.com/alkasir/ptc"
@@ -25,19 +27,19 @@ var (
 
 type PermitCommand struct{}
 
-func (p PermitCommand) Allow(req *socks5.Request) bool {
+func (p *PermitCommand) Allow(ctx context.Context, req *socks5.Request) (context.Context, bool) {
 	r := shared.AcceptedIP(req.DestAddr.IP) && shared.AcceptedPort(req.DestAddr.Port)
 	if r {
 		allowedConnects.Inc()
 	} else {
 		deniedConnects.Inc()
 	}
-	return r
+	return ctx, r
 }
 
 func socks5server(bindaddr string) {
 	conf := &socks5.Config{
-		Rules: PermitCommand{},
+		Rules: &PermitCommand{},
 	}
 	server, err := socks5.New(conf)
 	if err != nil {

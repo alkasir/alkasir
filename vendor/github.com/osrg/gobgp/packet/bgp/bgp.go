@@ -29,9 +29,10 @@ import (
 )
 
 const (
-	AFI_IP    = 1
-	AFI_IP6   = 2
-	AFI_L2VPN = 25
+	AFI_IP     = 1
+	AFI_IP6    = 2
+	AFI_L2VPN  = 25
+	AFI_OPAQUE = 16397
 )
 
 const (
@@ -46,6 +47,7 @@ const (
 	SAFI_ROUTE_TARGET_CONSTRTAINS = 132
 	SAFI_FLOW_SPEC_UNICAST        = 133
 	SAFI_FLOW_SPEC_VPN            = 134
+	SAFI_KEY_VALUE                = 241
 )
 
 const (
@@ -86,9 +88,8 @@ const (
 	EC_TYPE_NON_TRANSITIVE_OPAQUE                 ExtendedCommunityAttrType = 0x43
 	EC_TYPE_NON_TRANSITIVE_QOS_MARKING            ExtendedCommunityAttrType = 0x44
 	EC_TYPE_GENERIC_TRANSITIVE_EXPERIMENTAL       ExtendedCommunityAttrType = 0x80
-	//draft-ietf-idr-flowspec-redirect-rt-bis-05
-	EC_TYPE_GENERIC_TRANSITIVE_EXPERIMENTAL2 ExtendedCommunityAttrType = 0x81
-	EC_TYPE_GENERIC_TRANSITIVE_EXPERIMENTAL3 ExtendedCommunityAttrType = 0x82
+	EC_TYPE_GENERIC_TRANSITIVE_EXPERIMENTAL2      ExtendedCommunityAttrType = 0x81 // RFC7674
+	EC_TYPE_GENERIC_TRANSITIVE_EXPERIMENTAL3      ExtendedCommunityAttrType = 0x82 // RFC7674
 )
 
 // RFC7153 5.2. Registraction for the "Sub-Type" Field
@@ -1164,6 +1165,27 @@ func NewMPLSLabelStack(labels ...uint32) *MPLSLabelStack {
 	return &MPLSLabelStack{labels}
 }
 
+func ParseMPLSLabelStack(buf string) (*MPLSLabelStack, error) {
+	elems := strings.Split(buf, "/")
+	labels := make([]uint32, 0, len(elems))
+	if len(elems) == 0 {
+		goto ERR
+	}
+	for _, elem := range elems {
+		i, err := strconv.Atoi(elem)
+		if err != nil {
+			goto ERR
+		}
+		if i < 0 || i > ((1<<20)-1) {
+			goto ERR
+		}
+		labels = append(labels, uint32(i))
+	}
+	return NewMPLSLabelStack(labels...), nil
+ERR:
+	return nil, fmt.Errorf("invalid mpls label stack format")
+}
+
 //
 // RFC3107 Carrying Label Information in BGP-4
 //
@@ -1338,6 +1360,10 @@ func (l *LabeledIPAddrPrefix) Serialize() ([]byte, error) {
 	return buf, nil
 }
 
+func (l *LabeledIPAddrPrefix) String() string {
+	return fmt.Sprintf("%s/%d", l.Prefix.String(), int(l.Length)-l.Labels.Len()*8)
+}
+
 func NewLabeledIPAddrPrefix(length uint8, prefix string, label MPLSLabelStack) *LabeledIPAddrPrefix {
 	return &LabeledIPAddrPrefix{
 		IPAddrPrefixDefault{length + uint8(label.Len()*8), net.ParseIP(prefix).To4()},
@@ -1348,6 +1374,10 @@ func NewLabeledIPAddrPrefix(length uint8, prefix string, label MPLSLabelStack) *
 
 type LabeledIPv6AddrPrefix struct {
 	LabeledIPAddrPrefix
+}
+
+func (l *LabeledIPv6AddrPrefix) AFI() uint16 {
+	return AFI_IP6
 }
 
 func NewLabeledIPv6AddrPrefix(length uint8, prefix string, label MPLSLabelStack) *LabeledIPv6AddrPrefix {
@@ -2039,39 +2069,72 @@ const (
 	FLOW_SPEC_TYPE_DSCP
 	FLOW_SPEC_TYPE_FRAGMENT
 	FLOW_SPEC_TYPE_LABEL
+	FLOW_SPEC_TYPE_ETHERNET_TYPE // 14
+	FLOW_SPEC_TYPE_SRC_MAC
+	FLOW_SPEC_TYPE_DST_MAC
+	FLOW_SPEC_TYPE_LLC_DSAP
+	FLOW_SPEC_TYPE_LLC_SSAP
+	FLOW_SPEC_TYPE_LLC_CONTROL
+	FLOW_SPEC_TYPE_SNAP
+	FLOW_SPEC_TYPE_VID
+	FLOW_SPEC_TYPE_COS
+	FLOW_SPEC_TYPE_INNER_VID
+	FLOW_SPEC_TYPE_INNER_COS
 )
 
 var FlowSpecNameMap = map[BGPFlowSpecType]string{
-	FLOW_SPEC_TYPE_UNKNOWN:    "unknown",
-	FLOW_SPEC_TYPE_DST_PREFIX: "destination",
-	FLOW_SPEC_TYPE_SRC_PREFIX: "source",
-	FLOW_SPEC_TYPE_IP_PROTO:   "protocol",
-	FLOW_SPEC_TYPE_PORT:       "port",
-	FLOW_SPEC_TYPE_DST_PORT:   "destination-port",
-	FLOW_SPEC_TYPE_SRC_PORT:   "source-port",
-	FLOW_SPEC_TYPE_ICMP_TYPE:  "icmp-type",
-	FLOW_SPEC_TYPE_ICMP_CODE:  "icmp-code",
-	FLOW_SPEC_TYPE_TCP_FLAG:   "tcp-flags",
-	FLOW_SPEC_TYPE_PKT_LEN:    "packet-length",
-	FLOW_SPEC_TYPE_DSCP:       "dscp",
-	FLOW_SPEC_TYPE_FRAGMENT:   "fragment",
-	FLOW_SPEC_TYPE_LABEL:      "label",
+	FLOW_SPEC_TYPE_UNKNOWN:       "unknown",
+	FLOW_SPEC_TYPE_DST_PREFIX:    "destination",
+	FLOW_SPEC_TYPE_SRC_PREFIX:    "source",
+	FLOW_SPEC_TYPE_IP_PROTO:      "protocol",
+	FLOW_SPEC_TYPE_PORT:          "port",
+	FLOW_SPEC_TYPE_DST_PORT:      "destination-port",
+	FLOW_SPEC_TYPE_SRC_PORT:      "source-port",
+	FLOW_SPEC_TYPE_ICMP_TYPE:     "icmp-type",
+	FLOW_SPEC_TYPE_ICMP_CODE:     "icmp-code",
+	FLOW_SPEC_TYPE_TCP_FLAG:      "tcp-flags",
+	FLOW_SPEC_TYPE_PKT_LEN:       "packet-length",
+	FLOW_SPEC_TYPE_DSCP:          "dscp",
+	FLOW_SPEC_TYPE_FRAGMENT:      "fragment",
+	FLOW_SPEC_TYPE_LABEL:         "label",
+	FLOW_SPEC_TYPE_ETHERNET_TYPE: "ether-type",
+	FLOW_SPEC_TYPE_SRC_MAC:       "source-mac",
+	FLOW_SPEC_TYPE_DST_MAC:       "destination-mac",
+	FLOW_SPEC_TYPE_LLC_DSAP:      "llc-dsap",
+	FLOW_SPEC_TYPE_LLC_SSAP:      "llc-ssap",
+	FLOW_SPEC_TYPE_LLC_CONTROL:   "llc-control",
+	FLOW_SPEC_TYPE_SNAP:          "snap",
+	FLOW_SPEC_TYPE_VID:           "vid",
+	FLOW_SPEC_TYPE_COS:           "cos",
+	FLOW_SPEC_TYPE_INNER_VID:     "inner-vid",
+	FLOW_SPEC_TYPE_INNER_COS:     "inner-cos",
 }
 
 var FlowSpecValueMap = map[string]BGPFlowSpecType{
-	FlowSpecNameMap[FLOW_SPEC_TYPE_DST_PREFIX]: FLOW_SPEC_TYPE_DST_PREFIX,
-	FlowSpecNameMap[FLOW_SPEC_TYPE_SRC_PREFIX]: FLOW_SPEC_TYPE_SRC_PREFIX,
-	FlowSpecNameMap[FLOW_SPEC_TYPE_IP_PROTO]:   FLOW_SPEC_TYPE_IP_PROTO,
-	FlowSpecNameMap[FLOW_SPEC_TYPE_PORT]:       FLOW_SPEC_TYPE_PORT,
-	FlowSpecNameMap[FLOW_SPEC_TYPE_DST_PORT]:   FLOW_SPEC_TYPE_DST_PORT,
-	FlowSpecNameMap[FLOW_SPEC_TYPE_SRC_PORT]:   FLOW_SPEC_TYPE_SRC_PORT,
-	FlowSpecNameMap[FLOW_SPEC_TYPE_ICMP_TYPE]:  FLOW_SPEC_TYPE_ICMP_TYPE,
-	FlowSpecNameMap[FLOW_SPEC_TYPE_ICMP_CODE]:  FLOW_SPEC_TYPE_ICMP_CODE,
-	FlowSpecNameMap[FLOW_SPEC_TYPE_TCP_FLAG]:   FLOW_SPEC_TYPE_TCP_FLAG,
-	FlowSpecNameMap[FLOW_SPEC_TYPE_PKT_LEN]:    FLOW_SPEC_TYPE_PKT_LEN,
-	FlowSpecNameMap[FLOW_SPEC_TYPE_DSCP]:       FLOW_SPEC_TYPE_DSCP,
-	FlowSpecNameMap[FLOW_SPEC_TYPE_FRAGMENT]:   FLOW_SPEC_TYPE_FRAGMENT,
-	FlowSpecNameMap[FLOW_SPEC_TYPE_LABEL]:      FLOW_SPEC_TYPE_LABEL,
+	FlowSpecNameMap[FLOW_SPEC_TYPE_DST_PREFIX]:    FLOW_SPEC_TYPE_DST_PREFIX,
+	FlowSpecNameMap[FLOW_SPEC_TYPE_SRC_PREFIX]:    FLOW_SPEC_TYPE_SRC_PREFIX,
+	FlowSpecNameMap[FLOW_SPEC_TYPE_IP_PROTO]:      FLOW_SPEC_TYPE_IP_PROTO,
+	FlowSpecNameMap[FLOW_SPEC_TYPE_PORT]:          FLOW_SPEC_TYPE_PORT,
+	FlowSpecNameMap[FLOW_SPEC_TYPE_DST_PORT]:      FLOW_SPEC_TYPE_DST_PORT,
+	FlowSpecNameMap[FLOW_SPEC_TYPE_SRC_PORT]:      FLOW_SPEC_TYPE_SRC_PORT,
+	FlowSpecNameMap[FLOW_SPEC_TYPE_ICMP_TYPE]:     FLOW_SPEC_TYPE_ICMP_TYPE,
+	FlowSpecNameMap[FLOW_SPEC_TYPE_ICMP_CODE]:     FLOW_SPEC_TYPE_ICMP_CODE,
+	FlowSpecNameMap[FLOW_SPEC_TYPE_TCP_FLAG]:      FLOW_SPEC_TYPE_TCP_FLAG,
+	FlowSpecNameMap[FLOW_SPEC_TYPE_PKT_LEN]:       FLOW_SPEC_TYPE_PKT_LEN,
+	FlowSpecNameMap[FLOW_SPEC_TYPE_DSCP]:          FLOW_SPEC_TYPE_DSCP,
+	FlowSpecNameMap[FLOW_SPEC_TYPE_FRAGMENT]:      FLOW_SPEC_TYPE_FRAGMENT,
+	FlowSpecNameMap[FLOW_SPEC_TYPE_LABEL]:         FLOW_SPEC_TYPE_LABEL,
+	FlowSpecNameMap[FLOW_SPEC_TYPE_ETHERNET_TYPE]: FLOW_SPEC_TYPE_ETHERNET_TYPE,
+	FlowSpecNameMap[FLOW_SPEC_TYPE_SRC_MAC]:       FLOW_SPEC_TYPE_SRC_MAC,
+	FlowSpecNameMap[FLOW_SPEC_TYPE_DST_MAC]:       FLOW_SPEC_TYPE_DST_MAC,
+	FlowSpecNameMap[FLOW_SPEC_TYPE_LLC_DSAP]:      FLOW_SPEC_TYPE_LLC_DSAP,
+	FlowSpecNameMap[FLOW_SPEC_TYPE_LLC_SSAP]:      FLOW_SPEC_TYPE_LLC_SSAP,
+	FlowSpecNameMap[FLOW_SPEC_TYPE_LLC_CONTROL]:   FLOW_SPEC_TYPE_LLC_CONTROL,
+	FlowSpecNameMap[FLOW_SPEC_TYPE_SNAP]:          FLOW_SPEC_TYPE_SNAP,
+	FlowSpecNameMap[FLOW_SPEC_TYPE_VID]:           FLOW_SPEC_TYPE_VID,
+	FlowSpecNameMap[FLOW_SPEC_TYPE_COS]:           FLOW_SPEC_TYPE_COS,
+	FlowSpecNameMap[FLOW_SPEC_TYPE_INNER_VID]:     FLOW_SPEC_TYPE_INNER_VID,
+	FlowSpecNameMap[FLOW_SPEC_TYPE_INNER_COS]:     FLOW_SPEC_TYPE_INNER_COS,
 }
 
 func flowSpecPrefixParser(rf RouteFamily, args []string) (FlowSpecComponentInterface, error) {
@@ -2174,6 +2237,29 @@ func flowSpecTcpFlagParser(rf RouteFamily, args []string) (FlowSpecComponentInte
 	return NewFlowSpecComponent(FLOW_SPEC_TYPE_TCP_FLAG, items), nil
 }
 
+func flowSpecEtherTypeParser(rf RouteFamily, args []string) (FlowSpecComponentInterface, error) {
+	ss := make([]string, 0, len(EthernetTypeNameMap))
+	for _, v := range EthernetTypeNameMap {
+		ss = append(ss, v)
+	}
+	protos := strings.Join(ss, "|")
+	exp := regexp.MustCompile(fmt.Sprintf("^%s (((%s) )*)(%s)$", FlowSpecNameMap[FLOW_SPEC_TYPE_ETHERNET_TYPE], protos, protos))
+	elems := exp.FindStringSubmatch(strings.Join(args, " "))
+	items := make([]*FlowSpecComponentItem, 0)
+	eq := 0x1
+	if elems[1] != "" {
+		for _, v := range strings.Split(elems[1], " ") {
+			p, ok := EthernetTypeValueMap[v]
+			if !ok {
+				continue
+			}
+			items = append(items, NewFlowSpecComponentItem(eq, int(p)))
+		}
+	}
+	items = append(items, NewFlowSpecComponentItem(eq, int(EthernetTypeValueMap[elems[4]])))
+	return NewFlowSpecComponent(FLOW_SPEC_TYPE_ETHERNET_TYPE, items), nil
+}
+
 func doFlowSpecNumericParser(rf RouteFamily, args []string, validationFunc func(int) error) (FlowSpecComponentInterface, error) {
 	if afi, _ := RouteFamilyToAfiSafi(rf); afi == AFI_IP && FlowSpecValueMap[args[0]] == FLOW_SPEC_TYPE_LABEL {
 		return nil, fmt.Errorf("flow label spec is only allowed for ipv6")
@@ -2265,40 +2351,77 @@ func flowSpecFragmentParser(rf RouteFamily, args []string) (FlowSpecComponentInt
 	if len(args) < 2 {
 		return nil, fmt.Errorf("invalid flowspec fragment specifier")
 	}
-	value := 0
-	switch args[1] {
-	case "not-a-fragment":
-		if afi, _ := RouteFamilyToAfiSafi(rf); afi == AFI_IP6 {
-			return nil, fmt.Errorf("can't specify not-a-fragment for ipv6")
+	items := make([]*FlowSpecComponentItem, 0)
+	for _, a := range args[1:] {
+		value := 0
+		switch a {
+		case "dont-fragment":
+			if afi, _ := RouteFamilyToAfiSafi(rf); afi == AFI_IP6 {
+				return nil, fmt.Errorf("can't specify dont-fragment for ipv6")
+			}
+			value = 0x1
+		case "is-fragment":
+			value = 0x2
+		case "first-fragment":
+			value = 0x4
+		case "last-fragment":
+			value = 0x8
+		case "not-a-fragment":
+			value = 0x0
+		default:
+			return nil, fmt.Errorf("invalid flowspec fragment specifier")
 		}
-		value = 0x1
-	case "is-a-fragment":
-		value = 0x2
-	case "first-fragment":
-		value = 0x4
-	case "last-fragment":
-		value = 0x8
-	default:
-		return nil, fmt.Errorf("invalid flowspec fragment specifier")
+		items = append(items, NewFlowSpecComponentItem(0, value))
 	}
-	items := []*FlowSpecComponentItem{NewFlowSpecComponentItem(0, value)}
 	return NewFlowSpecComponent(FlowSpecValueMap[args[0]], items), nil
 }
 
+func flowSpecMacParser(rf RouteFamily, args []string) (FlowSpecComponentInterface, error) {
+	if len(args) < 2 {
+		return nil, fmt.Errorf("invalid flowspec dst/src mac")
+	}
+	if rf != RF_FS_L2_VPN {
+		return nil, fmt.Errorf("invalid family")
+	}
+	typ := args[0]
+	mac, err := net.ParseMAC(args[1])
+	if err != nil {
+		return nil, fmt.Errorf("invalid mac")
+	}
+	switch typ {
+	case FlowSpecNameMap[FLOW_SPEC_TYPE_DST_MAC]:
+		return NewFlowSpecDestinationMac(mac), nil
+	case FlowSpecNameMap[FLOW_SPEC_TYPE_SRC_MAC]:
+		return NewFlowSpecSourceMac(mac), nil
+	}
+	return nil, fmt.Errorf("invalid type. only %s or %s allowed", FlowSpecNameMap[FLOW_SPEC_TYPE_DST_MAC], FlowSpecNameMap[FLOW_SPEC_TYPE_SRC_MAC])
+}
+
 var flowSpecParserMap = map[BGPFlowSpecType]func(RouteFamily, []string) (FlowSpecComponentInterface, error){
-	FLOW_SPEC_TYPE_DST_PREFIX: flowSpecPrefixParser,
-	FLOW_SPEC_TYPE_SRC_PREFIX: flowSpecPrefixParser,
-	FLOW_SPEC_TYPE_IP_PROTO:   flowSpecIpProtoParser,
-	FLOW_SPEC_TYPE_PORT:       flowSpecPortParser,
-	FLOW_SPEC_TYPE_DST_PORT:   flowSpecPortParser,
-	FLOW_SPEC_TYPE_SRC_PORT:   flowSpecPortParser,
-	FLOW_SPEC_TYPE_ICMP_TYPE:  flowSpecNumericParser,
-	FLOW_SPEC_TYPE_ICMP_CODE:  flowSpecNumericParser,
-	FLOW_SPEC_TYPE_TCP_FLAG:   flowSpecTcpFlagParser,
-	FLOW_SPEC_TYPE_PKT_LEN:    flowSpecNumericParser,
-	FLOW_SPEC_TYPE_DSCP:       flowSpecDscpParser,
-	FLOW_SPEC_TYPE_FRAGMENT:   flowSpecFragmentParser,
-	FLOW_SPEC_TYPE_LABEL:      flowSpecNumericParser,
+	FLOW_SPEC_TYPE_DST_PREFIX:    flowSpecPrefixParser,
+	FLOW_SPEC_TYPE_SRC_PREFIX:    flowSpecPrefixParser,
+	FLOW_SPEC_TYPE_IP_PROTO:      flowSpecIpProtoParser,
+	FLOW_SPEC_TYPE_PORT:          flowSpecPortParser,
+	FLOW_SPEC_TYPE_DST_PORT:      flowSpecPortParser,
+	FLOW_SPEC_TYPE_SRC_PORT:      flowSpecPortParser,
+	FLOW_SPEC_TYPE_ICMP_TYPE:     flowSpecNumericParser,
+	FLOW_SPEC_TYPE_ICMP_CODE:     flowSpecNumericParser,
+	FLOW_SPEC_TYPE_TCP_FLAG:      flowSpecTcpFlagParser,
+	FLOW_SPEC_TYPE_PKT_LEN:       flowSpecNumericParser,
+	FLOW_SPEC_TYPE_DSCP:          flowSpecDscpParser,
+	FLOW_SPEC_TYPE_FRAGMENT:      flowSpecFragmentParser,
+	FLOW_SPEC_TYPE_LABEL:         flowSpecNumericParser,
+	FLOW_SPEC_TYPE_ETHERNET_TYPE: flowSpecEtherTypeParser,
+	FLOW_SPEC_TYPE_DST_MAC:       flowSpecMacParser,
+	FLOW_SPEC_TYPE_SRC_MAC:       flowSpecMacParser,
+	FLOW_SPEC_TYPE_LLC_DSAP:      flowSpecNumericParser,
+	FLOW_SPEC_TYPE_LLC_SSAP:      flowSpecNumericParser,
+	FLOW_SPEC_TYPE_LLC_CONTROL:   flowSpecNumericParser,
+	FLOW_SPEC_TYPE_SNAP:          flowSpecNumericParser,
+	FLOW_SPEC_TYPE_VID:           flowSpecNumericParser,
+	FLOW_SPEC_TYPE_COS:           flowSpecNumericParser,
+	FLOW_SPEC_TYPE_INNER_VID:     flowSpecNumericParser,
+	FLOW_SPEC_TYPE_INNER_COS:     flowSpecNumericParser,
 }
 
 func ParseFlowSpecComponents(rf RouteFamily, input string) ([]FlowSpecComponentInterface, error) {
@@ -2477,9 +2600,73 @@ func NewFlowSpecSourcePrefix6(prefix AddrPrefixInterface, offset uint8) *FlowSpe
 	return &FlowSpecSourcePrefix6{flowSpecPrefix6{prefix, offset, FLOW_SPEC_TYPE_SRC_PREFIX}}
 }
 
+type flowSpecMac struct {
+	Mac   net.HardwareAddr
+	type_ BGPFlowSpecType
+}
+
+func (p *flowSpecMac) DecodeFromBytes(data []byte) error {
+	if len(data) < 2 || len(data) < 2+int(data[1]) {
+		return fmt.Errorf("not all mac bits available")
+	}
+	p.type_ = BGPFlowSpecType(data[0])
+	p.Mac = net.HardwareAddr(data[2 : 2+int(data[1])])
+	return nil
+}
+
+func (p *flowSpecMac) Serialize() ([]byte, error) {
+	if len(p.Mac) == 0 {
+		return nil, fmt.Errorf("mac unset")
+	}
+	buf := []byte{byte(p.Type()), byte(len(p.Mac))}
+	return append(buf, []byte(p.Mac)...), nil
+}
+
+func (p *flowSpecMac) Len() int {
+	return 2 + len(p.Mac)
+}
+
+func (p *flowSpecMac) Type() BGPFlowSpecType {
+	return p.type_
+}
+
+func (p *flowSpecMac) String() string {
+	return fmt.Sprintf("[%s:%s]", p.Type(), p.Mac.String())
+}
+
+func (p *flowSpecMac) MarshalJSON() ([]byte, error) {
+	return json.Marshal(struct {
+		Type  BGPFlowSpecType `json:"type"`
+		Value string          `json:"value"`
+	}{
+		Type:  p.Type(),
+		Value: p.Mac.String(),
+	})
+}
+
+type FlowSpecSourceMac struct {
+	flowSpecMac
+}
+
+func NewFlowSpecSourceMac(mac net.HardwareAddr) *FlowSpecSourceMac {
+	return &FlowSpecSourceMac{flowSpecMac{Mac: mac, type_: FLOW_SPEC_TYPE_SRC_MAC}}
+}
+
+type FlowSpecDestinationMac struct {
+	flowSpecMac
+}
+
+func NewFlowSpecDestinationMac(mac net.HardwareAddr) *FlowSpecDestinationMac {
+	return &FlowSpecDestinationMac{flowSpecMac{Mac: mac, type_: FLOW_SPEC_TYPE_DST_MAC}}
+}
+
 type FlowSpecComponentItem struct {
 	Op    int `json:"op"`
 	Value int `json:"value"`
+}
+
+func (v *FlowSpecComponentItem) Len() int {
+	return 1 << ((uint32(v.Op) >> 4) & 0x3)
 }
 
 func (v *FlowSpecComponentItem) Serialize() ([]byte, error) {
@@ -2488,36 +2675,47 @@ func (v *FlowSpecComponentItem) Serialize() ([]byte, error) {
 	}
 	if v.Op < 0 || v.Op > math.MaxUint8 {
 		return nil, fmt.Errorf("invalid op size: %d", v.Op)
-	}
 
-	for i := 0; i < 3; i++ {
-		if v.Value < (1 << ((1 << uint(i)) * 8)) {
-			buf := make([]byte, 1+(1<<uint(i)))
-			switch i {
-			case 0:
-				buf[1] = byte(v.Value)
-				v.Op &^= 0x30
-			case 1:
-				binary.BigEndian.PutUint16(buf[1:], uint16(v.Value))
-				v.Op |= 0x10
-				v.Op &^= 0x20
-			case 2:
-				binary.BigEndian.PutUint32(buf[1:], uint32(v.Value))
-				v.Op &^= 0x10
-				v.Op |= 0x20
-			case 3:
-				binary.BigEndian.PutUint64(buf[1:], uint64(v.Value))
-				v.Op |= 0x30
-			}
-			buf[0] = byte(v.Op)
-			return buf, nil
-		}
 	}
-	return nil, fmt.Errorf("invalid value size(too big): %d", v.Value)
+	order := uint32(math.Log2(float64(v.Len())))
+	buf := make([]byte, 1+(1<<order))
+	buf[0] = byte(uint32(v.Op) | order<<4)
+	switch order {
+	case 0:
+		buf[1] = byte(v.Value)
+	case 1:
+		binary.BigEndian.PutUint16(buf[1:], uint16(v.Value))
+	case 2:
+		binary.BigEndian.PutUint32(buf[1:], uint32(v.Value))
+	case 3:
+		binary.BigEndian.PutUint64(buf[1:], uint64(v.Value))
+	default:
+		return nil, fmt.Errorf("invalid value size(too big): %d", v.Value)
+	}
+	return buf, nil
 }
 
 func NewFlowSpecComponentItem(op int, value int) *FlowSpecComponentItem {
-	return &FlowSpecComponentItem{op, value}
+	v := &FlowSpecComponentItem{op, value}
+	order := uint32(math.Log2(float64(v.Len())))
+	// we don't know if not initialized properly or initialized to
+	// zero...
+	if order == 0 {
+		order = func() uint32 {
+			for i := 0; i < 3; i++ {
+				if v.Value < (1 << ((1 << uint(i)) * 8)) {
+					return uint32(i)
+				}
+			}
+			// return invalid order
+			return 4
+		}()
+	}
+	if order > 3 {
+		return nil
+	}
+	v.Op = int(uint32(v.Op) | order<<4)
+	return v
 }
 
 type FlowSpecComponent struct {
@@ -2568,8 +2766,11 @@ func (p *FlowSpecComponent) Serialize() ([]byte, error) {
 }
 
 func (p *FlowSpecComponent) Len() int {
-	buf, _ := p.Serialize()
-	return len(buf)
+	l := 1
+	for _, item := range p.Items {
+		l += (item.Len() + 1)
+	}
+	return l
 }
 
 func (p *FlowSpecComponent) Type() BGPFlowSpecType {
@@ -2626,12 +2827,15 @@ func formatFlag(op int, value int) string {
 }
 
 func formatFragment(op int, value int) string {
-	ss := make([]string, 0, 4)
-	if value&0x1 > 0 {
+	ss := make([]string, 0)
+	if value == 0 {
 		ss = append(ss, "not-a-fragment")
 	}
+	if value&0x1 > 0 {
+		ss = append(ss, "dont-fragment")
+	}
 	if value&0x2 > 0 {
-		ss = append(ss, "is-a-fragment")
+		ss = append(ss, "is-fragment")
 	}
 	if value&0x4 > 0 {
 		ss = append(ss, "first-fragment")
@@ -2645,27 +2849,39 @@ func formatFragment(op int, value int) string {
 	return fmt.Sprintf("%s%s", formatNumericOp(op), ss[0])
 }
 
+func formatEtherType(op int, value int) string {
+	return fmt.Sprintf(" %s", EthernetType(value).String())
+}
+
 var flowSpecFormatMap = map[BGPFlowSpecType]func(op int, value int) string{
-	FLOW_SPEC_TYPE_UNKNOWN:   formatRaw,
-	FLOW_SPEC_TYPE_IP_PROTO:  formatProto,
-	FLOW_SPEC_TYPE_PORT:      formatNumeric,
-	FLOW_SPEC_TYPE_DST_PORT:  formatNumeric,
-	FLOW_SPEC_TYPE_SRC_PORT:  formatNumeric,
-	FLOW_SPEC_TYPE_ICMP_TYPE: formatNumeric,
-	FLOW_SPEC_TYPE_ICMP_CODE: formatNumeric,
-	FLOW_SPEC_TYPE_TCP_FLAG:  formatFlag,
-	FLOW_SPEC_TYPE_PKT_LEN:   formatNumeric,
-	FLOW_SPEC_TYPE_DSCP:      formatNumeric,
-	FLOW_SPEC_TYPE_FRAGMENT:  formatFragment,
-	FLOW_SPEC_TYPE_LABEL:     formatNumeric,
+	FLOW_SPEC_TYPE_UNKNOWN:       formatRaw,
+	FLOW_SPEC_TYPE_IP_PROTO:      formatProto,
+	FLOW_SPEC_TYPE_PORT:          formatNumeric,
+	FLOW_SPEC_TYPE_DST_PORT:      formatNumeric,
+	FLOW_SPEC_TYPE_SRC_PORT:      formatNumeric,
+	FLOW_SPEC_TYPE_ICMP_TYPE:     formatNumeric,
+	FLOW_SPEC_TYPE_ICMP_CODE:     formatNumeric,
+	FLOW_SPEC_TYPE_TCP_FLAG:      formatFlag,
+	FLOW_SPEC_TYPE_PKT_LEN:       formatNumeric,
+	FLOW_SPEC_TYPE_DSCP:          formatNumeric,
+	FLOW_SPEC_TYPE_FRAGMENT:      formatFragment,
+	FLOW_SPEC_TYPE_LABEL:         formatNumeric,
+	FLOW_SPEC_TYPE_ETHERNET_TYPE: formatEtherType,
+	FLOW_SPEC_TYPE_LLC_DSAP:      formatNumeric,
+	FLOW_SPEC_TYPE_LLC_SSAP:      formatNumeric,
+	FLOW_SPEC_TYPE_LLC_CONTROL:   formatNumeric,
+	FLOW_SPEC_TYPE_SNAP:          formatNumeric,
+	FLOW_SPEC_TYPE_VID:           formatNumeric,
+	FLOW_SPEC_TYPE_COS:           formatNumeric,
+	FLOW_SPEC_TYPE_INNER_VID:     formatNumeric,
+	FLOW_SPEC_TYPE_INNER_COS:     formatNumeric,
 }
 
 func (p *FlowSpecComponent) String() string {
-	var f func(op int, value int) string
-	if _, ok := flowSpecFormatMap[p.Type()]; !ok {
-		f = flowSpecFormatMap[FLOW_SPEC_TYPE_UNKNOWN]
+	f := flowSpecFormatMap[FLOW_SPEC_TYPE_UNKNOWN]
+	if _, ok := flowSpecFormatMap[p.Type()]; ok {
+		f = flowSpecFormatMap[p.Type()]
 	}
-	f = flowSpecFormatMap[p.Type()]
 	buf := bytes.NewBuffer(make([]byte, 0, 32))
 	for _, i := range p.Items {
 		buf.WriteString(f(i.Op, i.Value))
@@ -2725,17 +2941,22 @@ type FlowSpecNLRI struct {
 
 func (n *FlowSpecNLRI) decodeFromBytes(rf RouteFamily, data []byte) error {
 	var length int
-	if (data[0] >> 4) == 0xf {
+	if (data[0]>>4) == 0xf && len(data) > 2 {
 		length = int(binary.BigEndian.Uint16(data[0:2]))
 		data = data[2:]
-	} else {
+	} else if len(data) > 1 {
 		length = int(data[0])
 		data = data[1:]
+	} else {
+		return fmt.Errorf("not all flowspec component bytes available")
 	}
 
 	n.rf = rf
 
 	for l := length; l > 0; {
+		if len(data) == 0 {
+			return fmt.Errorf("not all flowspec component bytes available")
+		}
 		t := BGPFlowSpecType(data[0])
 		var i FlowSpecComponentInterface
 		switch t {
@@ -2765,9 +2986,25 @@ func (n *FlowSpecNLRI) decodeFromBytes(rf RouteFamily, data []byte) error {
 			default:
 				return fmt.Errorf("Invalid RF: %v", rf)
 			}
+		case FLOW_SPEC_TYPE_SRC_MAC:
+			switch rf {
+			case RF_FS_L2_VPN:
+				i = NewFlowSpecSourceMac(nil)
+			default:
+				return fmt.Errorf("invalid family: %v", rf)
+			}
+		case FLOW_SPEC_TYPE_DST_MAC:
+			switch rf {
+			case RF_FS_L2_VPN:
+				i = NewFlowSpecDestinationMac(nil)
+			default:
+				return fmt.Errorf("invalid family: %v", rf)
+			}
 		case FLOW_SPEC_TYPE_IP_PROTO, FLOW_SPEC_TYPE_PORT, FLOW_SPEC_TYPE_DST_PORT, FLOW_SPEC_TYPE_SRC_PORT,
 			FLOW_SPEC_TYPE_ICMP_TYPE, FLOW_SPEC_TYPE_ICMP_CODE, FLOW_SPEC_TYPE_TCP_FLAG, FLOW_SPEC_TYPE_PKT_LEN,
-			FLOW_SPEC_TYPE_DSCP, FLOW_SPEC_TYPE_FRAGMENT, FLOW_SPEC_TYPE_LABEL:
+			FLOW_SPEC_TYPE_DSCP, FLOW_SPEC_TYPE_FRAGMENT, FLOW_SPEC_TYPE_LABEL, FLOW_SPEC_TYPE_ETHERNET_TYPE,
+			FLOW_SPEC_TYPE_LLC_DSAP, FLOW_SPEC_TYPE_LLC_SSAP, FLOW_SPEC_TYPE_LLC_CONTROL, FLOW_SPEC_TYPE_SNAP,
+			FLOW_SPEC_TYPE_VID, FLOW_SPEC_TYPE_COS, FLOW_SPEC_TYPE_INNER_VID, FLOW_SPEC_TYPE_INNER_COS:
 			i = NewFlowSpecComponent(t, nil)
 		default:
 			i = &FlowSpecUnknown{}
@@ -2924,6 +3161,80 @@ func NewFlowSpecIPv6VPN(value []FlowSpecComponentInterface) *FlowSpecIPv6VPN {
 	}}
 }
 
+type FlowSpecL2VPN struct {
+	FlowSpecNLRI
+}
+
+func (n *FlowSpecL2VPN) DecodeFromBytes(data []byte) error {
+	return n.decodeFromBytes(AfiSafiToRouteFamily(n.AFI(), n.SAFI()), data)
+}
+
+func (n *FlowSpecL2VPN) AFI() uint16 {
+	return AFI_L2VPN
+}
+
+func (n *FlowSpecL2VPN) SAFI() uint8 {
+	return SAFI_FLOW_SPEC_VPN
+}
+
+func NewFlowSpecL2VPN(value []FlowSpecComponentInterface) *FlowSpecL2VPN {
+	return &FlowSpecL2VPN{FlowSpecNLRI{
+		Value: value,
+		rf:    RF_FS_L2_VPN,
+	}}
+}
+
+type OpaqueNLRI struct {
+	Length uint8
+	Key    []byte
+}
+
+func (n *OpaqueNLRI) DecodeFromBytes(data []byte) error {
+	n.Length = data[0]
+	if len(data)-1 < int(n.Length) {
+		return fmt.Errorf("Not all OpaqueNLRI bytes available")
+	}
+	n.Key = data[1 : 1+n.Length]
+	return nil
+}
+
+func (n *OpaqueNLRI) Serialize() ([]byte, error) {
+	if len(n.Key) > math.MaxUint8 {
+		return nil, fmt.Errorf("Key length too big")
+	}
+	return append([]byte{byte(len(n.Key))}, n.Key...), nil
+}
+
+func (n *OpaqueNLRI) AFI() uint16 {
+	return AFI_OPAQUE
+}
+
+func (n *OpaqueNLRI) SAFI() uint8 {
+	return SAFI_KEY_VALUE
+}
+
+func (n *OpaqueNLRI) Len() int {
+	return 1 + len(n.Key)
+}
+
+func (n *OpaqueNLRI) String() string {
+	return string(n.Key)
+}
+
+func (n *OpaqueNLRI) MarshalJSON() ([]byte, error) {
+	return json.Marshal(struct {
+		Key string `json:"key"`
+	}{
+		Key: n.String(),
+	})
+}
+
+func NewOpaqueNLRI(key []byte) *OpaqueNLRI {
+	return &OpaqueNLRI{
+		Key: key,
+	}
+}
+
 func AfiSafiToRouteFamily(afi uint16, safi uint8) RouteFamily {
 	return RouteFamily(int(afi)<<16 | int(safi))
 }
@@ -2933,6 +3244,13 @@ func RouteFamilyToAfiSafi(rf RouteFamily) (uint16, uint8) {
 }
 
 type RouteFamily int
+
+func (f RouteFamily) String() string {
+	if n, y := AddressFamilyNameMap[f]; y {
+		return n
+	}
+	return fmt.Sprintf("UnknownFamily(%d)", f)
+}
 
 const (
 	RF_IPv4_UC     RouteFamily = AFI_IP<<16 | SAFI_UNICAST
@@ -2953,6 +3271,8 @@ const (
 	RF_FS_IPv4_VPN RouteFamily = AFI_IP<<16 | SAFI_FLOW_SPEC_VPN
 	RF_FS_IPv6_UC  RouteFamily = AFI_IP6<<16 | SAFI_FLOW_SPEC_UNICAST
 	RF_FS_IPv6_VPN RouteFamily = AFI_IP6<<16 | SAFI_FLOW_SPEC_VPN
+	RF_FS_L2_VPN   RouteFamily = AFI_L2VPN<<16 | SAFI_FLOW_SPEC_VPN
+	RF_OPAQUE      RouteFamily = AFI_OPAQUE<<16 | SAFI_KEY_VALUE
 )
 
 var AddressFamilyNameMap = map[RouteFamily]string{
@@ -2974,6 +3294,8 @@ var AddressFamilyNameMap = map[RouteFamily]string{
 	RF_FS_IPv4_VPN: "l3vpn-ipv4-flowspec",
 	RF_FS_IPv6_UC:  "ipv6-flowspec",
 	RF_FS_IPv6_VPN: "l3vpn-ipv6-flowspec",
+	RF_FS_L2_VPN:   "l2vpn-flowspec",
+	RF_OPAQUE:      "opaque",
 }
 
 var AddressFamilyValueMap = map[string]RouteFamily{
@@ -2995,6 +3317,8 @@ var AddressFamilyValueMap = map[string]RouteFamily{
 	AddressFamilyNameMap[RF_FS_IPv4_VPN]: RF_FS_IPv4_VPN,
 	AddressFamilyNameMap[RF_FS_IPv6_UC]:  RF_FS_IPv6_UC,
 	AddressFamilyNameMap[RF_FS_IPv6_VPN]: RF_FS_IPv6_VPN,
+	AddressFamilyNameMap[RF_FS_L2_VPN]:   RF_FS_L2_VPN,
+	AddressFamilyNameMap[RF_OPAQUE]:      RF_OPAQUE,
 }
 
 func GetRouteFamily(name string) (RouteFamily, error) {
@@ -3032,6 +3356,10 @@ func NewPrefixFromRouteFamily(afi uint16, safi uint8) (prefix AddrPrefixInterfac
 		prefix = &FlowSpecIPv6Unicast{}
 	case RF_FS_IPv6_VPN:
 		prefix = &FlowSpecIPv6VPN{}
+	case RF_FS_L2_VPN:
+		prefix = &FlowSpecL2VPN{}
+	case RF_OPAQUE:
+		prefix = &OpaqueNLRI{}
 	default:
 		return nil, fmt.Errorf("unknown route family. AFI: %d, SAFI: %d", afi, safi)
 	}
@@ -3093,7 +3421,8 @@ const (
 	BGP_ATTR_TYPE_TUNNEL_ENCAP
 	_
 	_
-	BGP_ATTR_TYPE_AIGP // = 26
+	BGP_ATTR_TYPE_AIGP                     // = 26
+	BGP_ATTR_TYPE_OPAQUE_VALUE BGPAttrType = 41
 )
 
 // NOTIFICATION Error Code  RFC 4271 4.5.
@@ -3186,6 +3515,7 @@ var pathAttrFlags map[BGPAttrType]BGPAttrFlag = map[BGPAttrType]BGPAttrFlag{
 	BGP_ATTR_TYPE_PMSI_TUNNEL:          BGP_ATTR_FLAG_TRANSITIVE | BGP_ATTR_FLAG_OPTIONAL,
 	BGP_ATTR_TYPE_TUNNEL_ENCAP:         BGP_ATTR_FLAG_TRANSITIVE | BGP_ATTR_FLAG_OPTIONAL,
 	BGP_ATTR_TYPE_AIGP:                 BGP_ATTR_FLAG_OPTIONAL,
+	BGP_ATTR_TYPE_OPAQUE_VALUE:         BGP_ATTR_FLAG_TRANSITIVE | BGP_ATTR_FLAG_OPTIONAL,
 }
 
 type PathAttributeInterface interface {
@@ -5246,7 +5576,7 @@ func parseFlowSpecExtended(data []byte) (ExtendedCommunityInterface, error) {
 		sample := (data[7]>>1)&0x1 == 1
 		return NewTrafficActionExtended(terminal, sample), nil
 	case EC_SUBTYPE_FLOWSPEC_REDIRECT:
-		//draft-ietf-idr-flowspec-redirect-rt-bis-05
+		// RFC7674
 		switch typ {
 		case EC_TYPE_GENERIC_TRANSITIVE_EXPERIMENTAL:
 			as := binary.BigEndian.Uint16(data[2:4])
@@ -6030,6 +6360,35 @@ func NewPathAttributeAigp(values []AigpTLV) *PathAttributeAigp {
 	}
 }
 
+type PathAttributeOpaqueValue struct {
+	PathAttribute
+}
+
+func (p *PathAttributeOpaqueValue) String() string {
+	return fmt.Sprintf("{Value: %s}", string(p.Value))
+}
+
+func (p *PathAttributeOpaqueValue) MarshalJSON() ([]byte, error) {
+	return json.Marshal(struct {
+		Type  BGPAttrType `json:"type"`
+		Value string      `json:"value"`
+	}{
+		Type:  p.GetType(),
+		Value: string(p.Value),
+	})
+}
+
+func NewPathAttributeOpaqueValue(value []byte) *PathAttributeOpaqueValue {
+	t := BGP_ATTR_TYPE_OPAQUE_VALUE
+	return &PathAttributeOpaqueValue{
+		PathAttribute: PathAttribute{
+			Flags: pathAttrFlags[t],
+			Type:  t,
+			Value: value,
+		},
+	}
+}
+
 type PathAttributeUnknown struct {
 	PathAttribute
 }
@@ -6077,6 +6436,8 @@ func GetPathAttribute(data []byte) (PathAttributeInterface, error) {
 		return &PathAttributePmsiTunnel{}, nil
 	case BGP_ATTR_TYPE_AIGP:
 		return &PathAttributeAigp{}, nil
+	case BGP_ATTR_TYPE_OPAQUE_VALUE:
+		return &PathAttributeOpaqueValue{}, nil
 	}
 	return &PathAttributeUnknown{}, nil
 }

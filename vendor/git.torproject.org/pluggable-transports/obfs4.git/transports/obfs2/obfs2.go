@@ -108,8 +108,17 @@ func (cf *obfs2ClientFactory) ParseArgs(args *pt.Args) (interface{}, error) {
 	return nil, validateArgs(args)
 }
 
-func (cf *obfs2ClientFactory) WrapConn(conn net.Conn, args interface{}) (net.Conn, error) {
-	return newObfs2ClientConn(conn)
+func (cf *obfs2ClientFactory) Dial(network, addr string, dialFn base.DialFunc, args interface{}) (net.Conn, error) {
+	conn, err := dialFn(network, addr)
+	if err != nil {
+		return nil, err
+	}
+	dialConn := conn
+	if conn, err = newObfs2ClientConn(conn); err != nil {
+		dialConn.Close()
+		return nil, err
+	}
+	return conn, nil
 }
 
 type obfs2ServerFactory struct {

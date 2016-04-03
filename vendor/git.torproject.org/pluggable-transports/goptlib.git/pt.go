@@ -117,7 +117,7 @@
 // the example programs dummy-client and dummy-server.
 //
 // Tor pluggable transports specification:
-// https://gitweb.torproject.org/torspec.git/tree/pt-spec.txt.
+// https://spec.torproject.org/pt-spec
 //
 // Extended ORPort:
 // https://gitweb.torproject.org/torspec.git/tree/proposals/196-transport-control-ports.txt.

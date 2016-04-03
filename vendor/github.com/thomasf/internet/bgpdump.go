@@ -15,7 +15,7 @@ import (
 
 	"github.com/davecgh/go-spew/spew"
 	"github.com/garyburd/redigo/redis"
-	bgp "github.com/osrg/gobgp/packet"
+	"github.com/osrg/gobgp/packet/bgp"
 )
 
 // RefreshBGPDump ensures that the latest dump available is the one which is installed.
