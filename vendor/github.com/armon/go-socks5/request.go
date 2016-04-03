@@ -3,10 +3,10 @@ package socks5
 import (
 	"fmt"
 	"io"
-	"log"
 	"net"
 	"strings"
-	"time"
+
+	"golang.org/x/net/context"
 )
 
 const (
@@ -36,7 +36,7 @@ var (
 
 // AddressRewriter is used to rewrite a destination transparently
 type AddressRewriter interface {
-	Rewrite(request *Request) *AddrSpec
+	Rewrite(ctx context.Context, request *Request) (context.Context, *AddrSpec)
 }
 
 // AddrSpec is used to return the target AddrSpec
@@ -107,33 +107,36 @@ func NewRequest(bufConn io.Reader) (*Request, error) {
 
 // handleRequest is used for request processing after authentication
 func (s *Server) handleRequest(req *Request, conn conn) error {
+	ctx := context.Background()
+
 	// Resolve the address if we have a FQDN
 	dest := req.DestAddr
 	if dest.FQDN != "" {
-		addr, err := s.config.Resolver.Resolve(dest.FQDN)
+		ctx_, addr, err := s.config.Resolver.Resolve(ctx, dest.FQDN)
 		if err != nil {
 			if err := sendReply(conn, hostUnreachable, nil); err != nil {
 				return fmt.Errorf("Failed to send reply: %v", err)
 			}
 			return fmt.Errorf("Failed to resolve destination '%v': %v", dest.FQDN, err)
 		}
+		ctx = ctx_
 		dest.IP = addr
 	}
 
 	// Apply any address rewrites
 	req.realDestAddr = req.DestAddr
 	if s.config.Rewriter != nil {
-		req.realDestAddr = s.config.Rewriter.Rewrite(req)
+		ctx, req.realDestAddr = s.config.Rewriter.Rewrite(ctx, req)
 	}
 
 	// Switch on the command
 	switch req.Command {
 	case ConnectCommand:
-		return s.handleConnect(conn, req)
+		return s.handleConnect(ctx, conn, req)
 	case BindCommand:
-		return s.handleBind(conn, req)
+		return s.handleBind(ctx, conn, req)
 	case AssociateCommand:
-		return s.handleAssociate(conn, req)
+		return s.handleAssociate(ctx, conn, req)
 	default:
 		if err := sendReply(conn, commandNotSupported, nil); err != nil {
 			return fmt.Errorf("Failed to send reply: %v", err)
@@ -143,22 +146,26 @@ func (s *Server) handleRequest(req *Request, conn conn) error {
 }
 
 // handleConnect is used to handle a connect command
-func (s *Server) handleConnect(conn conn, req *Request) error {
+func (s *Server) handleConnect(ctx context.Context, conn conn, req *Request) error {
 	// Check if this is allowed
-	if !s.config.Rules.Allow(req) {
+	if ctx_, ok := s.config.Rules.Allow(ctx, req); !ok {
 		if err := sendReply(conn, ruleFailure, nil); err != nil {
 			return fmt.Errorf("Failed to send reply: %v", err)
 		}
 		return fmt.Errorf("Connect to %v blocked by rules", req.DestAddr)
+	} else {
+		ctx = ctx_
 	}
 
 	// Attempt to connect
 	addr := (&net.TCPAddr{IP: req.realDestAddr.IP, Port: req.realDestAddr.Port}).String()
 	dial := s.config.Dial
 	if dial == nil {
-		dial = net.Dial
+		dial = func(ctx context.Context, net_, addr string) (net.Conn, error) {
+			return net.Dial(net_, addr)
+		}
 	}
-	target, err := dial("tcp", addr)
+	target, err := dial(ctx, "tcp", addr)
 	if err != nil {
 		msg := err.Error()
 		resp := hostUnreachable
@@ -183,24 +190,30 @@ func (s *Server) handleConnect(conn conn, req *Request) error {
 
 	// Start proxying
 	errCh := make(chan error, 2)
-	go proxy("target", target, req.bufConn, errCh, s.config.Logger)
-	go proxy("client", conn, target, errCh, s.config.Logger)
+	go proxy(target, req.bufConn, errCh)
+	go proxy(conn, target, errCh)
 
 	// Wait
-	select {
-	case e := <-errCh:
-		return e
+	for i := 0; i < 2; i++ {
+		e := <-errCh
+		if e != nil {
+			// return from this function closes target (and conn).
+			return e
+		}
 	}
+	return nil
 }
 
 // handleBind is used to handle a connect command
-func (s *Server) handleBind(conn conn, req *Request) error {
+func (s *Server) handleBind(ctx context.Context, conn conn, req *Request) error {
 	// Check if this is allowed
-	if !s.config.Rules.Allow(req) {
+	if ctx_, ok := s.config.Rules.Allow(ctx, req); !ok {
 		if err := sendReply(conn, ruleFailure, nil); err != nil {
 			return fmt.Errorf("Failed to send reply: %v", err)
 		}
 		return fmt.Errorf("Bind to %v blocked by rules", req.DestAddr)
+	} else {
+		ctx = ctx_
 	}
 
 	// TODO: Support bind
@@ -211,13 +224,15 @@ func (s *Server) handleBind(conn conn, req *Request) error {
 }
 
 // handleAssociate is used to handle a connect command
-func (s *Server) handleAssociate(conn conn, req *Request) error {
+func (s *Server) handleAssociate(ctx context.Context, conn conn, req *Request) error {
 	// Check if this is allowed
-	if !s.config.Rules.Allow(req) {
+	if ctx_, ok := s.config.Rules.Allow(ctx, req); !ok {
 		if err := sendReply(conn, ruleFailure, nil); err != nil {
 			return fmt.Errorf("Failed to send reply: %v", err)
 		}
 		return fmt.Errorf("Associate to %v blocked by rules", req.DestAddr)
+	} else {
+		ctx = ctx_
 	}
 
 	// TODO: Support associate
@@ -327,15 +342,10 @@ func sendReply(w io.Writer, resp uint8, addr *AddrSpec) error {
 
 // proxy is used to suffle data from src to destination, and sends errors
 // down a dedicated channel
-func proxy(name string, dst io.Writer, src io.Reader, errCh chan error, logger *log.Logger) {
-	// Copy
-	n, err := io.Copy(dst, src)
-
-	// Log, and sleep. This is jank but allows the otherside
-	// to finish a pending copy
-	logger.Printf("[DEBUG] socks: Copied %d bytes to %s", n, name)
-	time.Sleep(10 * time.Millisecond)
-
-	// Send any errors
+func proxy(dst io.Writer, src io.Reader, errCh chan error) {
+	_, err := io.Copy(dst, src)
+	if tcpConn, ok := dst.(*net.TCPConn); ok {
+		tcpConn.CloseWrite()
+	}
 	errCh <- err
 }

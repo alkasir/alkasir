@@ -149,9 +149,10 @@
 			"revisionTime": "2016-01-19T00:01:23Z"
 		},
 		{
+			"checksumSHA1": "W5bNBjmnqnC0apcFUA0GAtxM07M=",
 			"path": "github.com/armon/go-socks5",
-			"revision": "8a8737ba34d478cf2bc0a43e3852232da81c8eac",
-			"revisionTime": "2016-02-05T17:12:22-08:00"
+			"revision": "b34cad17d2fdbb038116de97a36d76995393b87a",
+			"revisionTime": "2016-03-20T23:33:43Z"
 		},
 		{
 			"path": "github.com/atotto/clipboard",
@@ -662,6 +663,12 @@
 			"path": "golang.org/x/crypto/salsa20/salsa",
 			"revision": "1f22c0103821b9390939b6776727195525381532",
 			"revisionTime": "2016-01-26T09:50:25-08:00"
+		},
+		{
+			"checksumSHA1": "jTI0rZaGYhsbnjf0RAITnnDr5RE=",
+			"path": "golang.org/x/net/context",
+			"revision": "3e8a7b0329d536af18e227bb21b6da4d1dbbe180",
+			"revisionTime": "2016-03-29T01:55:07Z"
 		},
 		{
 			"path": "golang.org/x/net/html",
