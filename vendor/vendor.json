@@ -551,9 +551,17 @@
 			"revisionTime": "2015-09-12T08:40:21-07:00"
 		},
 		{
+			"checksumSHA1": "JqLCTOvydQf27fcAzC5Jow2/7ZQ=",
+			"origin": "github.com/alkasir/alkasir/vendor/github.com/osrg/gobgp/packet",
 			"path": "github.com/osrg/gobgp/packet",
-			"revision": "00a592ef3a852c7fe5ac0c1ccac1f0c7345e5537",
-			"revisionTime": "2016-02-24T14:13:22+09:00"
+			"revision": "a030c52bf2a5b6feda281355599bf22c6b7afdd3",
+			"revisionTime": "2016-03-31T21:06:43Z"
+		},
+		{
+			"checksumSHA1": "GJzn889kMaXBE41UZLcoUTOkyRU=",
+			"path": "github.com/osrg/gobgp/packet/bgp",
+			"revision": "a030c52bf2a5b6feda281355599bf22c6b7afdd3",
+			"revisionTime": "2016-03-31T21:06:43Z"
 		},
 		{
 			"path": "github.com/pivotal-golang/archiver/extractor",
@@ -627,9 +635,11 @@
 			"revisionTime": "2016-01-29T19:31:06Z"
 		},
 		{
+			"checksumSHA1": "mQx1nJos6Ilcud4FD8HwP2OoawQ=",
+			"origin": "github.com/alkasir/alkasir/vendor/github.com/thomasf/internet",
 			"path": "github.com/thomasf/internet",
-			"revision": "fb281c27d2bcdf2c40b1e3ea641e65bd4748b228",
-			"revisionTime": "2016-02-05T14:32:47+01:00"
+			"revision": "d04eb466b958a76470eaae18fc7f82e9a193272b",
+			"revisionTime": "2016-04-03T13:14:09Z"
 		},
 		{
 			"path": "github.com/thomasf/lg",

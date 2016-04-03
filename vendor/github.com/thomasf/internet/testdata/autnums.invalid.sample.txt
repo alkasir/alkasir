@@ -1,0 +1,9 @@
+<html><head><title>AS Names</title>
+<style>
+<!--
+A:link {text-decoration: none}
+A:visite
+<a href="/cgi-bin/as-report?as=AS6&view=2.0">AS6    </a> BULL-HN - Bull HN Information Systems Inc.,US
+<a href="/cgi-bin/as-report?as=AS7&view=2.0">AS7    </a> UK Defence Research Agency,GB
+<a href="/cgi-bin/as-report?as=AS8&view=2.0">AS8    </a> RICE-AS - Rice University,US
+<a href="/cgi-bin/as-report?as=AS9&view=2.0">AS9 

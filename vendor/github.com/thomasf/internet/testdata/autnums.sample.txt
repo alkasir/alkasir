@@ -1,0 +1,158 @@
+<html><head><title>AS Names</title>
+<style>
+<!--
+A:link {text-decoration: none}
+A:visited {text-decoration: none}
+A:active {text-decoration: none}
+-->
+</style>
+</head>
+<body>
+<br>
+<HR>
+<PRE>
+<a href="/cgi-bin/as-report?as=AS0&view=2.0">AS0    </a> -Reserved AS-,ZZ
+<a href="/cgi-bin/as-report?as=AS1&view=2.0">AS1    </a> LVLT-1 - Level 3 Communications, Inc.,US
+<a href="/cgi-bin/as-report?as=AS2&view=2.0">AS2    </a> UDEL-DCN - University of Delaware,US
+<a href="/cgi-bin/as-report?as=AS3&view=2.0">AS3    </a> MIT-GATEWAYS - Massachusetts Institute of Technology,US
+<a href="/cgi-bin/as-report?as=AS4&view=2.0">AS4    </a> ISI-AS - University of Southern California,US
+<a href="/cgi-bin/as-report?as=AS5&view=2.0">AS5    </a> SYMBOLICS - Symbolics, Inc.,US
+<a href="/cgi-bin/as-report?as=AS6&view=2.0">AS6    </a> BULL-HN - Bull HN Information Systems Inc.,US
+<a href="/cgi-bin/as-report?as=AS7&view=2.0">AS7    </a> UK Defence Research Agency,GB
+<a href="/cgi-bin/as-report?as=AS8&view=2.0">AS8    </a> RICE-AS - Rice University,US
+<a href="/cgi-bin/as-report?as=AS9&view=2.0">AS9    </a> CMU-ROUTER - Carnegie Mellon University,US
+<a href="/cgi-bin/as-report?as=AS10&view=2.0">AS10   </a> CSNET-EXT-AS - CSNET Coordination and Information Center (CSNET-CIC),US
+<a href="/cgi-bin/as-report?as=AS11&view=2.0">AS11   </a> HARVARD - Harvard University,US
+<a href="/cgi-bin/as-report?as=AS12&view=2.0">AS12   </a> NYU-DOMAIN - New York University,US
+<a href="/cgi-bin/as-report?as=AS13&view=2.0">AS13   </a> DNIC-AS-00013 - Headquarters, USAISC,US
+<a href="/cgi-bin/as-report?as=AS14&view=2.0">AS14   </a> COLUMBIA-GW - Columbia University,US
+<a href="/cgi-bin/as-report?as=AS15&view=2.0">AS15   </a> NET-DYNAMICS-EXP - DYNAMICS,US
+<a href="/cgi-bin/as-report?as=AS16&view=2.0">AS16   </a> LBL - Lawrence Berkeley National Laboratory,US
+<a href="/cgi-bin/as-report?as=AS17&view=2.0">AS17   </a> PURDUE - Purdue University,US
+<a href="/cgi-bin/as-report?as=AS18&view=2.0">AS18   </a> UTEXAS - University of Texas at Austin,US
+<a href="/cgi-bin/as-report?as=AS19&view=2.0">AS19   </a> LEIDOS-AS - Leidos, Inc.,US
+<a href="/cgi-bin/as-report?as=AS20&view=2.0">AS20   </a> UR - University of Rochester,US
+<a href="/cgi-bin/as-report?as=AS1777&view=2.0">AS1777 </a> SAINT-XAVIER-UNIVERSITY-CHICAGO - Saint Xavier University,US
+<a href="/cgi-bin/as-report?as=AS1778&view=2.0">AS1778 </a> DNIC-AS-01778 - DoD Network Information Center,US
+<a href="/cgi-bin/as-report?as=AS1779&view=2.0">AS1779 </a> PSTAR-AS - Pentastar Services, Inc.,US
+<a href="/cgi-bin/as-report?as=AS1780&view=2.0">AS1780 </a> VALNET Valmet Corporation,EU
+<a href="/cgi-bin/as-report?as=AS1781&view=2.0">AS1781 </a> KAIST-DAEJEON-AS-KR Korea Advanced Institute of Science and Technology,KR
+<a href="/cgi-bin/as-report?as=AS1782&view=2.0">AS1782 </a> ESPAL - Espalier Global Management LLC,US
+<a href="/cgi-bin/as-report?as=AS1783&view=2.0">AS1783 </a> TAL-ASN - Tourmalet Advisors LP,US
+<a href="/cgi-bin/as-report?as=AS1784&view=2.0">AS1784 </a> GNAPS - Global NAPs Networks,US
+<a href="/cgi-bin/as-report?as=AS1785&view=2.0">AS1785 </a> AS-PAETEC-NET - PaeTec Communications, Inc.,US
+<a href="/cgi-bin/as-report?as=AS1786&view=2.0">AS1786 </a> AIXSERV-AS - IBM,US
+<a href="/cgi-bin/as-report?as=AS1787&view=2.0">AS1787 </a> AS1787 - Thomson Reuters U.S. LLC,US
+<a href="/cgi-bin/as-report?as=AS1788&view=2.0">AS1788 </a> SONAMNET - SONAM Corporation,US
+<a href="/cgi-bin/as-report?as=AS1789&view=2.0">AS1789 </a> SPRINTLINK1 - Sprint Government Systems Division,US
+<a href="/cgi-bin/as-report?as=AS1790&view=2.0">AS1790 </a> SPRINTLINK2 - Sprint Government Systems Division,US
+<a href="/cgi-bin/as-report?as=AS1791&view=2.0">AS1791 </a> SPRINTLINK3 - Sprint Government Systems Division,US
+<a href="/cgi-bin/as-report?as=AS1792&view=2.0">AS1792 </a> SPRINTLINK4 - Sprint Government Systems Division,US
+<a href="/cgi-bin/as-report?as=AS1793&view=2.0">AS1793 </a> SPRINTLINK5 - Sprint Government Systems Division,US
+<a href="/cgi-bin/as-report?as=AS1794&view=2.0">AS1794 </a> SPRINTLINK6 - Sprint Government Systems Division,US
+<a href="/cgi-bin/as-report?as=AS1795&view=2.0">AS1795 </a> SPRINTLINK7 - Sprint Government Systems Division,US
+<a href="/cgi-bin/as-report?as=AS1796&view=2.0">AS1796 </a> GRADED-LABS-LLC - Graded Labs, LLC,US
+<a href="/cgi-bin/as-report?as=AS1797&view=2.0">AS1797 </a> Uruguay,UY
+<a href="/cgi-bin/as-report?as=AS1798&view=2.0">AS1798 </a> OREGON - State of Oregon,US
+<a href="/cgi-bin/as-report?as=AS1799&view=2.0">AS1799 </a> ICMNET-1 - Sprint,US
+<a href="/cgi-bin/as-report?as=AS1800&view=2.0">AS1800 </a> ICM-ATLANTIC - Sprint,US
+<a href="/cgi-bin/as-report?as=AS1801&view=2.0">AS1801 </a> ICMNET-3 - Sprint,US
+<a href="/cgi-bin/as-report?as=AS1802&view=2.0">AS1802 </a> ICMNET-4 - Sprint,US
+<a href="/cgi-bin/as-report?as=AS1803&view=2.0">AS1803 </a> ICMNET-5 - Sprint,US
+<a href="/cgi-bin/as-report?as=AS1804&view=2.0">AS1804 </a> ICMNET-6 - Sprint,US
+<a href="/cgi-bin/as-report?as=AS1805&view=2.0">AS1805 </a> ICMNET-7 - Sprint,US
+<a href="/cgi-bin/as-report?as=AS1806&view=2.0">AS1806 </a> ICMNET-8 - Sprint,US
+<a href="/cgi-bin/as-report?as=AS1807&view=2.0">AS1807 </a> ICMNET-9 - Sprint,US
+<a href="/cgi-bin/as-report?as=AS1808&view=2.0">AS1808 </a> ICMNET-10 - Sprint,US
+<a href="/cgi-bin/as-report?as=AS1809&view=2.0">AS1809 </a> BGLNG - BG LNG Services, LLC,US
+<a href="/cgi-bin/as-report?as=AS1810&view=2.0">AS1810 </a> CSC-300-AS1810-AS1815 - Computer Sciences Corporation,US
+<a href="/cgi-bin/as-report?as=AS1811&view=2.0">AS1811 </a> CSC-300-AS1810-AS1815 - Computer Sciences Corporation,US
+<a href="/cgi-bin/as-report?as=AS1812&view=2.0">AS1812 </a> CSC-300-AS1810-AS1815 - Computer Sciences Corporation,US
+<a href="/cgi-bin/as-report?as=AS1813&view=2.0">AS1813 </a> CSC-300-AS1810-AS1815 - Computer Sciences Corporation,US
+<a href="/cgi-bin/as-report?as=AS1814&view=2.0">AS1814 </a> CSC-300-AS1810-AS1815 - Computer Sciences Corporation,US
+<a href="/cgi-bin/as-report?as=AS1815&view=2.0">AS1815 </a> CSC-300-AS1810-AS1815 - Computer Sciences Corporation,US
+<a href="/cgi-bin/as-report?as=AS2850&view=2.0">AS2850 </a> UNIVERSITY-COLLEGE-DUBLIN University College Dublin,IE
+<a href="/cgi-bin/as-report?as=AS2852&view=2.0">AS2852 </a> CESNET2 CESNET z.s.p.o.,CZ
+<a href="/cgi-bin/as-report?as=AS2853&view=2.0">AS2853 </a> -Reserved AS-,ZZ
+<a href="/cgi-bin/as-report?as=AS2854&view=2.0">AS2854 </a> ROSPRINT-AS LLC Equant,RU
+<a href="/cgi-bin/as-report?as=AS2855&view=2.0">AS2855 </a> BTRADIANZPARIS BTPublic Internet Service,GB
+<a href="/cgi-bin/as-report?as=AS2856&view=2.0">AS2856 </a> BT-UK-AS BT Public Internet Service,GB
+<a href="/cgi-bin/as-report?as=AS2857&view=2.0">AS2857 </a> RLP-NET Johannes Gutenberg-Universitaet Mainz,DE
+<a href="/cgi-bin/as-report?as=AS2858&view=2.0">AS2858 </a> KPN B.V.,EU
+<a href="/cgi-bin/as-report?as=AS2859&view=2.0">AS2859 </a> RESILANS-LAB Resilans AB,SE
+<a href="/cgi-bin/as-report?as=AS2860&view=2.0">AS2860 </a> NOVIS Novis Telecom, S.A.,PT
+<a href="/cgi-bin/as-report?as=AS2861&view=2.0">AS2861 </a> Udo Steinegger,DE
+<a href="/cgi-bin/as-report?as=AS2862&view=2.0">AS2862 </a> -Reserved AS-,ZZ
+<a href="/cgi-bin/as-report?as=AS2863&view=2.0">AS2863 </a> SPRITELINK Centor AB,SE
+<a href="/cgi-bin/as-report?as=AS2864&view=2.0">AS2864 </a> -Reserved AS-,ZZ
+<a href="/cgi-bin/as-report?as=AS2865&view=2.0">AS2865 </a> EVRY-ONE-NET EVRY One Outsourcing Services Uppsala AB,SE
+<a href="/cgi-bin/as-report?as=AS2866&view=2.0">AS2866 </a> JISC Collections And Janet Limited,GB
+<a href="/cgi-bin/as-report?as=AS2867&view=2.0">AS2867 </a> JISC Collections And Janet Limited,GB
+<a href="/cgi-bin/as-report?as=AS2868&view=2.0">AS2868 </a> JISC Collections And Janet Limited,GB
+<a href="/cgi-bin/as-report?as=AS2869&view=2.0">AS2869 </a> JISC Collections And Janet Limited,GB
+<a href="/cgi-bin/as-report?as=AS2870&view=2.0">AS2870 </a> JISC Collections And Janet Limited,GB
+<a href="/cgi-bin/as-report?as=AS2871&view=2.0">AS2871 </a> DOSTAL Tobias Dostal,AT
+<a href="/cgi-bin/as-report?as=AS2873&view=2.0">AS2873 </a> TIBUS-CLOUD The Internet Business Ltd,GB
+<a href="/cgi-bin/as-report?as=AS2874&view=2.0">AS2874 </a> ORANGE-BUSINESS-SERVICES-NORDICS Equant Inc.,SE
+<a href="/cgi-bin/as-report?as=AS2875&view=2.0">AS2875 </a> JINR-AS JINR/HEPNET,RU
+<a href="/cgi-bin/as-report?as=AS2876&view=2.0">AS2876 </a> HM-AS HOSTING MEDIA SRL,RO
+<a href="/cgi-bin/as-report?as=AS2877&view=2.0">AS2877 </a> LSC-AS Latvian Shipping Company JSC,LV
+<a href="/cgi-bin/as-report?as=AS2878&view=2.0">AS2878 </a> ULRT-AS OJSC Rostelecom,RU
+<a href="/cgi-bin/as-report?as=AS2879&view=2.0">AS2879 </a> -Reserved AS-,ZZ
+<a href="/cgi-bin/as-report?as=AS2880&view=2.0">AS2880 </a> NIIT - National Information Infrastructure Testbed,US
+<a href="/cgi-bin/as-report?as=AS2881&view=2.0">AS2881 </a> RHGC-AS - Rensselaer Hartford Graduate Center,US
+<a href="/cgi-bin/as-report?as=AS2882&view=2.0">AS2882 </a> RSNG-PACBELL - Merit Network Inc.,US
+<a href="/cgi-bin/as-report?as=AS2883&view=2.0">AS2883 </a> NAP-AADS - Merit Network Inc.,US
+<a href="/cgi-bin/as-report?as=AS2884&view=2.0">AS2884 </a> NAP-THREE - RA-NAP,US
+<a href="/cgi-bin/as-report?as=AS2885&view=2.0">AS2885 </a> NAP-MAEEAST - Merit Network Inc.,US
+<a href="/cgi-bin/as-report?as=AS2886&view=2.0">AS2886 </a> EPO-TEST-0 - Almond Oil Process, LLC.,KN
+<a href="/cgi-bin/as-report?as=AS2887&view=2.0">AS2887 </a> RRM-ASN - Ford Motor Company,US
+<a href="/cgi-bin/as-report?as=AS2888&view=2.0">AS2888 </a> MCI-AREA-1 - MCI,US
+<a href="/cgi-bin/as-report?as=AS2889&view=2.0">AS2889 </a> MCI-AREA-2 - MCI,US
+<a href="/cgi-bin/as-report?as=AS2890&view=2.0">AS2890 </a> MCI-AREA-3 - MCI,US
+<a href="/cgi-bin/as-report?as=AS2891&view=2.0">AS2891 </a> MCI-AREA-4 - MCI,US
+<a href="/cgi-bin/as-report?as=AS2892&view=2.0">AS2892 </a> MCI-AREA-5 - MCI,US
+<a href="/cgi-bin/as-report?as=AS2893&view=2.0">AS2893 </a> CLI-NET - Computational Logic, Inc.,US
+<a href="/cgi-bin/as-report?as=AS2894&view=2.0">AS2894 </a> CALIF-DWR - California Department of Water Resources,US
+<a href="/cgi-bin/as-report?as=AS2895&view=2.0">AS2895 </a> FREE-NET-AS OOO FREEnet Group,RU
+<a href="/cgi-bin/as-report?as=AS393857&view=2.0">AS393857</a> TS-419 - Premier Satellite,US
+<a href="/cgi-bin/as-report?as=AS393858&view=2.0">AS393858</a> DATACC - CPC,US
+<a href="/cgi-bin/as-report?as=AS393859&view=2.0">AS393859</a> PELMOREX-METEOMEDIA-1755 - Metromedia Inc.,CA
+<a href="/cgi-bin/as-report?as=AS393860&view=2.0">AS393860</a> AVISYSTEMS - AVI SYSTEMS INC,US
+<a href="/cgi-bin/as-report?as=AS393861&view=2.0">AS393861</a> INOVAHEALTHSYSTEM - Inova Health System Foundation,US
+<a href="/cgi-bin/as-report?as=AS393862&view=2.0">AS393862</a> CHSOMAHA - Children's Hospital & Medical Center,US
+<a href="/cgi-bin/as-report?as=AS393863&view=2.0">AS393863</a> TOTAL-MERCHANT-SERVICES - TOTAL MERCHANT SERVICES,US
+<a href="/cgi-bin/as-report?as=AS393864&view=2.0">AS393864</a> PRESTIGE-BROADBAND - Prestige Broadband LLC,US
+<a href="/cgi-bin/as-report?as=AS393865&view=2.0">AS393865</a> SITUS - Situs Group LLC,US
+<a href="/cgi-bin/as-report?as=AS393866&view=2.0">AS393866</a> DENTAL-SELECT - DENTAL SELECT,US
+<a href="/cgi-bin/as-report?as=AS393867&view=2.0">AS393867</a> TFECU - TULSA FEDERAL CREDIT UNION,US
+<a href="/cgi-bin/as-report?as=AS393868&view=2.0">AS393868</a> VALLEY-PRESBYTERIAN-HOSPITAL - VPH,US
+<a href="/cgi-bin/as-report?as=AS393869&view=2.0">AS393869</a> CMC - COLORADO MOUNTAIN COLLEGE,US
+<a href="/cgi-bin/as-report?as=AS393870&view=2.0">AS393870</a> WMPL-1 - West Monroe Partners,US
+<a href="/cgi-bin/as-report?as=AS393871&view=2.0">AS393871</a> HAVAS-USA-E-DC - Havas Health, Inc.,US
+<a href="/cgi-bin/as-report?as=AS393872&view=2.0">AS393872</a> MOTLOW - Motlow State Community College,US
+<a href="/cgi-bin/as-report?as=AS393873&view=2.0">AS393873</a> AMERICAN-CENTRAL-TRANSPORT-INC - American Central Transport Inc.,US
+<a href="/cgi-bin/as-report?as=AS393874&view=2.0">AS393874</a> DROPBOXC - Dropbox Inc,US
+<a href="/cgi-bin/as-report?as=AS393875&view=2.0">AS393875</a> UMO-AS - University of Mount Olive,US
+<a href="/cgi-bin/as-report?as=AS393876&view=2.0">AS393876</a> NCC-OMAHA - Nebraska Colocation Centers, LLC,US
+<a href="/cgi-bin/as-report?as=AS393877&view=2.0">AS393877</a> BAYCREST - Baycrest,CA
+<a href="/cgi-bin/as-report?as=AS393878&view=2.0">AS393878</a> EPIC-HOSTING-2 - Epic Hosting, LLC,US
+<a href="/cgi-bin/as-report?as=AS393879&view=2.0">AS393879</a> OL - Objectif Lune Inc.,CA
+<a href="/cgi-bin/as-report?as=AS393880&view=2.0">AS393880</a> HAL - Hawaiian Airlines,US
+<a href="/cgi-bin/as-report?as=AS393881&view=2.0">AS393881</a> CAPOUSD - Capistrano Unified School District,US
+<a href="/cgi-bin/as-report?as=AS393882&view=2.0">AS393882</a> TISDCS-ASN - TISDCS,US
+<a href="/cgi-bin/as-report?as=AS393883&view=2.0">AS393883</a> WELLSHIREFARMSINC - Wellshire Farms Inc.,US
+<a href="/cgi-bin/as-report?as=AS393884&view=2.0">AS393884</a> VPSTO - VPS.TO,US
+<a href="/cgi-bin/as-report?as=AS393885&view=2.0">AS393885</a> HAVILAND-TEL - Haviland Telephone Company, Inc.,US
+<a href="/cgi-bin/as-report?as=AS393886&view=2.0">AS393886</a> TSD-R2J - Thompson School District R2-J,US
+<a href="/cgi-bin/as-report?as=AS393887&view=2.0">AS393887</a> BIAMP-HQ - BIAMP SYSTEMS CORPORATION,US
+<a href="/cgi-bin/as-report?as=AS393888&view=2.0">AS393888</a> SQUAR-12-AS-1 - SQUARETRADE, INC.,US
+<a href="/cgi-bin/as-report?as=AS393889&view=2.0">AS393889</a> EIGHTJOY-NETWORK-LLC - EightJoy Network LLC,US
+<a href="/cgi-bin/as-report?as=AS393890&view=2.0">AS393890</a> BTEKSO - BTEK SOFTWARE,US
+<a href="/cgi-bin/as-report?as=AS393891&view=2.0">AS393891</a> POTASHCORP - Potash Corporation of Saskatchewan, Inc.,CA
+</PRE>
+<HR>
+<I>File last modified at Sun Apr 19 16:14:32 2015
+ (UTC+1000)</I>
+</body>
+</html>
