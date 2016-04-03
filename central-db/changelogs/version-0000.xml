@@ -37,6 +37,8 @@
     'TM', 'TC', 'TV', 'UG', 'UA', 'AE', 'US', 'UY', 'UM', 'UZ', 'VU',
     'VA', 'VE', 'VN', 'VG', 'VI', 'WF', 'EH', 'YE', 'ZM', 'ZW'
     )</sql>
+
+
     <rollback>
       <sql>DROP TYPE country_code</sql>
     </rollback>
@@ -363,6 +365,36 @@
         columnNames="artifact, version"
         constraintName="const_uniq_upgrade"
         tableName="upgrades" />
+  </changeSet>
+
+  <changeSet author="thomasf" id="20160402-170426-CEST" runInTransaction="false">
+    <!-- Add missing standard codes and maxmind geoip special codes (A1,A2,O1,EU,AP...) -->
+    <sql splitStatements="false">
+      ALTER TYPE country_code ADD VALUE IF NOT EXISTS 'A1';
+      ALTER TYPE country_code ADD VALUE IF NOT EXISTS 'A2';
+      ALTER TYPE country_code ADD VALUE IF NOT EXISTS 'AN';
+      ALTER TYPE country_code ADD VALUE IF NOT EXISTS 'AP';
+      ALTER TYPE country_code ADD VALUE IF NOT EXISTS 'AX';
+      ALTER TYPE country_code ADD VALUE IF NOT EXISTS 'BL';
+      ALTER TYPE country_code ADD VALUE IF NOT EXISTS 'BQ';
+      ALTER TYPE country_code ADD VALUE IF NOT EXISTS 'CD';
+      ALTER TYPE country_code ADD VALUE IF NOT EXISTS 'CS';
+      ALTER TYPE country_code ADD VALUE IF NOT EXISTS 'CW';
+      ALTER TYPE country_code ADD VALUE IF NOT EXISTS 'EU';
+      ALTER TYPE country_code ADD VALUE IF NOT EXISTS 'GG';
+      ALTER TYPE country_code ADD VALUE IF NOT EXISTS 'IM';
+      ALTER TYPE country_code ADD VALUE IF NOT EXISTS 'JE';
+      ALTER TYPE country_code ADD VALUE IF NOT EXISTS 'ME';
+      ALTER TYPE country_code ADD VALUE IF NOT EXISTS 'MF';
+      ALTER TYPE country_code ADD VALUE IF NOT EXISTS 'O1';
+      ALTER TYPE country_code ADD VALUE IF NOT EXISTS 'PS';
+      ALTER TYPE country_code ADD VALUE IF NOT EXISTS 'RS';
+      ALTER TYPE country_code ADD VALUE IF NOT EXISTS 'SS';
+      ALTER TYPE country_code ADD VALUE IF NOT EXISTS 'SX';
+      ALTER TYPE country_code ADD VALUE IF NOT EXISTS 'TL';
+    </sql>
+    <!-- postgres enum values cannot be removed -->
+    <rollback />
   </changeSet>
 
   <!-- <changeSet author="thomasf" id="20151214-181537-CET"> -->

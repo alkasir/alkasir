@@ -28,7 +28,9 @@ var CountryCodes = []string{
 	"SI", "SB", "SO", "ZA", "KR", "ES", "LK", "SD", "SR", "SJ", "SZ", "SE",
 	"CH", "SY", "TJ", "TW", "TZ", "TH", "TG", "TK", "TO", "TT", "TN", "TR",
 	"TM", "TC", "TV", "UG", "UA", "AE", "US", "UY", "UM", "UZ", "VU", "VA",
-	"VE", "VN", "VG", "VI", "WF", "EH", "YE", "ZM", "ZW",
+	"VE", "VN", "VG", "VI", "WF", "EH", "YE", "ZM", "ZW", "A1", "A2", "AP",
+	"AX", "BL", "BQ", "CD", "CW", "EU", "GG", "IM", "JE", "ME", "MF", "O1",
+	"PS", "RS", "SS", "SX", "TL",
 }
 
 // BrowserSuggestionTokenRequest goes from browser extension to client
