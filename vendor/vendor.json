@@ -165,9 +165,10 @@
 			"revisionTime": "2015-02-23T14:51:52+01:00"
 		},
 		{
+			"checksumSHA1": "mnl/zb3rn3I1xAvleGMJcY2ySS8=",
 			"path": "github.com/cenkalti/backoff",
-			"revision": "4dc77674aceaabba2c7e3da25d4c823edfb73f99",
-			"revisionTime": "2015-08-14T12:43:33+03:00"
+			"revision": "32cd0c5b3aef12c76ed64aaf678f6c79736be7dc",
+			"revisionTime": "2015-08-27T12:34:15Z"
 		},
 		{
 			"path": "github.com/codahale/chacha20",
@@ -200,9 +201,10 @@
 			"revisionTime": "2015-10-25T06:24:29+01:00"
 		},
 		{
+			"checksumSHA1": "r3qLyPrf6vU6t9CtQ71uwkjZ2v4=",
 			"path": "github.com/dgrijalva/jwt-go",
-			"revision": "f2193411bd642f7db03249fd79d5292c9b34916a",
-			"revisionTime": "2016-02-09T11:43:28-08:00"
+			"revision": "b446e078d613dc395bf50b08884acbeafb19ce50",
+			"revisionTime": "2016-03-31T18:13:52Z"
 		},
 		{
 			"path": "github.com/elazarl/go-bindata-assetfs",
@@ -230,19 +232,22 @@
 			"revisionTime": "2015-06-12T18:29:17Z"
 		},
 		{
+			"checksumSHA1": "CugKDIiTN7Xl2ID3yQ17ytRmNOY=",
 			"path": "github.com/garyburd/redigo/internal",
-			"revision": "836b6e58b3358112c8291565d01c35b8764070d7",
-			"revisionTime": "2015-12-19T15:20:44-08:00"
+			"revision": "4ed1111375cbeb698249ffe48dd463e9b0a63a7a",
+			"revisionTime": "2016-03-02T23:46:02Z"
 		},
 		{
+			"checksumSHA1": "uAkKqLK24tm4VVuqKkaXbIHyhfk=",
 			"path": "github.com/garyburd/redigo/redis",
-			"revision": "836b6e58b3358112c8291565d01c35b8764070d7",
-			"revisionTime": "2015-12-19T15:20:44-08:00"
+			"revision": "4ed1111375cbeb698249ffe48dd463e9b0a63a7a",
+			"revisionTime": "2016-03-02T23:46:02Z"
 		},
 		{
+			"checksumSHA1": "JES7DKVzf9GUqTfs5rdWEveDRqo=",
 			"path": "github.com/getlantern/bytecounting",
-			"revision": "a672d582e31fcd119bd942b83b2a00fa285e596e",
-			"revisionTime": "2015-01-20T20:01:47-06:00"
+			"revision": "70021205768aebede2506ae24c95e09f16b1a6d3",
+			"revisionTime": "2016-03-17T15:43:40Z"
 		},
 		{
 			"path": "github.com/getlantern/testify/assert",
@@ -250,19 +255,28 @@
 			"revisionTime": "2014-10-19T16:35:34-05:00"
 		},
 		{
+			"checksumSHA1": "+IKyhHfgcaa7lj9rU5/R3e/5eYc=",
 			"path": "github.com/golang/protobuf/proto",
-			"revision": "b982704f8bb716bb608144408cff30e15fbde841",
-			"revisionTime": "2016-02-02T18:33:00+11:00"
+			"revision": "dda510ac0fd43b39770f22ac6260eb91d377bce3",
+			"revisionTime": "2016-03-30T00:19:00Z"
 		},
 		{
+			"checksumSHA1": "IXHPoWC6diJ+fnQ2ZKkrGGC8Meo=",
 			"path": "github.com/golang/protobuf/proto/proto3_proto",
-			"revision": "b982704f8bb716bb608144408cff30e15fbde841",
-			"revisionTime": "2016-02-02T18:33:00+11:00"
+			"revision": "dda510ac0fd43b39770f22ac6260eb91d377bce3",
+			"revisionTime": "2016-03-30T00:19:00Z"
 		},
 		{
+			"checksumSHA1": "mhSUJmWgMU/f+DYyyQf390fnFQE=",
 			"path": "github.com/golang/protobuf/proto/testdata",
-			"revision": "b982704f8bb716bb608144408cff30e15fbde841",
-			"revisionTime": "2016-02-02T18:33:00+11:00"
+			"revision": "dda510ac0fd43b39770f22ac6260eb91d377bce3",
+			"revisionTime": "2016-03-30T00:19:00Z"
+		},
+		{
+			"checksumSHA1": "ziJ4U3fMgzYUaflqefqATULDFv0=",
+			"path": "github.com/golang/protobuf/ptypes/any",
+			"revision": "dda510ac0fd43b39770f22ac6260eb91d377bce3",
+			"revisionTime": "2016-03-30T00:19:00Z"
 		},
 		{
 			"path": "github.com/hanjos/nexus",
@@ -340,9 +354,10 @@
 			"revisionTime": "2015-08-10T09:23:59-06:00"
 		},
 		{
+			"checksumSHA1": "pocpRHvi+WuCoGJsf3BzsF5mnWI=",
 			"path": "github.com/lib/pq",
-			"revision": "69552e54d2a9d4c6a2438926a774930f7bc398ec",
-			"revisionTime": "2016-02-09T23:37:49+09:00"
+			"revision": "3cd0097429be7d611bb644ef85b42bfb102ceea4",
+			"revisionTime": "2016-03-14T19:42:24Z"
 		},
 		{
 			"path": "github.com/lib/pq/oid",
@@ -365,9 +380,10 @@
 			"revisionTime": "2016-02-12T08:15:34-08:00"
 		},
 		{
+			"checksumSHA1": "RUBuK+TfPay/ybkdlRcD1DQcdWg=",
 			"path": "github.com/miekg/dns",
-			"revision": "83f7d658ac219335d42f7ec4397a76e35ca7f835",
-			"revisionTime": "2016-02-05T09:40:07Z"
+			"revision": "7e024ce8ce18b21b475ac6baf8fa3c42536bf2fa",
+			"revisionTime": "2016-03-28T14:46:43Z"
 		},
 		{
 			"path": "github.com/nu7hatch/gouuid",
@@ -590,9 +606,10 @@
 			"revisionTime": "2015-10-29T15:50:50-04:00"
 		},
 		{
+			"checksumSHA1": "WpJUVe9F75XY/5NP72HnDJR8l/s=",
 			"path": "github.com/rafaeljusto/redigomock",
-			"revision": "4e848f835b81c67264868400e9b5cde3038e9d14",
-			"revisionTime": "2015-10-23T09:43:10-02:00"
+			"revision": "a542c2bc4e4f5d321464e4cf7106bddbbf0b475b",
+			"revisionTime": "2016-04-01T16:58:48Z"
 		},
 		{
 			"path": "github.com/remyoudompheng/gigot/gitdelta",

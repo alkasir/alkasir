@@ -2,6 +2,7 @@ package redigomock
 
 import (
 	"fmt"
+	"reflect"
 	"sync"
 	"testing"
 	"time"
@@ -289,6 +290,92 @@ func TestSendReceiveWithWait(t *testing.T) {
 	}
 }
 
+func assertChannelEmpty(t *testing.T, responses chan []byte) {
+	select {
+	case _ = <-responses:
+		t.Error("Got message that should not have been sent")
+	default:
+		return
+	}
+}
+
+func TestPubSub(t *testing.T) {
+	conn := NewConn()
+	conn.ReceiveWait = true
+	redisChannel := "subchannel"
+
+	conn.Command("SUBSCRIBE", redisChannel).Expect([]interface{}{
+		[]byte("subscribe"),
+		[]byte(redisChannel),
+		[]byte("1"),
+	})
+	messages := [][]byte{
+		[]byte("value1"),
+		[]byte("value2"),
+		[]byte("value3"),
+		[]byte("finished"),
+	}
+	for _, message := range messages {
+		conn.AddSubscriptionMessage([]interface{}{
+			[]byte("message"),
+			[]byte(redisChannel),
+			message,
+		})
+	}
+	//Check some values are correct
+	if len(conn.commands) != 1 {
+		t.Error("Initial subscription message not set correctly")
+	}
+	if len(conn.SubResponses) != 4 {
+		t.Error("PubSub messages not queued up corectly")
+	}
+
+	//Use the pub sub connection
+	nextMessage := func() {
+		conn.ReceiveNow <- true
+	}
+	go nextMessage() //Allow the subscribe message to come through
+
+	psc := redis.PubSubConn{Conn: conn}
+	psc.Subscribe(redisChannel)
+	defer psc.Unsubscribe()
+	//Receive the subscribe message
+	subResponse := psc.Receive()
+	switch smsg := subResponse.(type) {
+	case redis.Subscription:
+		if smsg.Kind != "subscribe" {
+			t.Error("Subscription ack kind is wrong")
+		}
+		if smsg.Channel != redisChannel {
+			t.Error("Subscription ack channel is wrong")
+		}
+		if smsg.Count != 1 {
+			t.Error("Subscription ack count is wrong")
+		}
+	default:
+		t.Error("Got wrong type back on initial subscription")
+	}
+	//Receive the other messages - control when they come
+	testResponse := make(chan []byte, 1)
+	go func() {
+		for {
+			switch msg := psc.Receive().(type) {
+			case redis.Message:
+				testResponse <- msg.Data
+			}
+		}
+	}()
+	for _, expMsg := range messages {
+		assertChannelEmpty(t, testResponse)
+		go nextMessage()
+		msg := <-testResponse
+		if !reflect.DeepEqual(msg, expMsg) {
+			t.Error("Expected message", string(expMsg), "got", string(msg))
+		}
+		assertChannelEmpty(t, testResponse)
+	}
+}
+
 func TestSendFlushReceiveWithError(t *testing.T) {
 	connection := NewConn()
 
@@ -495,5 +582,21 @@ func TestReceiveReturnsErrorWithNoRegisteredCommand(t *testing.T) {
 
 	if resp != nil {
 		t.Errorf("Should have returned a nil response when calling Receive with a command in the queue that was not registered")
+	}
+}
+
+func TestFailCommandOnTransaction(t *testing.T) {
+	connection := NewConn()
+
+	connection.Command("MULTI")
+	connection.Command("SET", "person-123", 123456)
+	connection.Command("EXEC").Expect([]interface{}{"OK", "OK"})
+
+	connection.Send("MULTI")
+	connection.Send("SET", "person-321", 654321)
+	_, err := connection.Do("EXEC")
+
+	if err == nil {
+		t.Errorf("Should have received an error when calling EXEC with a transaction with a command that was not registered")
 	}
 }
