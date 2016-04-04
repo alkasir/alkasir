@@ -7,31 +7,6 @@ import (
 	"time"
 )
 
-// CountryCodes is the list of valid country codes
-var CountryCodes = []string{
-	"AF", "AL", "DZ", "AS", "AD", "AO", "AI", "AQ", "AG", "AR", "AM", "AW",
-	"AU", "AT", "AZ", "BS", "BH", "BD", "BB", "BY", "BE", "BZ", "BJ", "BM",
-	"BT", "BO", "BA", "BW", "BV", "BR", "IO", "BN", "BG", "BF", "BI", "KH",
-	"CM", "CA", "CV", "KY", "CF", "TD", "CL", "CN", "CX", "CC", "CO", "KM",
-	"CG", "CK", "CR", "HR", "CU", "CY", "CZ", "DK", "DJ", "DM", "DO", "TP",
-	"EC", "EG", "SV", "GQ", "ER", "EE", "ET", "FK", "FO", "FJ", "FI", "CS",
-	"FR", "GF", "TF", "GA", "GM", "GE", "DE", "GH", "GI", "GB", "GR", "GL",
-	"GD", "GP", "GU", "GT", "GN", "GW", "GY", "HT", "HM", "HN", "HK", "HU",
-	"IS", "IN", "ID", "IR", "IQ", "IE", "IL", "IT", "CI", "JM", "JP", "JO",
-	"KZ", "KE", "KI", "KW", "KG", "LA", "LV", "LB", "LS", "LR", "LY", "LI",
-	"LT", "LU", "MO", "MK", "MG", "MW", "MY", "MV", "ML", "MT", "MH", "MQ",
-	"MR", "MU", "YT", "MX", "FM", "MD", "MC", "MN", "MS", "MA", "MZ", "MM",
-	"NA", "NR", "NP", "NL", "AN", "NC", "NZ", "NI", "NE", "NG", "NU", "NF",
-	"KP", "MP", "NO", "OM", "PK", "PW", "PA", "PG", "PY", "PE", "PH", "PN",
-	"PL", "PF", "PT", "PR", "QA", "RE", "RO", "RU", "RW", "GS", "SH", "KN",
-	"LC", "PM", "ST", "VC", "WS", "SM", "SA", "SN", "SC", "SL", "SG", "SK",
-	"SI", "SB", "SO", "ZA", "KR", "ES", "LK", "SD", "SR", "SJ", "SZ", "SE",
-	"CH", "SY", "TJ", "TW", "TZ", "TH", "TG", "TK", "TO", "TT", "TN", "TR",
-	"TM", "TC", "TV", "UG", "UA", "AE", "US", "UY", "UM", "UZ", "VU", "VA",
-	"VE", "VN", "VG", "VI", "WF", "EH", "YE", "ZM", "ZW", "A1", "A2", "AP",
-	"AX", "BL", "BQ", "CD", "CW", "EU", "GG", "IM", "JE", "ME", "MF", "O1",
-	"PS", "RS", "SS", "SX", "TL",
-}
 
 // BrowserSuggestionTokenRequest goes from browser extension to client
 type BrowserSuggestionTokenRequest struct {
