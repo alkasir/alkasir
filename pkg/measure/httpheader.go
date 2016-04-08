@@ -15,7 +15,8 @@ import (
 
 // HTTPHeader .
 type HTTPHeader struct {
-	URL string `json:"url"`
+	URL     string        `json:"url"` // The url to mesaure against
+	Timeout time.Duration `json:"-"`   // Measurement timeout, defaults to 45 seconds unless specified.
 }
 
 // HTTPHeaderResult .
@@ -35,13 +36,18 @@ type Redirect struct {
 }
 
 func (h HTTPHeader) Measure() (Measurement, error) {
+	timeout := h.Timeout
+	if timeout == 0 {
+		timeout = 45 * time.Second
+	}
+
 	resultchan := make(chan HTTPHeaderResult, 0)
 	go func() {
 		rr := &redirectRecorder{
 			Transport: http.DefaultTransport.(*http.Transport),
 		}
 		client := http.Client{
-			Timeout:   defaultTimeout + 10*time.Second,
+			Timeout:   timeout,
 			Transport: rr,
 			CheckRedirect: func(req *http.Request, via []*http.Request) error {
 				if len(via) >= 10 {
@@ -58,12 +64,21 @@ func (h HTTPHeader) Measure() (Measurement, error) {
 			}
 			return
 		}
-		defer resp.Body.Close()
+		defer func() {
+			err := resp.Body.Close()
+			if err != nil {
+				// resp.Body should always have been closed at this point so an
+				// error is expected.
+				lg.V(20).Infoln(err)
+			}
+		}()
 		respHeaders := make(map[string]string, 0)
 		for k := range resp.Header {
 			respHeaders[k] = resp.Header.Get(k)
 		}
-		resp.Body.Close()
+		if err := resp.Body.Close(); err != nil {
+			lg.Errorln(err)
+		}
 		resultchan <- HTTPHeaderResult{
 			URL:            h.URL,
 			ResponseHeader: respHeaders,
@@ -74,10 +89,10 @@ func (h HTTPHeader) Measure() (Measurement, error) {
 	select {
 	case res := <-resultchan:
 		return res, nil
-	case <-time.After(defaultTimeout):
+	case <-time.After(timeout):
 		return HTTPHeaderResult{
 			URL:   h.URL,
-			Error: "timeout: " + defaultTimeout.String(),
+			Error: "timeout: " + timeout.String(),
 		}, nil
 	}
 

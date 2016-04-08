@@ -7,7 +7,6 @@ import (
 	"net"
 	"net/url"
 	"strings"
-	"time"
 
 	"github.com/alkasir/alkasir/pkg/measure/sampletypes"
 	"github.com/alkasir/alkasir/pkg/shared"
@@ -66,5 +65,3 @@ func DefaultMeasurements(URL string) ([]Measurer, error) {
 
 	return result, nil
 }
-
-var defaultTimeout = 45 * time.Second
