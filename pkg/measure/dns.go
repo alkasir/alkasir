@@ -13,8 +13,9 @@ import (
 )
 
 type DNSQuery struct {
-	Hostname string `json:"hostname"` // Hostnames to test against
-	Resolver string `json:"resolver"` // Resolver to use, an empty string means to use the default system resolver.
+	Hostname string        `json:"hostname"` // Hostnames to test against
+	Resolver string        `json:"resolver"` // Resolver to use, an empty string means to use the default system resolver.
+	Timeout  time.Duration `json:"-"` // Measurement timeout, defaults to 45 seconds unless specified
 }
 
 func (d DNSQueryResult) Type() sampletypes.SampleType {
@@ -63,6 +64,10 @@ func lookup(lookupaddr, nameserveraddr string) ([]string, error) {
 }
 
 func (d DNSQuery) Measure() (Measurement, error) {
+	timeout := d.Timeout
+	if timeout == 0 {
+		timeout = 45 * time.Second
+	}
 	qr := DNSQueryResult{
 		Hostname: d.Hostname,
 		Addrs:    []string{},
@@ -83,8 +88,8 @@ func (d DNSQuery) Measure() (Measurement, error) {
 		qr.Addrs = lr
 	case err := <-lookuperror:
 		qr.Error = err.Error()
-	case <-time.After(defaultTimeout):
-		qr.Error = "timeout: " + defaultTimeout.String()
+	case <-time.After(timeout):
+		qr.Error = "timeout: " + timeout.String()
 	}
 
 	close(lookupresult)
