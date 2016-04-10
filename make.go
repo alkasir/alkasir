@@ -832,6 +832,7 @@ func DepsTask() {
 		defer wg.Done()
 		runCmd("go", "get", "-u",
 			"github.com/jteeuwen/go-bindata/...",
+			"github.com/elazarl/go-bindata-assetfs/...",
 		)
 	}()
 	wg.Add(1)
@@ -1011,36 +1012,43 @@ func DevTask() {
 
 // BindataTask updates the list of resources to be compiled into client binary
 func BindataTask() {
-	runCmd("go-bindata",
+	runCmd("go-bindata-assetfs",
 		"-ignore=\\.gitignore",
 		"-prefix", "res/",
 		"-pkg", "res",
-		"-o", "pkg/res/data.go",
+		// "-o", "pkg/res/data.go",
 		"res/...")
+	failErr(os.Rename("bindata_assetfs.go", "pkg/res/data.go"),
+		"could not move bindata to target location")
 
-	runCmd("go-bindata",
+	runCmd("go-bindata-assetfs",
 		"-ignore=\\.gitignore",
 		"-prefix", "browser/chrome-ext/src/",
 		"-pkg", "chrome",
-		"-o", "pkg/res/chrome/data.go",
+		// "-o", "pkg/res/chrome/data.go",
 		"browser/chrome-ext/src/...")
+	failErr(os.Rename("bindata_assetfs.go", "pkg/res/chrome/data.go"),
+		"could not move bindata to target location")
+
 }
 
 // BindataDevTask updates the list of resources to be compiled into client binary
 func BindataDevTask() {
-	runCmd("go-bindata", "-dev",
+	runCmd("go-bindata-assetfs", "-dev",
 		"-ignore=\\.gitignore",
 		"-prefix", "res/",
 		"-pkg", "res",
-		"-o", "pkg/res/data.go",
 		"res/...")
+	failErr(os.Rename("bindata_assetfs.go", "pkg/res/data.go"),
+		"could not move bindata to target location")
 
-	runCmd("go-bindata", "-dev",
+	runCmd("go-bindata-assetfs", "-dev",
 		"-ignore=\\.gitignore",
 		"-prefix", "browser/chrome-ext/src/",
 		"-pkg", "chrome",
-		"-o", "pkg/res/chrome/data.go",
 		"browser/chrome-ext/src/...")
+	failErr(os.Rename("bindata_assetfs.go", "pkg/res/chrome/data.go"),
+		"could not move bindata to target location")
 
 }
 
