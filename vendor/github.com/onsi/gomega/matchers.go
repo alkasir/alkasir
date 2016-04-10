@@ -26,6 +26,15 @@ func BeEquivalentTo(expected interface{}) types.GomegaMatcher {
 	}
 }
 
+//BeIdenticalTo uses the == operator to compare actual with expected.
+//BeIdenticalTo is strict about types when performing comparisons.
+//It is an error for both actual and expected to be nil.  Use BeNil() instead.
+func BeIdenticalTo(expected interface{}) types.GomegaMatcher {
+	return &matchers.BeIdenticalToMatcher{
+		Expected: expected,
+	}
+}
+
 //BeNil succeeds if actual is nil
 func BeNil() types.GomegaMatcher {
 	return &matchers.BeNilMatcher{}
@@ -213,6 +222,13 @@ func BeEmpty() types.GomegaMatcher {
 //HaveLen succeeds if actual has the passed-in length.  Actual must be of type string, array, map, chan, or slice.
 func HaveLen(count int) types.GomegaMatcher {
 	return &matchers.HaveLenMatcher{
+		Count: count,
+	}
+}
+
+//HaveCap succeeds if actual has the passed-in capacity.  Actual must be of type array, chan, or slice.
+func HaveCap(count int) types.GomegaMatcher {
+	return &matchers.HaveCapMatcher{
 		Count: count,
 	}
 }
