@@ -543,6 +543,7 @@ func CreateSuggestion(w rest.ResponseWriter, r *rest.Request) {
 	}
 
 	s := client.NewSuggestion(u.String())
+	defer s.DoneAddingSamples()
 	measurers, err := measure.DefaultMeasurements(form.URL)
 	if err != nil {
 		apiutils.WriteRestError(w, apierrors.NewInternalError(err))
@@ -645,9 +646,48 @@ func SubmitSuggestion(w rest.ResponseWriter, r *rest.Request) {
 	if err != nil {
 		lg.Warningln("error sending samples", err.Error())
 	}
+	lg.V(5).Infof("sent %d samples", n)
 
-	lg.V(5).Infoln("sent ", n)
-	// FIXME PRESENTATION: just add the url locally
+	// continue sending samples if future measuremetns are expected to come
+	prepared, err := suggestion.Prepared()
+	if err != nil {
+		lg.Errorln(err)
+	} else if !prepared {
+		lg.V(5).Infof("all samples not collected, will try to send the rest when they are done")
+		go func(s client.Suggestion) {
+			start := time.Now()
+			t := time.NewTicker(30 * time.Second)
+			defer t.Stop()
+
+		submitSamples:
+			for range t.C {
+				if time.Now().After(start.Add(15 * time.Minute)) {
+					lg.Errorln("Stopping trying to send additional samples")
+					return
+				}
+
+				prepared, err := suggestion.Prepared()
+				if err != nil {
+					lg.Errorln(err)
+					return
+				}
+				if prepared {
+					restclient, err := NewRestClient()
+					if err != nil {
+						continue submitSamples
+					}
+					n, err := suggestion.SendSamples(restclient)
+					lg.V(5).Infof("sent %d samples", n)
+					if err != nil {
+						lg.Warningln("error sending samples", err.Error())
+						continue submitSamples
+					}
+					return
+				}
+			}
+		}(suggestion)
+	}
+
 	u, err := url.Parse(suggestion.URL)
 	if err != nil {
 		lg.Errorln(err)
