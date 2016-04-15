@@ -27,6 +27,19 @@ type ConnectionEvent struct {
 // ConnectionState describes the current known state of the default transport.
 type ConnectionState int
 
+// connectionManagerTimeouts .
+var connectionManagerTimings = struct {
+	SimpleHTTPTestResponseHeaderTimeout time.Duration
+	SimpleHTTPTestRequestTimeout        time.Duration
+	ReconnectTransportDelay             time.Duration
+	TestTransportTicker                 time.Duration
+}{
+	SimpleHTTPTestResponseHeaderTimeout: 10 * time.Second,
+	SimpleHTTPTestRequestTimeout:        20 * time.Second,
+	ReconnectTransportDelay:             4 * time.Second,
+	TestTransportTicker:                 10 * time.Second,
+}
+
 //go:generate stringer -type=ConnectionState
 // TODO: Split STATES and ACTIONS
 const (
@@ -116,7 +129,7 @@ func StartConnectionManager(authKey string) {
 	listeners := make([]chan ConnectionHistory, 0)
 
 	// TODO: Test on irregular intervals
-	reverifyTicker := time.NewTicker(10 * time.Second)
+	reverifyTicker := time.NewTicker(connectionManagerTimings.TestTransportTicker)
 
 	// the key is Connection.UUID
 	histories := make(map[string][]ConnectionEvent)
@@ -149,7 +162,7 @@ loop:
 			if len(currentConnections) < 1 {
 				currentConnectionsMu.Unlock()
 				lg.Warningln("No connections enabled")
-				reconnectTimer = time.AfterFunc(4*time.Second, func() {
+				reconnectTimer = time.AfterFunc(connectionManagerTimings.ReconnectTransportDelay, func() {
 					reconnectCh <- true
 				})
 				break s
@@ -200,11 +213,11 @@ loop:
 				ui.Notify("transport_retry")
 			case Ended:
 				delete(currents, event.Connection.ID)
-				lg.V(15).Infoln("waiting 4 seconds before sending reconnect")
+				lg.V(15).Infoln("waiting before sending reconnect")
 				if reconnectTimer != nil {
 					reconnectTimer.Stop()
 				}
-				reconnectTimer = time.AfterFunc(4*time.Second, func() {
+				reconnectTimer = time.AfterFunc(connectionManagerTimings.ReconnectTransportDelay, func() {
 					reconnectCh <- true
 				})
 			}
@@ -245,9 +258,9 @@ func testSocks5Internet(addr string) (err error) {
 		Transport: &http.Transport{
 			Dial:                  dialSocksProxy,
 			DisableKeepAlives:     true,
-			ResponseHeaderTimeout: 10 * time.Second,
+			ResponseHeaderTimeout: connectionManagerTimings.SimpleHTTPTestResponseHeaderTimeout,
 		},
-		Timeout: 20 * time.Second,
+		Timeout: connectionManagerTimings.SimpleHTTPTestRequestTimeout,
 	}
 	resp, err := httpClient.Get("https://alkasir.com/ping")
 	if err != nil {
