@@ -421,6 +421,7 @@ func NewTransportHTTPClient(timeout time.Duration) (*http.Client, error) {
 		return nil, errors.New("transport not connected)")
 	}
 	client := t.HTTPClient()
+	client.Timeout = timeout
 	return client, nil
 }
 
