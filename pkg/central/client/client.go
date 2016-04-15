@@ -172,6 +172,7 @@ type Suggestion struct {
 	URL       string                 // The origin url for the suggestion session.
 	CreatedAt time.Time              // Timestamp.
 	samples   []sample               // For keeping local cache of samples before submitting to central.
+	prepared  bool                   // true when the client is done adding samples
 }
 
 // RequestToken requests a suggestion session from central. On success the
@@ -211,6 +212,18 @@ func (s *Suggestion) AddMeasurement(m measure.Measurement) error {
 	return nil
 }
 
+// Prepared returns true if no othesamples are expected to be added
+func (s Suggestion) Prepared() (bool, error) {
+	s, ok := GetSuggestion(s.ID)
+	if !ok {
+		return false, apierrors.NewNotFound("suggestion", s.ID)
+	}
+	if s.Token == "" {
+		return false, apierrors.NewConflict("suggestion", "", errors.New("No session token associated with suggestion"))
+	}
+	return s.prepared, nil
+}
+
 // AddSample adds a sample to the local cache ready to be sent to central using SendSamples.
 func (s *Suggestion) AddSample(sampleType, data string) {
 	ID, err := shared.SecureRandomString(32)
@@ -224,6 +237,11 @@ func (s *Suggestion) AddSample(sampleType, data string) {
 		createdAt:  time.Now(),
 	}
 	modifySuggestion <- addSample(*s, ss)
+}
+
+// Prepared is called when no more samples are expected to arrive
+func (s *Suggestion) DoneAddingSamples() {
+	modifySuggestion <- prepared(*s)
 }
 
 // AddSample adds a sample to the local cache ready to be sent to central using SendSamples.
@@ -302,6 +320,15 @@ func GetSuggestion(ID string) (Suggestion, bool) {
 		ok = false
 	}
 	return v, ok
+}
+
+func prepared(suggestion Suggestion) mod {
+	return mod{
+		id: suggestion.ID,
+		fn: func(s *Suggestion) {
+			s.prepared = true
+		},
+	}
 }
 
 func addSample(suggestion Suggestion, sample sample) mod {
