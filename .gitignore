@@ -15,6 +15,7 @@ site/
 /alkasir-client
 /alkasir-client-snapshot
 /alkasir-central
+/central-db/*.sql
 /alkasir-central-snapshot
 /alkasir-translator-tool
 /*.exe
