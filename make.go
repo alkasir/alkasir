@@ -820,6 +820,14 @@ func ReleaseChromeExtTask() {
 	}
 }
 
+// install tools required by build process
+func toolsTask() {
+	runCmd("go", "install",
+		"github.com/alkasir/alkasir/vendor/github.com/elazarl/go-bindata-assetfs",
+		"github.com/alkasir/alkasir/vendor/github.com/jteeuwen/go-bindata",
+	)
+}
+
 // DepsTask installs various build dependencies
 func DepsTask() {
 	if offlineFlag {
@@ -829,11 +837,8 @@ func DepsTask() {
 	var wg sync.WaitGroup
 	wg.Add(1)
 	go func() {
+		toolsTask()
 		defer wg.Done()
-		runCmd("go", "get", "-u",
-			"github.com/jteeuwen/go-bindata/...",
-			"github.com/elazarl/go-bindata-assetfs/...",
-		)
 	}()
 	wg.Add(1)
 	go func() {
@@ -1135,6 +1140,7 @@ func TranslationsFixupTask() {
 
 func CITask() {
 	Run("clean")
+	toolsTask()
 	runCmd("npm", "install", "--silent")
 	Run("browser")
 	Run("bindata")
