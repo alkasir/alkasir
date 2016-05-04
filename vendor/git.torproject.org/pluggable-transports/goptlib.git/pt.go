@@ -128,10 +128,11 @@
 // Pluggable Transport through SOCKS proxy:
 // https://gitweb.torproject.org/torspec.git/tree/proposals/232-pluggable-transports-through-proxy.txt
 //
-// The package implements a SOCKS4a server sufficient for a Tor client transport
+// The package implements a SOCKS5 server sufficient for a Tor client transport
 // plugin.
 //
-// http://ftp.icm.edu.pl/packages/socks/socks4/SOCKS4.protocol
+// https://www.ietf.org/rfc/rfc1928.txt
+// https://www.ietf.org/rfc/rfc1929.txt
 package pt
 
 import (
