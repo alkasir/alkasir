@@ -130,6 +130,7 @@ func (m *modifyConnections) Update() []shared.Connection {
 		ID := conn.ID
 		if _, ok := conns[ID]; !ok {
 			lg.V(19).Infof("add connection: %s", ID)
+			conn.Protected = true
 			conns[ID] = conn
 		}
 	}
