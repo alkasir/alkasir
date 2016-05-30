@@ -80,6 +80,19 @@ func UpgradeConfig() (bool, error) {
 		currentConfig.Settings.Version = 5
 		fallthrough
 	case 5:
+		m := &modifyConnections{
+			Connections: currentConfig.Settings.Connections,
+			Remove: []string{
+				"ipJ2oW8xr9TFDvfU92qGvDaPwZttf_GSjGZ4KW7inBI",
+			},
+			Add: []string{
+				"aieyJ0Ijoib2JmczQiLCJzIjoiXCJjZXJ0PWpvaUcwTFdzYmNDUWIvSG5zOWlWKytvUzMvSDBORGZ0RlJDRnZNbEpiYjRNZXByYThLZ2tLS2tMWDVaK3ZIV3M4ZWliQmc7aWF0LW1vZGU9MFwiIiwiYSI6IjEyOC4xOTkuOTkuMTY0OjQ0MyJ9",
+			},
+		}
+		currentConfig.Settings.Connections = m.Update()
+		currentConfig.Settings.Version = 6
+		fallthrough
+	case 6:
 		lg.Infoln("Settings version", currentConfig.Settings.Version)
 	default:
 		lg.Errorln("Future configuration version!", currentConfig.Settings.Version)
