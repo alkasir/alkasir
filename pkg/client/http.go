@@ -101,7 +101,11 @@ func createServeMux() (*http.ServeMux, error) {
 					http.FileServer(http.Dir(fmt.Sprintf("res/%s", v)))))
 		}
 	} else {
-		fileserver := http.FileServer(&assetfs.AssetFS{Asset: res.Asset, AssetDir: res.AssetDir})
+		fileserver := http.FileServer(&assetfs.AssetFS{
+			Asset: res.Asset,
+			AssetDir: res.AssetDir,
+			AssetInfo: res.AssetInfo,
+		})
 		mux.Handle("/img/", fileserver)
 		mux.Handle("/generated/", fileserver)
 		mux.Handle("/fonts/", fileserver)
