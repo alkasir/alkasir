@@ -1,3 +1,14 @@
+# 0.4.7 - unreleased
+
+-
+
+# 0.4.6 (2016-05-31)
+
+- Fix http timeouts not being used, this resolves a lot of situation where the
+  client can lock up or not reconnect to transports.
+- Fix bug where reported site samples for measurements which had not finished
+  when the user clicks the "send" button.
+
 # 0.4.5
 
 - Fixed bug where browser pac doesnt update after block list is updated

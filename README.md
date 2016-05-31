@@ -8,12 +8,6 @@ circumvention tool that also maps censorship patterns around the world.
 See [alkasir.com](https://alkasir.com) for general information about the
 software.
 
-# INITIAL OPEN SOURCE RELEASE NOTE
-
-We are in the inital phase of open sourcing the source, platform and tools.
-Some unfinished code is still left to be integrated and published but the
-official builds are now done from the github repositories.
-
 ## Hacking
 
 Se [hacking](hacking.md) for information on how to set up an development environment.
