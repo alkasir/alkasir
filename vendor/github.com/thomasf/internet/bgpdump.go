@@ -16,6 +16,7 @@ import (
 	"github.com/davecgh/go-spew/spew"
 	"github.com/garyburd/redigo/redis"
 	"github.com/osrg/gobgp/packet/bgp"
+	"github.com/osrg/gobgp/packet/mrt"
 )
 
 // RefreshBGPDump ensures that the latest dump available is the one which is installed.
@@ -147,7 +148,7 @@ func (b *BGPDump) parseBGPDump(conn redis.Conn) (int, error) {
 		return n, fmt.Errorf("couldn't create gzip reader: %v", err)
 	}
 	scanner := bufio.NewScanner(gzipReader)
-	scanner.Split(bgp.SplitMrt)
+	scanner.Split(mrt.SplitMrt)
 	count := 0
 
 	indexTableCount := 0
@@ -156,30 +157,30 @@ entries:
 		count++
 		data := scanner.Bytes()
 
-		hdr := &bgp.MRTHeader{}
-		errh := hdr.DecodeFromBytes(data[:bgp.MRT_COMMON_HEADER_LEN])
+		hdr := &mrt.MRTHeader{}
+		errh := hdr.DecodeFromBytes(data[:mrt.MRT_COMMON_HEADER_LEN])
 		if err != nil {
 			return 0, errh
 		}
 
-		msg, err := bgp.ParseMRTBody(hdr, data[bgp.MRT_COMMON_HEADER_LEN:])
+		msg, err := mrt.ParseMRTBody(hdr, data[mrt.MRT_COMMON_HEADER_LEN:])
 		if err != nil {
 			log.Printf("could not parse mrt body: %v", err)
 			continue entries
 		}
 
-		if msg.Header.Type != bgp.TABLE_DUMPv2 {
+		if msg.Header.Type != mrt.TABLE_DUMPv2 {
 			return 0, fmt.Errorf("unexpected message type: %d", msg.Header.Type)
 		}
 
 		switch mtrBody := msg.Body.(type) {
-		case *bgp.PeerIndexTable:
+		case *mrt.PeerIndexTable:
 			indexTableCount++
 			if indexTableCount != 1 {
 				return 0, fmt.Errorf("got >1 PeerIndexTable")
 			}
 
-		case *bgp.Rib:
+		case *mrt.Rib:
 			prefix := mtrBody.Prefix
 			if len(mtrBody.Entries) < 0 {
 				return 0, fmt.Errorf("no entries")

@@ -2,7 +2,6 @@ package maxminddb
 
 import (
 	"encoding/binary"
-	"fmt"
 	"math"
 	"math/big"
 	"reflect"
@@ -36,6 +35,11 @@ const (
 
 func (d *decoder) decode(offset uint, result reflect.Value) (uint, error) {
 	typeNum, size, newOffset := d.decodeCtrlData(offset)
+
+	if typeNum != _Pointer && result.Kind() == reflect.Uintptr {
+		result.Set(reflect.ValueOf(uintptr(offset)))
+		return d.nextValueOffset(offset, 1), nil
+	}
 	return d.decodeFromType(typeNum, size, newOffset, result)
 }
 
@@ -80,9 +84,7 @@ func (d *decoder) sizeFromCtrlByte(ctrlByte byte, offset uint, typeNum dataType)
 }
 
 func (d *decoder) decodeFromType(dtype dataType, size uint, offset uint, result reflect.Value) (uint, error) {
-	if result.Kind() == reflect.Ptr {
-		result = reflect.Indirect(result)
-	}
+	result = d.indirect(result)
 
 	switch dtype {
 	case _Bool:
@@ -125,33 +127,51 @@ func (d *decoder) unmarshalBool(size uint, offset uint, result reflect.Value) (u
 		return 0, err
 	}
 	switch result.Kind() {
-	default:
-		return newOffset, fmt.Errorf("trying to unmarshal %v into %v", value, result.Type())
 	case reflect.Bool:
 		result.SetBool(value)
 		return newOffset, nil
 	case reflect.Interface:
-		result.Set(reflect.ValueOf(value))
-		return newOffset, nil
+		if result.NumMethod() == 0 {
+			result.Set(reflect.ValueOf(value))
+			return newOffset, nil
+		}
 	}
+	return newOffset, newUnmarshalTypeError(value, result.Type())
+}
+
+// follow pointers and create values as necessary
+func (d *decoder) indirect(result reflect.Value) reflect.Value {
+	for {
+		if result.Kind() == reflect.Ptr {
+			if result.IsNil() {
+				result.Set(reflect.New(result.Type().Elem()))
+			}
+			result = result.Elem()
+		} else if result.Kind() == reflect.Interface && !result.IsNil() {
+			result = result.Elem()
+		} else {
+			break
+		}
+	}
+	return result
 }
 
 func (d *decoder) unmarshalBytes(size uint, offset uint, result reflect.Value) (uint, error) {
-
 	value, newOffset, err := d.decodeBytes(size, offset)
 	if err != nil {
 		return 0, err
 	}
 	switch result.Kind() {
-	default:
-		return newOffset, fmt.Errorf("trying to unmarshal %v into %v", value, result.Type())
 	case reflect.Slice:
 		result.SetBytes(value)
 		return newOffset, nil
 	case reflect.Interface:
-		result.Set(reflect.ValueOf(value))
-		return newOffset, nil
+		if result.NumMethod() == 0 {
+			result.Set(reflect.ValueOf(value))
+			return newOffset, nil
+		}
 	}
+	return newOffset, newUnmarshalTypeError(value, result.Type())
 }
 
 func (d *decoder) unmarshalFloat32(size uint, offset uint, result reflect.Value) (uint, error) {
@@ -164,15 +184,16 @@ func (d *decoder) unmarshalFloat32(size uint, offset uint, result reflect.Value)
 	}
 
 	switch result.Kind() {
-	default:
-		return newOffset, fmt.Errorf("trying to unmarshal %v into %v", value, result.Type())
 	case reflect.Float32, reflect.Float64:
 		result.SetFloat(float64(value))
 		return newOffset, nil
 	case reflect.Interface:
-		result.Set(reflect.ValueOf(value))
-		return newOffset, nil
+		if result.NumMethod() == 0 {
+			result.Set(reflect.ValueOf(value))
+			return newOffset, nil
+		}
 	}
+	return newOffset, newUnmarshalTypeError(value, result.Type())
 }
 
 func (d *decoder) unmarshalFloat64(size uint, offset uint, result reflect.Value) (uint, error) {
@@ -185,15 +206,19 @@ func (d *decoder) unmarshalFloat64(size uint, offset uint, result reflect.Value)
 		return 0, err
 	}
 	switch result.Kind() {
-	default:
-		return newOffset, fmt.Errorf("trying to unmarshal %v into %v", value, result.Type())
 	case reflect.Float32, reflect.Float64:
+		if result.OverflowFloat(value) {
+			return 0, newUnmarshalTypeError(value, result.Type())
+		}
 		result.SetFloat(value)
 		return newOffset, nil
 	case reflect.Interface:
-		result.Set(reflect.ValueOf(value))
-		return newOffset, nil
+		if result.NumMethod() == 0 {
+			result.Set(reflect.ValueOf(value))
+			return newOffset, nil
+		}
 	}
+	return newOffset, newUnmarshalTypeError(value, result.Type())
 }
 
 func (d *decoder) unmarshalInt32(size uint, offset uint, result reflect.Value) (uint, error) {
@@ -206,30 +231,44 @@ func (d *decoder) unmarshalInt32(size uint, offset uint, result reflect.Value) (
 	}
 
 	switch result.Kind() {
-	default:
-		return newOffset, fmt.Errorf("trying to unmarshal %v into %v", value, result.Type())
 	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
-		result.SetInt(int64(value))
-		return newOffset, nil
+		n := int64(value)
+		if !result.OverflowInt(n) {
+			result.SetInt(n)
+			return newOffset, nil
+		}
+	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Uintptr:
+		n := uint64(value)
+		if !result.OverflowUint(n) {
+			result.SetUint(n)
+			return newOffset, nil
+		}
 	case reflect.Interface:
-		result.Set(reflect.ValueOf(value))
-		return newOffset, nil
+		if result.NumMethod() == 0 {
+			result.Set(reflect.ValueOf(value))
+			return newOffset, nil
+		}
 	}
+	return newOffset, newUnmarshalTypeError(value, result.Type())
 }
 
 func (d *decoder) unmarshalMap(size uint, offset uint, result reflect.Value) (uint, error) {
+	result = d.indirect(result)
 	switch result.Kind() {
 	default:
-		return 0, fmt.Errorf("trying to unmarshal a map into %v", result.Type())
+		return 0, newUnmarshalTypeError("map", result.Type())
 	case reflect.Struct:
 		return d.decodeStruct(size, offset, result)
 	case reflect.Map:
 		return d.decodeMap(size, offset, result)
 	case reflect.Interface:
-		rv := reflect.ValueOf(make(map[string]interface{}, size))
-		newOffset, err := d.decodeMap(size, offset, rv)
-		result.Set(rv)
-		return newOffset, err
+		if result.NumMethod() == 0 {
+			rv := reflect.ValueOf(make(map[string]interface{}, size))
+			newOffset, err := d.decodeMap(size, offset, rv)
+			result.Set(rv)
+			return newOffset, err
+		}
+		return 0, newUnmarshalTypeError("map", result.Type())
 	}
 }
 
@@ -240,38 +279,39 @@ func (d *decoder) unmarshalPointer(size uint, offset uint, result reflect.Value)
 }
 
 func (d *decoder) unmarshalSlice(size uint, offset uint, result reflect.Value) (uint, error) {
-
 	switch result.Kind() {
-	default:
-		return 0, fmt.Errorf("trying to unmarshal an array into %v", result.Type())
 	case reflect.Slice:
 		return d.decodeSlice(size, offset, result)
 	case reflect.Interface:
-		a := []interface{}{}
-		rv := reflect.ValueOf(&a).Elem()
-		newOffset, err := d.decodeSlice(size, offset, rv)
-		result.Set(rv)
-		return newOffset, err
+		if result.NumMethod() == 0 {
+			a := []interface{}{}
+			rv := reflect.ValueOf(&a).Elem()
+			newOffset, err := d.decodeSlice(size, offset, rv)
+			result.Set(rv)
+			return newOffset, err
+		}
 	}
+	return 0, newUnmarshalTypeError("array", result.Type())
 }
 
 func (d *decoder) unmarshalString(size uint, offset uint, result reflect.Value) (uint, error) {
-
 	value, newOffset, err := d.decodeString(size, offset)
 
 	if err != nil {
 		return 0, err
 	}
 	switch result.Kind() {
-	default:
-		return newOffset, fmt.Errorf("trying to unmarshal %v into %v", value, result.Type())
 	case reflect.String:
 		result.SetString(value)
 		return newOffset, nil
 	case reflect.Interface:
-		result.Set(reflect.ValueOf(value))
-		return newOffset, nil
+		if result.NumMethod() == 0 {
+			result.Set(reflect.ValueOf(value))
+			return newOffset, nil
+		}
 	}
+	return newOffset, newUnmarshalTypeError(value, result.Type())
+
 }
 
 func (d *decoder) unmarshalUint(size uint, offset uint, result reflect.Value, uintType uint) (uint, error) {
@@ -285,15 +325,24 @@ func (d *decoder) unmarshalUint(size uint, offset uint, result reflect.Value, ui
 	}
 
 	switch result.Kind() {
-	default:
-		return newOffset, fmt.Errorf("trying to unmarshal %v into %v", value, result.Type())
+	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+		n := int64(value)
+		if !result.OverflowInt(n) {
+			result.SetInt(n)
+			return newOffset, nil
+		}
 	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Uintptr:
-		result.SetUint(value)
-		return newOffset, nil
+		if !result.OverflowUint(value) {
+			result.SetUint(value)
+			return newOffset, nil
+		}
 	case reflect.Interface:
-		result.Set(reflect.ValueOf(value))
-		return newOffset, nil
+		if result.NumMethod() == 0 {
+			result.Set(reflect.ValueOf(value))
+			return newOffset, nil
+		}
 	}
+	return newOffset, newUnmarshalTypeError(value, result.Type())
 }
 
 func (d *decoder) unmarshalUint128(size uint, offset uint, result reflect.Value) (uint, error) {
@@ -305,18 +354,17 @@ func (d *decoder) unmarshalUint128(size uint, offset uint, result reflect.Value)
 		return 0, err
 	}
 
-	// XXX - this should allow *big.Int rather than just bigInt
-	// Currently this is reported as invalid
 	switch result.Kind() {
-	default:
-		return newOffset, fmt.Errorf("trying to unmarshal %v into %v", value, result.Type())
 	case reflect.Struct:
 		result.Set(reflect.ValueOf(*value))
 		return newOffset, nil
-	case reflect.Interface, reflect.Ptr:
-		result.Set(reflect.ValueOf(value))
-		return newOffset, nil
+	case reflect.Interface:
+		if result.NumMethod() == 0 {
+			result.Set(reflect.ValueOf(value))
+			return newOffset, nil
+		}
 	}
+	return newOffset, newUnmarshalTypeError(value, result.Type())
 }
 
 func (d *decoder) decodeBool(size uint, offset uint) (bool, uint, error) {
@@ -421,8 +469,13 @@ func (d *decoder) decodeString(size uint, offset uint) (string, uint, error) {
 	return string(d.buffer[offset:newOffset]), newOffset, nil
 }
 
+type fieldsType struct {
+	namedFields     map[string]int
+	anonymousFields []int
+}
+
 var (
-	fieldMap   = map[reflect.Type]map[string]int{}
+	fieldMap   = map[reflect.Type]*fieldsType{}
 	fieldMapMu sync.RWMutex
 )
 
@@ -434,21 +487,39 @@ func (d *decoder) decodeStruct(size uint, offset uint, result reflect.Value) (ui
 	fieldMapMu.RUnlock()
 	if !ok {
 		numFields := resultType.NumField()
-		fields = make(map[string]int, numFields)
+		namedFields := make(map[string]int, numFields)
+		var anonymous []int
 		for i := 0; i < numFields; i++ {
-			fieldType := resultType.Field(i)
+			field := resultType.Field(i)
 
-			fieldName := fieldType.Name
-			if tag := fieldType.Tag.Get("maxminddb"); tag != "" {
+			fieldName := field.Name
+			if tag := field.Tag.Get("maxminddb"); tag != "" {
+				if tag == "-" {
+					continue
+				}
 				fieldName = tag
 			}
-			fields[fieldName] = i
+			if field.Anonymous {
+				anonymous = append(anonymous, i)
+				continue
+			}
+			namedFields[fieldName] = i
 		}
 		fieldMapMu.Lock()
+		fields = &fieldsType{namedFields, anonymous}
 		fieldMap[resultType] = fields
 		fieldMapMu.Unlock()
 	}
 
+	// This fills in embedded structs
+	for i := range fields.anonymousFields {
+		_, err := d.unmarshalMap(size, offset, result.Field(i))
+		if err != nil {
+			return 0, err
+		}
+	}
+
+	// This handles named fields
 	for i := uint(0); i < size; i++ {
 		var (
 			err error
@@ -458,12 +529,13 @@ func (d *decoder) decodeStruct(size uint, offset uint, result reflect.Value) (ui
 		if err != nil {
 			return 0, err
 		}
-		i, ok := fields[key]
+		j, ok := fields.namedFields[key]
 		if !ok {
 			offset = d.nextValueOffset(offset, 1)
 			continue
 		}
-		offset, err = d.decode(offset, result.Field(i))
+
+		offset, err = d.decode(offset, result.Field(j))
 		if err != nil {
 			return 0, err
 		}
