@@ -6,7 +6,8 @@ import (
 
 	"github.com/ant0ine/go-json-rest/rest"
 	"github.com/ant0ine/go-json-rest/rest/test"
-	"github.com/dgrijalva/jwt-go"
+	jwt "gopkg.in/dgrijalva/jwt-go.v2"
+
 )
 
 var (
