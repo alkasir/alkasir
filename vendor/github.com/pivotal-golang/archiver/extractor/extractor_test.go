@@ -9,8 +9,8 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
-	. "github.com/pivotal-golang/archiver/extractor"
-	"github.com/pivotal-golang/archiver/extractor/test_helper"
+	. "code.cloudfoundry.org/archiver/extractor"
+	"code.cloudfoundry.org/archiver/extractor/test_helper"
 )
 
 var _ = Describe("Extractor", func() {

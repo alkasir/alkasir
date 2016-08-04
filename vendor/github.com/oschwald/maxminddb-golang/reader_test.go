@@ -116,43 +116,225 @@ type TestType struct {
 
 func (s *MySuite) TestDecoder(c *C) {
 	reader, err := Open("test-data/test-data/MaxMind-DB-test-decoder.mmdb")
+	c.Assert(err, IsNil)
+
+	verify := func(result TestType) {
+		c.Assert(result.Array, DeepEquals, []uint{uint(1), uint(2), uint(3)})
+		c.Assert(result.Boolean, Equals, true)
+		c.Assert(result.Bytes, DeepEquals, []byte{0x00, 0x00, 0x00, 0x2a})
+		c.Assert(result.Double, Equals, 42.123456)
+		c.Assert(result.Float, Equals, float32(1.1))
+		c.Assert(result.Int32, Equals, int32(-268435456))
+
+		c.Assert(result.Map, DeepEquals,
+			map[string]interface{}{
+				"mapX": map[string]interface{}{
+					"arrayX":       []interface{}{uint64(7), uint64(8), uint64(9)},
+					"utf8_stringX": "hello",
+				}})
+
+		c.Assert(result.Uint16, Equals, uint16(100))
+		c.Assert(result.Uint32, Equals, uint32(268435456))
+		c.Assert(result.Uint64, Equals, uint64(1152921504606846976))
+		c.Assert(result.Utf8String, Equals, "unicode! ☯ - ♫")
+		bigInt := new(big.Int)
+		bigInt.SetString("1329227995784915872903807060280344576", 10)
+		c.Assert(&result.Uint128, DeepEquals, bigInt)
+	}
+
+	{
+		// Directly lookup and decode.
+		var result TestType
+		c.Assert(reader.Lookup(net.ParseIP("::1.1.1.0"), &result), IsNil)
+		verify(result)
+	}
+	{
+		// Lookup record offset, then Decode.
+		var result TestType
+		offset, err := reader.LookupOffset(net.ParseIP("::1.1.1.0"))
+		c.Assert(err, IsNil)
+		c.Assert(offset, Not(Equals), NotFound)
+
+		c.Assert(reader.Decode(offset, &result), IsNil)
+		verify(result)
+	}
+
+	c.Assert(reader.Close(), IsNil)
+}
+
+type TestInterface interface {
+	method() bool
+}
+
+func (t *TestType) method() bool {
+	return t.Boolean
+}
+
+func (s *MySuite) TestStructInterface(c *C) {
+	var result TestInterface = &TestType{}
+
+	reader, err := Open("test-data/test-data/MaxMind-DB-test-decoder.mmdb")
+	c.Assert(err, IsNil)
+
+	c.Assert(reader.Lookup(net.ParseIP("::1.1.1.0"), &result), IsNil)
+
+	c.Assert(result.method(), Equals, true)
+}
+
+func (s *MySuite) TestNonEmptyNilInterface(c *C) {
+	var result TestInterface
+
+	reader, err := Open("test-data/test-data/MaxMind-DB-test-decoder.mmdb")
+	c.Assert(err, IsNil)
+
+	err = reader.Lookup(net.ParseIP("::1.1.1.0"), &result)
+	c.Assert(err.Error(), Equals, "maxminddb: cannot unmarshal map into type maxminddb.TestInterface")
+}
+
+type BoolInterface interface {
+	true() bool
+}
+
+type Bool bool
+
+func (b Bool) true() bool {
+	return bool(b)
+}
+
+type ValueTypeTestType struct {
+	Boolean BoolInterface `maxminddb:"boolean"`
+}
+
+func (s *MySuite) TesValueTypeInterface(c *C) {
+	var result ValueTypeTestType
+	result.Boolean = Bool(false)
+
+	reader, err := Open("test-data/test-data/MaxMind-DB-test-decoder.mmdb")
+	c.Assert(err, IsNil)
+	c.Assert(reader.Lookup(net.ParseIP("::1.1.1.0"), &result), IsNil)
+
+	c.Assert(result.Boolean.true(), Equals, true)
+}
+
+type NestedMapX struct {
+	UTF8StringX string `maxminddb:"utf8_stringX"`
+}
+
+type NestedPointerMapX struct {
+	ArrayX []int `maxminddb:"arrayX"`
+}
+
+type PointerMap struct {
+	MapX struct {
+		NestedMapX
+		*NestedPointerMapX
+	} `maxminddb:"mapX"`
+}
+
+type TestPointerType struct {
+	Array   *[]uint     `maxminddb:"array"`
+	Boolean *bool       `maxminddb:"boolean"`
+	Bytes   *[]byte     `maxminddb:"bytes"`
+	Double  *float64    `maxminddb:"double"`
+	Float   *float32    `maxminddb:"float"`
+	Int32   *int32      `maxminddb:"int32"`
+	Map     *PointerMap `maxminddb:"map"`
+	Uint16  *uint16     `maxminddb:"uint16"`
+	Uint32  *uint32     `maxminddb:"uint32"`
+
+	// Test for pointer to pointer
+	Uint64     **uint64 `maxminddb:"uint64"`
+	Uint128    *big.Int `maxminddb:"uint128"`
+	Utf8String *string  `maxminddb:"utf8_string"`
+}
+
+func (s *MySuite) TestComplexStructWithNestingAndPointer(c *C) {
+	reader, err := Open("test-data/test-data/MaxMind-DB-test-decoder.mmdb")
+	c.Assert(err, IsNil)
+
+	var result TestPointerType
+
+	err = reader.Lookup(net.ParseIP("::1.1.1.0"), &result)
+	c.Assert(err, IsNil)
+
+	c.Assert(*result.Array, DeepEquals, []uint{uint(1), uint(2), uint(3)})
+	c.Assert(*result.Boolean, Equals, true)
+	c.Assert(*result.Bytes, DeepEquals, []byte{0x00, 0x00, 0x00, 0x2a})
+	c.Assert(*result.Double, Equals, 42.123456)
+	c.Assert(*result.Float, Equals, float32(1.1))
+	c.Assert(*result.Int32, Equals, int32(-268435456))
+
+	c.Assert(result.Map.MapX.ArrayX, DeepEquals, []int{7, 8, 9})
+
+	c.Assert(result.Map.MapX.UTF8StringX, Equals, "hello")
+
+	c.Assert(*result.Uint16, Equals, uint16(100))
+	c.Assert(*result.Uint32, Equals, uint32(268435456))
+	c.Assert(**result.Uint64, Equals, uint64(1152921504606846976))
+	c.Assert(*result.Utf8String, Equals, "unicode! ☯ - ♫")
+	bigInt := new(big.Int)
+	bigInt.SetString("1329227995784915872903807060280344576", 10)
+	c.Assert(result.Uint128, DeepEquals, bigInt)
+
+	c.Assert(reader.Close(), IsNil)
+}
+
+func (s *MySuite) TestNestedOffsetDecode(c *C) {
+	db, err := Open("test-data/test-data/GeoIP2-City-Test.mmdb")
+	c.Assert(err, IsNil)
+
+	off, err := db.LookupOffset(net.ParseIP("81.2.69.142"))
+	c.Assert(off, Not(Equals), NotFound)
+	c.Check(err, IsNil)
+
+	var root struct {
+		CountryOffset uintptr `maxminddb:"country"`
+
+		Location struct {
+			Latitude float64 `maxminddb:"latitude"`
+			// Longitude is directly nested within the parent map.
+			LongitudeOffset uintptr `maxminddb:"longitude"`
+			// TimeZone is indirected via a pointer.
+			TimeZoneOffset uintptr `maxminddb:"time_zone"`
+		} `maxminddb:"location"`
+	}
+	c.Check(db.Decode(off, &root), IsNil)
+	c.Check(root.Location.Latitude, Equals, 51.5142)
+
+	var longitude float64
+	c.Check(db.Decode(root.Location.LongitudeOffset, &longitude), IsNil)
+	c.Check(longitude, Equals, -0.0931)
+
+	var timeZone string
+	c.Check(db.Decode(root.Location.TimeZoneOffset, &timeZone), IsNil)
+	c.Check(timeZone, Equals, "Europe/London")
+
+	var country struct {
+		IsoCode string `maxminddb:"iso_code"`
+	}
+	c.Check(db.Decode(root.CountryOffset, &country), IsNil)
+	c.Check(country.IsoCode, Equals, "GB")
+
+	c.Check(db.Close(), IsNil)
+}
+
+func (s *MySuite) TestDecodingUint16IntoInt(c *C) {
+	reader, err := Open("test-data/test-data/MaxMind-DB-test-decoder.mmdb")
 	if err != nil {
 		c.Logf("unexpected error while opening database: %v", err)
 		c.Fail()
 	}
 
-	var result TestType
+	var result struct {
+		Uint16 int `maxminddb:"uint16"`
+	}
 	err = reader.Lookup(net.ParseIP("::1.1.1.0"), &result)
 	if err != nil {
 		c.Log(err)
 		c.Fail()
 	}
 
-	c.Assert(result.Array, DeepEquals, []uint{uint(1), uint(2), uint(3)})
-	c.Assert(result.Boolean, Equals, true)
-	c.Assert(result.Bytes, DeepEquals, []byte{0x00, 0x00, 0x00, 0x2a})
-	c.Assert(result.Double, Equals, 42.123456)
-	c.Assert(result.Float, Equals, float32(1.1))
-	c.Assert(result.Int32, Equals, int32(-268435456))
-
-	c.Assert(result.Map, DeepEquals,
-		map[string]interface{}{
-			"mapX": map[string]interface{}{
-				"arrayX":       []interface{}{uint64(7), uint64(8), uint64(9)},
-				"utf8_stringX": "hello",
-			}})
-
-	c.Assert(result.Uint16, Equals, uint16(100))
-	c.Assert(result.Uint32, Equals, uint32(268435456))
-	c.Assert(result.Uint64, Equals, uint64(1152921504606846976))
-	c.Assert(result.Utf8String, Equals, "unicode! ☯ - ♫")
-	bigInt := new(big.Int)
-	bigInt.SetString("1329227995784915872903807060280344576", 10)
-	c.Assert(&result.Uint128, DeepEquals, bigInt)
-
-	if err = reader.Close(); err != nil {
-		c.Assert(err, nil, "no error on close")
-	}
+	c.Assert(result.Uint16, Equals, 100)
 }
 
 func (s *MySuite) TestIpv6inIpv4(c *C) {
