@@ -98,7 +98,6 @@ func addOrUpdateMenuItem(item *MenuItem) {
 
 //export systray_ready
 func systray_ready() {
-	log.Println("systray reay")
 	systrayReady()
 }
 

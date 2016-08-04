@@ -730,6 +730,12 @@
 			"revisionTime": "2016-05-30T08:09:12Z"
 		},
 		{
+			"checksumSHA1": "R+3Kkx6uO49WuwTAsE7V8qA3BCA=",
+			"path": "github.com/thomasf/systray",
+			"revision": "6a78a6a7bd9d08a82ccc6e3c87341d5e0e6d47e7",
+			"revisionTime": "2016-08-03T18:15:46Z"
+		},
+		{
 			"checksumSHA1": "nkSU+D5ZACy+jm3aEB+Sr5t0Eqc=",
 			"path": "golang.org/x/crypto/blowfish",
 			"revision": "2c99acdd1e9b90d779ca23f632aad86af9909c62",
