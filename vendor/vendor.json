@@ -718,6 +718,12 @@
 			"revisionTime": "2016-06-15T09:26:46Z"
 		},
 		{
+			"checksumSHA1": "eiRmRmx5jy2nlwnRujXUxWWpqzc=",
+			"path": "github.com/thomasf/displayname",
+			"revision": "d33a3904eaf9a110b81d60e1818960bb6541c7a8",
+			"revisionTime": "2016-08-06T09:56:01Z"
+		},
+		{
 			"checksumSHA1": "OCRYWtsk0TubQ11D9QUZuR+6Ra4=",
 			"path": "github.com/thomasf/internet",
 			"revision": "70bd8cad1f85337461264d42918f7110c8c8f54a",
