@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/alkasir/alkasir/pkg/namesgenerator"
+	"github.com/thomasf/displayname"
 )
 
 type Connection struct {
@@ -23,7 +23,7 @@ type Connection struct {
 
 func (c *Connection) DisplayName() string {
 	return fmt.Sprintf("%s (%s)",
-		namesgenerator.GetPronouncableName(c.ID), c.Transport)
+		displayname.FromString(c.ID), c.Transport)
 }
 
 // the current version of the shareable data format, it could be any two
