@@ -823,7 +823,7 @@ func ReleaseChromeExtTask() {
 // install tools required by build process
 func toolsTask() {
 	runCmd("go", "install",
-		"github.com/alkasir/alkasir/vendor/github.com/elazarl/go-bindata-assetfs",
+		"github.com/alkasir/alkasir/vendor/github.com/elazarl/go-bindata-assetfs/go-bindata-assetfs",
 		"github.com/alkasir/alkasir/vendor/github.com/jteeuwen/go-bindata/go-bindata",
 	)
 }
