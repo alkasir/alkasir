@@ -20,8 +20,7 @@ func (s *Services) Service(id string) (*Service, bool) {
 	var service *Service
 	s.RLock()
 	if s.items[id] != nil {
-		service = &Service{}
-		*service = *s.items[id]
+		service = s.items[id]
 	}
 	s.RUnlock()
 	return service, service != nil
