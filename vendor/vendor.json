@@ -231,6 +231,12 @@
 			"revisionTime": "2015-12-24T04:54:52Z"
 		},
 		{
+			"checksumSHA1": "CaThXbumVxZtNlItiXma5B78PwQ=",
+			"path": "github.com/elazarl/go-bindata-assetfs/go-bindata-assetfs",
+			"revision": "e1a2a7ec64b07d04ac9ebb072404fe8b7b60de1b",
+			"revisionTime": "2016-08-03T19:23:04Z"
+		},
+		{
 			"checksumSHA1": "2fJIc4QHz5DLsQZWvscaKLQ5Dqs=",
 			"path": "github.com/facebookgo/ensure",
 			"revision": "b4ab57deab51ee655ae4bd85281f0715a068016d",
