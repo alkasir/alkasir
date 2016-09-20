@@ -771,7 +771,7 @@ func AddRoutes(mux *http.ServeMux) error {
 		})
 	} else if lg.V(3) {
 		api.Use(&middlewares.AccessLogApacheErrorMiddleware{
-			&middlewares.AccessLogApacheMiddleware{
+			AccessLogApacheMiddleware: &middlewares.AccessLogApacheMiddleware{
 				Format: "%s %Dμs %r",
 			},
 		})
@@ -852,8 +852,8 @@ type ServiceListItem struct {
 	Methods []Link
 }
 
-func toServiceListItem(s service.Service) ServiceListItem {
-	methods := make([]Link, 0)
+func toServiceListItem(s *service.Service) ServiceListItem {
+	var methods []Link
 	for _, method := range s.Methods.All() {
 		if method != nil {
 			methods = append(methods, Link{method.ID, method.Name})
@@ -872,7 +872,7 @@ func GetAllServices(w rest.ResponseWriter, r *rest.Request) {
 	services := service.ManagedServices.AllServices()
 	items := make([]ServiceListItem, 0)
 	for _, value := range services {
-		items = append(items, toServiceListItem(*value))
+		items = append(items, toServiceListItem(value))
 	}
 	w.WriteJson(items)
 	return

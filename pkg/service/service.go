@@ -36,6 +36,25 @@ type Service struct {
 	quit         chan bool           // quit request channel
 	removeOnStop bool                // Remove the service from ManagedServices upon Stop()
 	waiter       sync.WaitGroup      // is released after service shutdown
+
+	isCopy bool // set and managed by copy method
+}
+
+func (s *Service) copy() *Service {
+	return &Service{
+		ID:           s.ID,
+		Name:         s.Name,
+		running:      s.running,
+		Command:      s.Command,
+		Request:      s.Request,
+		Response:     s.Response,
+		Methods:      s.Methods,
+		authSecret:   s.authSecret,
+		quit:         s.quit,
+		removeOnStop: s.removeOnStop,
+		// ---
+		isCopy: true,
+	}
 }
 
 // Create a new service instance.
@@ -84,7 +103,10 @@ func (s *Service) Stop() {
 }
 
 // Wait blocks until the underlying process is stopped
-func (s *Service) Wait() {
+func (s *Service) wait() {
+	if s.isCopy {
+		lg.Fatal("wait called on copy of service!")
+	}
 	if s.cmd != nil {
 		lg.V(10).Infof("Waiting for process %s to exit", s.ID)
 		err := s.cmd.Wait()
