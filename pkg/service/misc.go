@@ -18,21 +18,24 @@ type Services struct {
 // Retreive Service by runtime id
 func (s *Services) Service(id string) (*Service, bool) {
 	var service *Service
+	var found bool
 	s.RLock()
 	if s.items[id] != nil {
-		service = s.items[id]
+		service = s.items[id].copy()
+		found = true
 	}
 	s.RUnlock()
-	return service, service != nil
+	return service, found
 }
 
 // Return list of all registered services
 func (s *Services) AllServices() []*Service {
-	services := make([]*Service, 0)
+	var services []*Service
 	s.RLock()
 	for _, s := range s.items {
 		if s != nil {
-			services = append(services, s)
+			c := s.copy()
+			services = append(services, c)
 		}
 	}
 	s.RUnlock()
@@ -111,16 +114,30 @@ var methodIdGen, _ = shared.NewIDGen("method")
 
 // StopAll stops all services, blocks until everything is shut down.
 func StopAll() {
-	as := ManagedServices.AllServices()
-	var waiters []func()
-	for _, s := range as {
-		lg.V(10).Infof("stopping service %v", s)
-		if s.Running() {
+	err := ManagedServices.stopAll()
+	if err != nil {
+		lg.Error(err)
+	}
+
+}
+
+// Return list of all registered services
+func (s *Services) stopAll() error {
+	s.RLock()
+	defer s.RUnlock()
+	for _, s := range s.items {
+		if s != nil {
+			lg.V(10).Infof("stopping service %v", s)
 			s.Stop()
-			waiters = append(waiters, s.Wait)
+
 		}
 	}
-	for _, v := range waiters {
-		v()
+	for _, s := range s.items {
+		if s != nil {
+			lg.V(10).Infof("waiting for service to stop: %v", s)
+			s.wait()
+
+		}
 	}
+	return nil
 }
