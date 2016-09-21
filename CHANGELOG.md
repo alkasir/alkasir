@@ -1,6 +1,13 @@
-# 0.4.7 - unreleased
+# 0.4.8 - unreleased
 
--
+# 0.4.7 - (2016-09-21) 
+
+- MacOS Sierra compatibility
+- Added Alkasir MacOS Dock icons
+- Fixed some potential client lockup errors
+- Updated to go 1.7.1
+- Extracted systray package to use vendored version
+- Upgraded vendored libraries
 
 # 0.4.6 (2016-05-31)
 
