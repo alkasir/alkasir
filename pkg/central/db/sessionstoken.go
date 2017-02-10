@@ -16,7 +16,7 @@ var tokenSessionsActive = prometheus.NewGauge(prometheus.GaugeOpts{
 	Help: "Number of active suggestion sessions",
 })
 
-var tokenSessionsTotal = prometheus.NewCounter(prometheus.CounterOpts{
+var tokenSessionsTotal = prometheus.NewGauge(prometheus.GaugeOpts{
 	Name: "suggestion_tokens_total",
 	Help: "Total suggestion sessions since restart",
 })
