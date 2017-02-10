@@ -137,6 +137,9 @@ var _ = Describe("Suite", func() {
 			b.RecordValue("random value", randomValue)
 			Ω(randomValue).Should(BeNumerically("<=", 10.0))
 			Ω(randomValue).Should(BeNumerically(">=", 0.0))
+
+			b.RecordValueWithPrecision("specific value", 123.4567, "ms", 2)
+			b.RecordValueWithPrecision("specific value", 234.5678, "ms", 2)
 		}, 10)
 
 		It("creates a node hierarchy, converts it to a spec collection, and runs it", func() {
@@ -394,6 +397,12 @@ var _ = Describe("Suite", func() {
 			Ω(func() {
 				By("registering more than one callback", func() {}, func() {})
 			}).Should(Panic())
+		})
+	})
+
+	Describe("GinkgoRandomSeed", func() {
+		It("returns the current config's random seed", func() {
+			Ω(GinkgoRandomSeed()).Should(Equal(config.GinkgoConfig.RandomSeed))
 		})
 	})
 })

@@ -302,6 +302,18 @@ func TestGetServerBindaddrs(t *testing.T) {
 			`alpha\,beta`,
 			"",
 		},
+		// duplicates in TOR_PT_SERVER_BINDADDR
+		// https://bugs.torproject.org/21261
+		{
+			`alpha-0.0.0.0:1234,alpha-[::]:1234`,
+			`alpha`,
+			"",
+		},
+		{
+			`alpha-0.0.0.0:1234,alpha-0.0.0.0:1234`,
+			`alpha`,
+			"",
+		},
 	}
 	goodTests := [...]struct {
 		ptServerBindaddr         string

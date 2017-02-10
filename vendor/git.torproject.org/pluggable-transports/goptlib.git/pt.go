@@ -113,7 +113,7 @@
 // 		pt.SmethodsDone()
 // 	}
 //
-// Some additional care is needed to handle SIGINT and shutdown properly. See
+// Some additional care is needed to handle signals and shutdown properly. See
 // the example programs dummy-client and dummy-server.
 //
 // Tor pluggable transports specification:
@@ -556,6 +556,7 @@ func getServerBindaddrs() ([]Bindaddr, error) {
 	if err != nil {
 		return nil, err
 	}
+	seenMethods := make(map[string]bool)
 	for _, spec := range strings.Split(serverBindaddr, ",") {
 		var bindaddr Bindaddr
 
@@ -564,6 +565,12 @@ func getServerBindaddrs() ([]Bindaddr, error) {
 			return nil, envError(fmt.Sprintf("TOR_PT_SERVER_BINDADDR: %q: doesn't contain \"-\"", spec))
 		}
 		bindaddr.MethodName = parts[0]
+		// Check for duplicate method names: "Applications MUST NOT set
+		// more than one <address>:<port> pair per PT name."
+		if seenMethods[bindaddr.MethodName] {
+			return nil, envError(fmt.Sprintf("TOR_PT_SERVER_BINDADDR: %q: duplicate method name %q", spec, bindaddr.MethodName))
+		}
+		seenMethods[bindaddr.MethodName] = true
 		addr, err := resolveAddr(parts[1])
 		if err != nil {
 			return nil, envError(fmt.Sprintf("TOR_PT_SERVER_BINDADDR: %q: %s", spec, err.Error()))

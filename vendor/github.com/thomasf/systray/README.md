@@ -1,5 +1,16 @@
-Package systray is a cross platfrom Go library to place an icon and menu in the notification area.
-Tested on Windows 8, Mac OSX, Ubuntu 14.10 and Debian 7.6.
+Package systray is a cross platfrom Go library to place an icon and menu in the
+notification area. Tested on Windows 8/10, Mac OSX 10.11 and Ubuntu 16.04.
+
+**This is a fork**
+
+This is a fork of https://github.com/getlantern/systray which focuses on cross
+compilation or mingw directly in windows instead of a precompiled windows dll
+file which is used in the upstream project.
+
+Systray can be cross compiled for Windows (using http://www.mingw.org/ ) and
+OSX (using https://github.com/tpoechtrager/osxcross ) from ubuntu using or
+similar systems.
+
 
 ## Usage
 ```go
@@ -44,5 +55,6 @@ go run main.go
 
 ## Credits
 
+- https://github.com/getlantern/systray
 - https://github.com/xilp/systray
 - https://github.com/cratonica/trayhost

@@ -17,6 +17,7 @@ import (
 	"github.com/garyburd/redigo/redis"
 	"github.com/osrg/gobgp/packet/bgp"
 	"github.com/osrg/gobgp/packet/mrt"
+
 )
 
 // RefreshBGPDump ensures that the latest dump available is the one which is installed.
