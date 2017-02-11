@@ -9,7 +9,6 @@ import (
 	"net"
 	"strings"
 
-	"github.com/atotto/clipboard"
 	"github.com/thomasf/lg"
 )
 
@@ -36,19 +35,6 @@ func (b *BrowserCode) Encode() (string, error) {
 		return "", errors.New("no key")
 	}
 	return fmt.Sprintf("%s:%s:%s", b.Key, host, b.Port), nil
-}
-
-func (b *BrowserCode) CopyToClipboard() error {
-	encoded, err := b.Encode()
-	if err != nil {
-		return err
-	}
-	err = clipboard.WriteAll(encoded)
-	if err != nil {
-		return err
-	}
-	return nil
-
 }
 
 func Decode(encoded string) (BrowserCode, error) {
